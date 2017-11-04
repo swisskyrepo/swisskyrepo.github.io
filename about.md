@@ -4,12 +4,13 @@ title: About me
 permalink: /about/
 ---
 
-`╭─ 👻  swissky@localhost ~ ‹›`     
-`╰─$ whoami`    
-
-`Swissky`    
-`Information Security student`   
-`CTF Lover & Bug Hunter`   
+{% highlight js %}
+╭─ 👻  swissky@localhost ~ ‹›
+╰─$ whoami
+Swissky  
+Information Security Student  
+CTF Lover & Bug Hunter
+{% endhighlight %}
 
 
 ### Recent projects

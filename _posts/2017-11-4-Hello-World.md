@@ -1,6 +1,17 @@
 ---
 layout: post
-title: Welcome !
+title: Welcome on my Jekyll!
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Hi friend !
+Let's talk about security tips and tricks.  
+
+This blog was generated with Jekyll now, use the following commands to reproduce it.
+
+{% highlight bash%}
+git clone https://github.com/barryclark/jekyll-now
+sudo gem install bundler
+sudo gem install github-pages
+git clone
+jekyll serve
+{% endhighlight %}
