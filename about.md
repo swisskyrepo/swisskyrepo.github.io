@@ -4,12 +4,14 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+```
+╭─ 👻  swissky@crashlab ~/Bureau ‹› 
+╰─$ whoami
+Swissky
+Information Security student
+CTF Lover
+```
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+I'm mostly available on Twitter ;)
