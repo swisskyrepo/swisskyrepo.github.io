@@ -4,13 +4,12 @@ title: About me
 permalink: /about/
 ---
 
-`
-╭─ 👻  swisskylocalhost ~About ‹› 
-╰─$ whoami
-Swissky
-Information Security student
-CTF Lover
-`
+`╭─ 👻  swisskylocalhost ~About ‹›` 
+`╰─$ whoami`
+`Swissky`
+`Information Security student`
+`CTF Lover`
+
 
 ### Recent projects
  - [Payload All The Things - Memo for Pentest/CTF](https://github.com/swisskyrepo/PayloadsAllTheThings)
