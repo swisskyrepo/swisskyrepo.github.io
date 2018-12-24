@@ -3,10 +3,10 @@ layout: post
 title: SIGSEGV1 Writeup - MD Auth
 ---
 
-Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown"/ 
+Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown". 
 I was wrong but it was nonetheless interesting to solve.
 
-The source code of the index was available by requesting : http://finale-docker.rtfm.re:4444/?source
+The source code of the index was available by requesting : [http://finale-docker.rtfm.re:4444/?source](http://finale-docker.rtfm.re:4444/?source)
 
 {% highlight php%}
 <?php
@@ -35,7 +35,7 @@ if(isset($_POST['login'], $_POST['password'])) {
     }
 {% endhighlight %}
 
-At first I tried to access the database with my browser by requesting finale-docker.rtfm.re:4444/mdauth.db, unfortunately that didn't work. Let's dig deeper into the source code. We want to authenticate on the Web Application, maybe we can do an SQL injection inside the following query.
+At first I tried to access the database with my browser by requesting [finale-docker.rtfm.re:4444/mdauth.db](finale-docker.rtfm.re:4444/mdauth.db), unfortunately that didn't work. Let's dig deeper into the source code. We want to authenticate on the Web Application, maybe we can do an SQL injection inside the following query.
 
 {% highlight sql%}
 SELECT login FROM users WHERE hash='{$hash}' and login='{$login}'
