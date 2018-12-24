@@ -56,7 +56,6 @@ The `md5` function is called with the second argument set to `true`, meaning we 
 <?php
 setcookie('signed_errors', md5(APP_SALT.((string) ($errors+1))), time()+86400);
 ?>
-```
 {% endhighlight %}
 
 We can do a single failed attempt in order to get a cookie containing the md5(SALT+"1"), based on the comment in the code we know the SALT is between 0000000-9999999 (7-digit APP_SALT). 
