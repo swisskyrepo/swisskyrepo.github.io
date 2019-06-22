@@ -170,7 +170,7 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
 
-{% highlight javascript %}
+{% highlight php%}
 def blind_nosql(URL):
     data = ""
     data_size = 35
