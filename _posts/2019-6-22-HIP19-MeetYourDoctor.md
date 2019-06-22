@@ -124,16 +124,17 @@ An asciinema version is available at [https://asciinema.org/a/sbqGXnWXl5Y6YeQr0w
 
 ## Meet your doctor 3 - 300 pts
 
-URL: `http://meetyourdoctor3.challs.malice.fr`
+URL: `http://meetyourdoctor3.challs.malice.fr`    
 Goal: `I need to find the Patient 0 social security number! It is a matter of life and death`
 
-Things are getting complicated, we can dump the schema as the `Introspection` is set to false. Based on the previous challenge we can guess the structure is the same. Unfortunately we can't reuse the same query to extract the `ssn`, we get the following error.
+Things are getting complicated, we can't dump the schema as the `Introspection` is set to false. Based on the previous challenge we can guess the structure is the same. Unfortunately we can't reuse the same query to extract the `ssn`, we get the following error.
 
 {% highlight bash %}
 Field "doctors" argument "search" of type "JSON!" is required, but it was not provided.
 {% endhighlight %}
 
-This means there is a `search` argument in the doctor structure, something like `doctors[Doctor]: options (JSON!), search(JSON!)`. Pete Correy explains how to exploit the search argument in his blog post [GraphQL NoSQL Injection Through JSON Types](http://www.petecorey.com/blog/2017/06/12/graphql-nosql-injection-through-json-types/).
+This means there is a `search` argument in the doctor structure, something like `doctors[Doctor]: options (JSON!), search(JSON!)`.    
+Pete Correy explains how to exploit the search argument in his blog post [GraphQL NoSQL Injection Through JSON Types](http://www.petecorey.com/blog/2017/06/12/graphql-nosql-injection-through-json-types/).
 
 Let's try a simple NoSQL injection with fields we know such as `lastName`.
 
