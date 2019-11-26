@@ -155,4 +155,4 @@ Even if you had patched these vulnerabilities in the website, there were two bac
 
 The CTF was great, the infrastructure worked flawlessly and the challenge difficulty was balanced enough to let the team understand, patch and exploit them during the 5 hours timeframe. We finished 1st but I would like to thank all the teams for their fair-play and the organisers for the event. Also thank you to the different sponsors ;)
 
-![Scoreboard]({{ site.baseurl }}/images/SeaMonsterScoreboard.png "Scoreboard"){: .center-image }
+![Scoreboard]({{ site.baseurl }}/images/SeaMonsterScoreboard.jpg "Scoreboard"){: .center-image }
