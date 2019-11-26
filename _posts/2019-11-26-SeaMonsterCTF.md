@@ -104,7 +104,7 @@ team14.ctf:502 Modbus/TCP
     Device: diateam diateam virtual plc v42.1337 UYB{3e710c7179074e1a62be9de88} 
 {% endhighlight %}
 
-## www.unlock.ctf 
+## bastion.unlock.ctf
 
 ### SSRF - Port 8080
 
@@ -120,6 +120,8 @@ for i in `seq 1 15`; do echo "Team"$i; curl -s http://team0$i.ctf:8080/index.php
 
 We made the mistake to assume a simple filter like `$ip[0] == "1"` would be enough to stop any exploitation on our machine, however we missed the critical point. Another service was available on port 6666, which would display the content of the file using a specificly crafted URL. We saw the exploit in our logs and replayed the URL on the other team to get more flags.
 
+## www.unlock.ctf 
+
 ### Nostromo - Port 3232
 
 We used the CVE-2019-16278 to exploit the Nostromo service on the web machine.
@@ -134,6 +136,9 @@ Team4 UYB{41c0136228d5a7db614f89431}
 [...]
 {% endhighlight %}
 
+Our patch might have been the worst of all patch history, we made a copy a the current index page with `curl` and then replaced the nostromo service with a `python -m SimpleHTTPServer 3232`. Dirty but efficient !
+
+![Trade]({{ site.baseurl }}/images/SeaMonsterTrade.jpg "Trade"){: .center-image }
 
 ### Custom website - Port 80 
 
