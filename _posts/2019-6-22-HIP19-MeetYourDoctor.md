@@ -5,10 +5,9 @@ title: HIP19 Writeup - Meet Your Doctor 1,2,3
 
 Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called "Hacker Jeopardy" which was very fun! During the Wargame I focused my time on Web challenges based on the `graphql` technology which was new to me, you will find below my writeups for the `Meet Your Doctor` challenges. 
 
-<!--more-->
-
 ![HIP Wargame 2019]({{ site.baseurl }}/images/hip19_wargame.png "HIP Wargame 2019"){: .center-image }
 
+<!--more-->
 
 ## Meet your doctor 1 - 100 pts
 

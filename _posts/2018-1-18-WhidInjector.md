@@ -6,12 +6,11 @@ title: WHID Injector - Tips and Tricks
 ## WHID Injector - Tips and Tricks
 What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber Ducky payload converter, an exfiltrated data tab and many more.
 
-<!--more-->
-
 What can I do ? Everything you could do with a keyboard plugged into a computer, for example : using [WHID Toolkit](https://github.com/swisskyrepo/WHID_Toolkit) you can spawn a reverse-shell :D    
 
-
 Where to buy a WHID Injector ? I got mine from [Aliexpress](https://www.aliexpress.com/item/Cactus-Micro-compatible-board-plus-WIFI-chip-esp8266-for-atmega32u4/32318391529.html), it's also available on ebay around 15+ $ ;)
+
+<!--more-->
 
 ## Basic Setup
 First you need to connect the web server hosted on "http://192.168.1.1", only reachable over the `Exploit Wifi`. Use the following default credentials to connect to the AP.
