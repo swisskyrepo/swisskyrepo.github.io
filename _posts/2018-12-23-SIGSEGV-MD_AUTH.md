@@ -3,8 +3,9 @@ layout: post
 title: SIGSEGV1 Writeup - MD Auth
 ---
 
-Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown". 
-I was wrong but it was nonetheless interesting to solve.
+Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown". I was wrong but it was nonetheless interesting to solve.
+
+<!--more-->
 
 The source code of the index was available by requesting : [http://finale-docker.rtfm.re:4444/?source](http://finale-docker.rtfm.re:4444/?source)
 

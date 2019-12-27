@@ -6,6 +6,8 @@ title: Welcome on my Jekyll!
 Hi friend !
 Let's talk about security tips and tricks.  
 
+<!--more-->
+
 This blog was generated with Jekyll now, use the following commands to reproduce it.
 
 {% highlight bash%}

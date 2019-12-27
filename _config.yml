@@ -84,3 +84,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+# Split page with more in description
+excerpt_separator: <!--more-->

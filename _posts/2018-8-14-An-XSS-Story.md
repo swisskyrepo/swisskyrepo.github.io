@@ -4,6 +4,9 @@ title: An XSS Story
 ---
 
 Last night I stumbled across an XSS in a bug bounty program, this was quite fun to exploit.
+
+<!--more-->
+
 A little bit of context, the URL was as follows:
 
 {% highlight bash%}
