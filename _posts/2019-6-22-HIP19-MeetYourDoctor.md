@@ -5,7 +5,7 @@ title: HIP19 Writeup - Meet Your Doctor 1,2,3
 
 Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called "Hacker Jeopardy" which was very fun! During the Wargame I focused my time on Web challenges based on the `graphql` technology which was new to me, you will find below my writeups for the `Meet Your Doctor` challenges. 
 
-![HIP Wargame 2019]({{ site.baseurl }}/images/hip19_wargame.png "HIP Wargame 2019"){: .center-image }
+![HIP Wargame 2019]({{ site.baseurl }}/images/HIP19/hip19_wargame.png "HIP Wargame 2019"){: .center-image }
 
 <!--more-->
 
@@ -41,7 +41,7 @@ type Mutation {
 
 A simple query `{Doctors{id email password}}` was enough to extract all doctors' email and password. The flag was the password of the Admin doctor : `Now-_Let$|GetSeri0us`
 
-![GraphQL UI]({{ site.baseurl }}/images/doctors1graphql.png "GraphQL UI")
+![GraphQL UI]({{ site.baseurl }}/images/HIP19/doctors1graphql.png "GraphQL UI")
 
 
 ## Meet your doctor 2 - 200 pts
@@ -59,7 +59,7 @@ fragment+FullType+on+__Type+{++kind++name++description++fields(includeDeprecated
 
 It is strongly recommended to use `Firefox` to view the server response as it parses JSON an displays it nicely.
 
-![Doctors schema]({{ site.baseurl }}/images/doctors2_schema.png "Doctors schema")
+![Doctors schema]({{ site.baseurl }}/images/HIP19/doctors2_schema.png "Doctors schema")
 
 Using GraphQLmap, we got the following structure.
 
@@ -101,7 +101,7 @@ Token
 
 In this case `Doctors` have an `options` parameter which accepts JSON. It allows us to specify items linked to the doctors' structure and project their data into the GraphQL response. I saw the following picture in a blog post, it helped me a lot to understand the structure of the query.
 
-![GraphMap]({{ site.baseurl }}/images/graphmap.png "GraphMap")
+![GraphMap]({{ site.baseurl }}/images/HIP19/graphmap.png "GraphMap")
 
 We can query `{doctors(options: "{\"patients.ssn\" :1}"){firstName lastName id patients{ssn}}}`, don't forget to escape the `"` inside the `options`.
 
@@ -172,7 +172,7 @@ The injection worked, now we can re-use the payload from the challenge #2 and ex
 
 Obviously we scripted the data extraction in Python, the script below will get the last flag : `4f537c0a-7da6-4acc-81e1-8c33c02ef3b`.
 
-![NOSQL]({{ site.baseurl }}/images/doctors3_nosql.png "NOSQL")
+![NOSQL]({{ site.baseurl }}/images/HIP19/doctors3_nosql.png "NOSQL")
 
 At that time we were checking if the content of `r.json()['data']['doctors']` was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.
 
