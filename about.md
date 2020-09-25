@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 {% highlight js %}
-╭─ 👻  swissky@localhost ~ ‹›
+╭─ 👻 swissky@localhost ~ ‹›
 ╰─$ whoami
 Swissky  
 Information Security Engineer  

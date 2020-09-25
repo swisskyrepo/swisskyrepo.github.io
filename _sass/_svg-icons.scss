@@ -27,5 +27,15 @@
     background-color: #000000;
     border-radius: 50px;
   }
+  &.sponsor    	  { 
+    background-image: url(images/logo/buymecoffee.png);
+    background-size: cover; 
+    background-color: #000000;
+    border-radius: 50px;
+  }
 
+}
+.svg-icon:hover{
+  transform: rotate(45deg);
+  transition: 300ms linear all;
 }
