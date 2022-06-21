@@ -9,6 +9,7 @@ permalink: /about/
 ╰─$ whoami
 Swissky  
 Information Security Engineer  
+RedTeam Operator & Pentest    
 CTF Lover & Bug Hunter
 {% endhighlight %}
 
