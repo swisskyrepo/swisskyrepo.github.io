@@ -5,10 +5,9 @@ title: Offensive Nim - Auto Obfuscate Strings with Nim's Term-Rewriting Macros
 
 TLDR: Use `nim-strenc`, or read below to discover how to write your own Nim macro.
 
-<!--more-->
-
 Lately I discovered the repository [Yardanico/nim-strenc](https://github.com/Yardanico/nim-strenc), you can use it very easily in your Nim code by importing `strenc`.    
 Let's try it on this simple example. First you need to install the package using this command: `nimble install strenc`
+<!--more-->
 
 {% highlight py%}
 import strenc
