@@ -5,11 +5,10 @@
 
     function darkmode() {
         let enabled = localStorage.getItem('dark-mode')
-        if (enabled === null || enabled === 'true') {
+        if (enabled === null  || enabled === 'true') {
             enable()
         }
-
-        if (localStorage.getItem('dark-mode') === 'false') {
+        else if (localStorage.getItem('dark-mode') === 'false') {
             enable();
         } else {
             disable();
