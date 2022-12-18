@@ -1,8 +1,4 @@
 <script>
-    document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
-        darkmode_toggle()
-    }
-
     function darkmode_enable()  {
         DarkReader.setFetchMethod(window.fetch)
         DarkReader.enable();
@@ -12,6 +8,18 @@
     function darkmode_disable() {
         DarkReader.disable();
         localStorage.setItem('dark-mode', 'false');
+    }
+
+    // Handle local configuration
+    let is_enabled = localStorage.getItem('dark-mode')
+    if (is_enabled === 'true' ) {
+        DarkReader.setFetchMethod(window.fetch)
+        DarkReader.enable();
+    } 
+
+    // Handle button action
+    document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+        darkmode_toggle()
     }
 
     function darkmode_toggle() {
