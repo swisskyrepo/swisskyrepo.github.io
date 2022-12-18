@@ -13,7 +13,7 @@
     }
 
     // Handle local configuration
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         let is_enabled = localStorage.getItem('dark-mode')
         if (is_enabled === 'true' ) {
             DarkReader.setFetchMethod(window.fetch)
