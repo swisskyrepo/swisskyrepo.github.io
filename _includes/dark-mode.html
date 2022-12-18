@@ -1,29 +1,26 @@
 <script>
     document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
-        darkmode()
+        darkmode_toggle()
     }
 
-    function darkmode() {
-        let enabled = localStorage.getItem('dark-mode')
-        if (enabled === null) {
-            enable()
-        }
-        else if (localStorage.getItem('dark-mode') === 'false') {
-            enable();
+    function darkmode_enable()  {
+        DarkReader.setFetchMethod(window.fetch)
+        DarkReader.enable();
+        localStorage.setItem('dark-mode', 'true');
+    }
+
+    function darkmode_disable() {
+        DarkReader.disable();
+        localStorage.setItem('dark-mode', 'false');
+    }
+
+    function darkmode_toggle() {
+        let is_enabled = localStorage.getItem('dark-mode')
+        if (is_enabled === null || is_enabled === 'false' ) {
+            darkmode_enable()
         } 
         else {
-            disable();
-        }
-
-        function enable()  {
-            DarkReader.setFetchMethod(window.fetch)
-            DarkReader.enable();
-            localStorage.setItem('dark-mode', 'true');
-        }
-
-        function disable() {
-            DarkReader.disable();
-            localStorage.setItem('dark-mode', 'false');
+            darkmode_disable();
         }
     }        
 </script>
