@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js"></script>
+
 <script>
     function darkmode_enable()  {
         DarkReader.setFetchMethod(window.fetch)
@@ -11,11 +13,14 @@
     }
 
     // Handle local configuration
-    let is_enabled = localStorage.getItem('dark-mode')
-    if (is_enabled === 'true' ) {
-        DarkReader.setFetchMethod(window.fetch)
-        DarkReader.enable();
-    } 
+    window.addEventListener('load', function () {
+        let is_enabled = localStorage.getItem('dark-mode')
+        if (is_enabled === 'true' ) {
+            DarkReader.setFetchMethod(window.fetch)
+            DarkReader.enable();
+        } 
+    })
+
 
     // Handle button action
     document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
@@ -24,13 +29,14 @@
 
     function darkmode_toggle() {
         let is_enabled = localStorage.getItem('dark-mode')
-        if (is_enabled === null || is_enabled === 'false' ) {
+        if (is_enabled === null) {
             darkmode_enable()
-        } 
+        }
+        else if(is_enabled === 'false' ) {
+            darkmode_enable()
+        }
         else {
             darkmode_disable();
         }
     }        
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js"></script>
