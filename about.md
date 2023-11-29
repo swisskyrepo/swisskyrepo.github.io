@@ -15,7 +15,9 @@ CTF Lover & Bug Hunter
 
 
 ### Recent projects
- - [Payload All The Things - Memo for Pentest/CTF](https://github.com/swisskyrepo/PayloadsAllTheThings)
+ - [Payloads All The Things - Memo for Pentest/CTF](https://swisskyrepo.github.io/PayloadsAllTheThings)
+ - [Hardware All The Things - Memo for Pentest/CTF](https://swisskyrepo.github.io/HardwareAllTheThings)
+ - [Internal All The Things - Memo for Pentest/CTF](https://swisskyrepo.github.io/InternalAllTheThings)
  - [SSRFmap - Automatic SSRF fuzzer and exploitation tool](https://github.com/swisskyrepo/SSRFmap)
  - [GraphQLmap - A scripting engine to interact with a graphql endpoint for pentesting purposes.](https://github.com/swisskyrepo/GraphQLmap)
  - [SharpLAPS - Retrieve LAPS password from LDAP](https://github.com/swisskyrepo/SharpLAPS)
