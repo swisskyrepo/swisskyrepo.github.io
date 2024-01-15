@@ -23,14 +23,14 @@ He also bought a domain "dinosrv.com and requested some HTTPS certificate for it
 
 But he already did some mistakes and requested certificates for the whole infrastructure using Let's Encrypt. And by doing so, he leaked the C2 server "dinostrike.dinosrv.com", the phishing infrastructure "meteorcorp.gophish.dinosrv.com" and more importantly he also used the client name in the subdomain "microsoft.dinosrv.com".
 
-Many companies will have proactive phishing detections in place which can query the Certificate Transparency for specific keywords linked to them. You can try it yourself by clicking the "OPEN THE FIRE HOSE" button on https://certstream.calidog.io. 
+Many companies will have proactive phishing detections in place which can query the Certificate Transparency for specific keywords linked to them. You can try it yourself by clicking the "OPEN THE FIRE HOSE" button on [certstream.calidog.io](https://certstream.calidog.io). 
 
-As a general guideline, it is highly recommended to avoid any link or reference to the targeted company. You can also limit the certificate exposure by requesting a "wildcard" certificate: `*.dinosrv.com`.
+As a general guideline, it is highly recommended to avoid any links or references to the targeted company. You can also limit the certificate exposure by requesting a "wildcard" certificate: `*.dinosrv.com`.
 
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-3.jpg)
 
-However our little dino didn't care about those mistakes and continued it's phishing deployment. He installed and configured a basic Gophish instance.
+However our little dino didn't care about those mistakes and continued its phishing deployment. He installed and configured a basic Gophish instance.
 And that is his second **critical mistake**. 
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-4.jpg)
@@ -52,7 +52,7 @@ For the story sake, we won't focus on how the beacons were generated and why cus
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-6.jpg)
 
-Yay a lot of shell sessions came back to our C2 infrastructure, little dino is quite happy, but something smells fishy. Why is there so many different machines, who is Johnny Cage and why the process is `malwar.exe` ? Also why does the beacon dies after 10 seconds and new one appear ?
+Yay a lot of shell sessions came back to our C2 infrastructure, little dino is quite happy, but something smells fishy. Why is there so many different machines, who is Johnny Cage and why the process is `malwar.exe` ? Also why does the beacon die after 10 seconds and a new one appear ?
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-7.jpg)
 
@@ -81,7 +81,7 @@ Here are some common errors that can ruin your op:
 
 - Uploading your payload on VirusTotal or letting the antivirus send the samples from your Virtual Machines
 - Allowing anyone to contact your infrastructure, at least put some geographical limitation. In a better scenario, you should allow only your Team and Customer IPs.
-- Use a redirector, don't expose your C2 TLS stack to the web. JA3, JA3S and JARM are different fingerprint method targeting the SSL/TLS layer.
+- Use a redirector, don't expose your C2 TLS stack to the web. JA3, JA3S and JARM are different fingerprint methods targeting the SSL/TLS layer.
 - Don't use the default configuration of the beacon, either simulate an attacker with a specific configuration or create your own: [threatexpress/malleable-c2/jquery-c2.4.9.profile](https://raw.githubusercontent.com/threatexpress/malleable-c2/master/jquery-c2.4.9.profile)
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-8.jpg)
@@ -136,15 +136,15 @@ Impacket is a great suite of scripts, but you have to know their behavior before
 
 Here is some common pitfalls:
 
-- `smbexec.py` is using a service to execute commands. It the earliest version, it was named `BTOBTO` but it now 8 random characters. 
+- `smbexec.py` is using a service to execute commands. In the earliest version, it was named `BTOBTO` but it has now 8 random characters. 
 - `psexec.py` is still based on a well known service released on January 2012. 10+ years later, we have a lot of detection based on that [kavika13/RemComSvc](https://github.com/kavika13/RemCom)
 - `wmiexec.py` is not better, every command will be prefixed with `cmd.exe /Q /c`. [Ref: wmiexec.py#L127](https://github.com/fortra/impacket/blob/master/examples/wmiexec.py#L127)
 
-As a general guideline it is always better to blend in and use the same tools used by infra/dev/internal team, which could be anything: RDP, WinRM, PS Remoting, etc.
+As a general guideline it is always better to blend in and use the same tools used by infra/dev/internal team, which could be anything: RDP, WinRM/PS Remoting, etc.
 
 ![](/images/DrinkLoveShare24/rump_redteam_dino-15.jpg)
 
-After some long pivoting session, it was time for the best dino in town to dump the holy grail: the `ntds database`.
+After some long pivoting sessions, it was time for the best dino in town to dump the holy grail: the `ntds database`.
 
 However, here are some tips to know when doing a DCSync:
 
