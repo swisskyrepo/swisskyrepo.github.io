@@ -167,12 +167,11 @@ But you shouldn't do it from a Kali,Parrot or Pentoo machine, because the Boto3 
 
 And it's **Game Over** for our dino, he got caught by the Blue Dinos. Next time he will be more stealthy and move like a ninja 🥷
 
-![](/images/DrinkLoveShare24/rump_redteam_dino-19.jpg)
-
 
 ## References
 
-* [Youtube replay will be here when it's ready](#)
+* [DrinkLoveShare V1 - Rump Session - TheLaluka - 19 janv. 2024](https://www.youtube.com/watch?v=BmPIFRT0NHI)
+* [DrinkLoveShare V1 - Slides DLS24-red-team-fails-dino.pdf](https://swisskyrepo.github.io/files/DLS24-red-team-fails-dino.pdf)
 * [Never had a bad day phishing. How to set up GoPhish to evade security controls - Nicholas Anastasi - Jun 30, 2021](https://www.sprocketsecurity.com/resources/never-had-a-bad-day-phishing-how-to-set-up-gophish-to-evade-security-controls)
 * [Hunting Cobalt Strike Servers - Bank Security - May 12, 2022](https://bank-security.medium.com/hunting-cobalt-strike-servers-385c5bedda7b)
 * [Detecting Kerberoasting Activity Part 2 – Creating a Kerberoast Service Account Honeypot -  Sean Metcalf - 08 FEB 2017](https://adsecurity.org/?p=3513)
