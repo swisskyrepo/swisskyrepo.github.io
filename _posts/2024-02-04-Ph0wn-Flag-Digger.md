@@ -89,6 +89,18 @@ ph0wn{M@st3r0f3wireMem0ry!}
 
 Yep, that's a flag: **ph0wn{M@st3r0f3wireMem0ry!}**
 
+Since the writing of this blog post, [bvernoux](https://twitter.com/bvernoux) added the `hd` feature in the 3-wire mode, allowing us to directly parse the hex content into string. The code has been added in this commit [a6019f4236758cf5ad19ba2d7b386f706f8cb303](https://github.com/hydrabus/hydrafw/commit/a6019f4236758cf5ad19ba2d7b386f706f8cb303), upgrade your HydraBus to benefit from it 🤩
+
+{% highlight py%}
+threewire1> 0x01 0b10000000 hd:255 
+WRITE: 0x01 0x80 
+70 68 30 77 6E 7B 4D 40  73 74 33 72 30 66 33 77  |  ph0wn{M@st3r0f3w 
+69 72 65 4D 65 6D 30 72  79 21 FF FF FF FF FF FF  |  ireMem0ry!...... 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+{% endhighlight %}
+
 
 ## References
 
