@@ -190,6 +190,6 @@ docker exec -it example python ssrfmap.py -r examples/request.txt -p url -m axfr
 
 This blog post was inspired by these great write-ups of the FCSC 2024 challenges. Have a look at them ! :)
 
-- https://vozec.fr/writeups/pong-fcsc2024-en/
-- https://mizu.re/post/pong
-- https://gist.github.com/Siss3l/32591a6d6f33f78bb300bfef241de262
+- [https://vozec.fr/writeups/pong-fcsc2024-en/](https://vozec.fr/writeups/pong-fcsc2024-en/)
+- [https://mizu.re/post/pong](https://mizu.re/post/pong)
+- [https://gist.github.com/Siss3l/32591a6d6f33f78bb300bfef241de262](https://gist.github.com/Siss3l/32591a6d6f33f78bb300bfef241de262)
