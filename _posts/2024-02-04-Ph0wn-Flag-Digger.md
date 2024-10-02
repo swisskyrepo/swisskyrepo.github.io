@@ -3,8 +3,6 @@ layout: post
 title: Ph0wn CTF 2019 - Flag Digger
 ---
 
-## Ph0wn CTF 2019 - Flag Digger
-
 TLDR: It's never too late to try to solve an old challenge. This blog post is a quick writeup of a challenge from the Ph0wn CTF 2019 where you were given a small chip and you had to extract the flag from it.
 
 ![](/images/Ph0wn/ph0wn_chip_dip2deep_min.jpg)

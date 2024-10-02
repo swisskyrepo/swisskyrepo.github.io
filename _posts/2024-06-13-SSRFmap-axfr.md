@@ -3,8 +3,6 @@ layout: post
 title: SSRFmap - Introducing the AXFR module
 ---
 
-## SSRFmap - Introducing the AXFR module
-
 After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I implemented a new module called `axfr` to trigger a DNS zone transfer from the SSRF using the gopher protocol. This blog post is about my journey on implementing it.
 
 ![](/images/SSRFmapAXFR/banner_text.png)

@@ -3,9 +3,7 @@ layout: post
 title: Anatomy of Pokemon glitches
 ---
 
-# Anatomy of Pokemon glitches
-
-Anatomy of Pokemon glitches, or how to impress your school friends during break time. 
+Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time. 
 
 ![](/images/PokemonGlitches/pikachu-yellow.png)
 
@@ -41,7 +39,8 @@ Here are the requirements to follow along the blog post and replicate the glitch
 
 Sameboy support symbol files, you can build the ROM and then put breakpoints on specific functions using their name. Here is the symbol file for the original Pokemon Yellow rom : [pokeyellow.sym](https://raw.githubusercontent.com/pret/pokeyellow/symbols/pokeyellow.sym)
 
-```ps1
+
+{% highlight powershell%}
 # breakpoint
 > b BattleTransition
 Breakpoint 1 set at BattleTransition ($1c:$49d7)
@@ -56,7 +55,7 @@ BattleTransition:
 # display the content of the memory for the address
 ex wViridianForestCurScript
 ex $cd2d
-```
+{% endhighlight %}
 
 The following commands are a huge help when we want to debug our actions, pause the game or display the content of the memory at a specific address.
 
@@ -158,21 +157,21 @@ The lower bytes of `wEnemyMonUnmodifiedSpecial` (`$CD2C $CD2D`) is located at th
 
 `wEngagedTrainerClass` correspond to the type of Trainer that is battling you, for example: "Youngster", "Bug Catcher", "Athlete", "Fisher", etc. And the `wEngagedTrainerSet` is the number of the trainer. 
 
-```ps1
+{% highlight powershell%}
 wEngagedTrainerClass = 201 (0xC9)
 wEngagedTrainerSet = 6
 # Youngster #6
-```
+{% endhighlight %}
 
 But this is also used for wild Pokemon, the first variable is used to define the **ID**, and the second is the **LEVEL**.
 
 For example, the following data is a Gengar level 35.
 
-```ps1
+{% highlight powershell%}
 wEngagedTrainerClass = 14 (0xe)
 wEngagedTrainerSet = 35
 # Gengar LVL35
-```
+{% endhighlight %}
 
 If you want to calculate manually the spaces displayed on the GIF, here are a remainder of the units:
 
