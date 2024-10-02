@@ -76,7 +76,7 @@ The following commands are a huge help when we want to debug our actions, pause 
 
 ## Pokemon Yellow
 
-In the game you start with one Pokemon, a `Pikachu` at level 2, given by Professor Oak. You also get some $$ from your mother, you should keep it safe because we will need 550$ to buy an `Escape Rope` for one of the glitches below.
+In the game you start with one Pokemon, a `PIKACHU` at level 2, given by Professor Oak. You also get some $$ from your mother, you should keep it safe because we will need 550$ to buy an `Escape Rope` for one of the glitches below.
 
 
 ## Long Range Trainer Glitch
@@ -135,16 +135,16 @@ Now we want to modify another value in memory located at `$CD2D` which correspon
 
 At this point in the game you can either go in the grass to find a wild pokemon, but we won't know its SPECIAL stat (unless you print the content of the address in your debugger `ex $CD2D`). Doing the glitch that way will be tedious, and will force us to restart the device every time the value is not the one we want... Or we can initiate a battle against a trainer, they have a fixed pokemon, meaning they always have the same stats.
 
-Let's do it with the first trainer in the GYM, he has a Digglet with a special stat of 14 (`0x0e`). This value will have a direct impact on the next pokemon we will encounter.
+Let's do it with the first trainer in the GYM, he has a `DIGGLET` with a special stat of 14 (`0x0e`). This value will have a direct impact on the next pokemon we will encounter (spoiler alert: it will be a `GENGAR`).
 
 ![](/images/PokemonGlitches/get-the-pokemon.png)
 
-For Pokemon Red and Blue, there is a map of trainers and the next pokemon you will get. Small warning, the map is huge, [map by ryumaster](https://puu.sh/257S). You will quickly realize that the pokemons are not ordered using the Pokedex ID, for example: Rydhon is the first one, so if you want a specific pokemon you will need the following list:
+For Pokemon Red and Blue, there is a map of trainers and the next pokemon you will get. Small warning, the map is huge, [map by ryumaster](https://puu.sh/257S). You will quickly realize that the pokemons are not ordered using the Pokedex ID, for example: RYDHON is the first one, so if you want a specific pokemon you will need the following list:
 
 * [List of Pokémon by index number in Generation I - Bulbagarden](https://bulbapedia.bulbagarden.net/wiki/List_of_Pokémon_by_index_number_(Generation_I))
 * [rbydigit.txt - ocf.berkeley.edu](http://www.ocf.berkeley.edu/~jdonald/pokemon/mewglitch_files/rbydigit.txt)
 
-But why is the SPECIAL stat impacting the ID of the next Pokemon ? It lies within the `UNION` and `NEXTU` keywords used in the `raù/wram.asm` file to define how the memory is structured.
+But why is the SPECIAL stat impacting the ID of the next Pokemon ? It lies within the `UNION` and `NEXTU` keywords used in the `ram/wram.asm` file to define how the memory is structured.
 
 * **UNION** is a directive that allows you to overlay multiple structures or data definitions in the same memory space.
 * **NEXTU** is used to move to the next structure or field within the same union space
@@ -165,7 +165,7 @@ wEngagedTrainerSet = 6
 
 But this is also used for wild Pokemon, the first variable is used to define the **ID**, and the second is the **LEVEL**.
 
-For example, the following data is a Gengar level 35.
+For example, the following data is a GENGAR level 35.
 
 {% highlight powershell%}
 wEngagedTrainerClass = 14 (0xe)
@@ -190,6 +190,21 @@ In short we can alter the level from a range of 1 to 13. It can be done using th
 * Range from 7 to 1 for down modifier (ATK ⬇️, DEF ⬇️, SPEED ⬇️)
 * Range from 7 to 13 for up modifier (ATK ⬆️, DEF ⬆️, SPEED ⬆️)
 
+
+Here is a quick example of downgrading the ATK modifier to 1 using the `Growl` ability several times .
+
+![](/images/PokemonGlitches/set-atk-mod-growl.gif)
+
+
+Now the memory should look like this, after battling a wild pokemon anywhere between Pewter Gym and the Viridian Forest. 
+
+{% highlight powershell%}
+wEngagedTrainerClass = 14 (0xe)
+wEngagedTrainerSet = 1
+# Gengar LVL1
+{% endhighlight %}
+
+
 Quick note: The level can't go below 1 with this technique.
 
 ![](/images/PokemonGlitches/gadget-set-level.png)
@@ -197,11 +212,11 @@ Quick note: The level can't go below 1 with this technique.
 
 ## Start Battle & Weird Textbox
 
-Now it's time to trigger this battle with our Gengar. Going into the grass and getting attacked by wild Pokemon is not the correct way as it will update the fields `EnemyMonUnmodifiedSpecial` and `MonEnemyAttackMod` in the memory. 
+Now it's time to trigger this battle with our GENGAR since we have tailored the memory to be the Pokemon #14 at the level 1. Going into the grass and getting attacked by wild Pokemon is not the correct way as it will update the fields `EnemyMonUnmodifiedSpecial` and `MonEnemyAttackMod` in the memory. 
 
-Actually it is way easier than that, when we escaped the battle using the « `Escape Rope` », we put the meta-map script ID into an inconsistent state.
+Actually it is way easier than that, when we escaped the battle using the « `Escape Rope` », we put the meta-map script ID into an inconsistent state. `Meta-map scripts` are also called `GameProgressFlags`, its a list of events used to execute code on the current maps, for example, on the first map you can't walk into the grass until you advance further into the story, it is disabled later by changing the ID of the meta-map script.
 
-By default the map searches for trainers: `CheckFightingMapTrainers` (0), but we left it with `DisplayEnemyTrainerTextAndStartBattle` (1) when the « ! » mark appeared.
+By default the map of the Viridian forest searches for trainers: `CheckFightingMapTrainers` (0), but we left it with `DisplayEnemyTrainerTextAndStartBattle` (1) when the « `!` » mark appeared before we "escape".
 
 ![](/images/PokemonGlitches/metaname-script-id.png)
 
@@ -213,9 +228,9 @@ The textbox you get before the battle is the same ID as the last text box in mem
 
 Depending on which choice you made to generate the next pokemon, it will have one of these values.
 
-* ID: 09: Talk to sign at the PokeCenter
-* ID: 02: GYM Trainer talk
-* ID: 05: NPC from Pewter City  
+* **ID: 09**: Talk to sign at the PokeCenter
+* **ID: 02**: GYM Trainer talk
+* **ID: 05**: NPC from Pewter City  
 
 ![](/images/PokemonGlitches/textbox-list-map.png)
 
@@ -228,13 +243,13 @@ Capturing the Pokemon is left as an exercise for the reader. Even if it is a lev
 
 ## Experience Underflow 
 
-Now we are done with memory manipulations, we have captured our Gengar. Let's talk a bit about **Experience Algorithms**.
+Now we are done with memory manipulations, we have captured our GENGAR. Let's talk a bit about **Experience Algorithms**.
 
 In Pokemon Red, Blue and Yellow, there are 6 experience algorithms but only 4 are really used in the code: `Medium Fast`, `Medium Slow`, `Fast` and `Slow`.
 
 ![](/images/PokemonGlitches/experience-algorithms.png)
 
-Here is a list of Pokemons belonging to the `Medium Slow` group: Bulbasaur	, Ivysaur, Venusaur, Charmander, Charmeleon, Charizard, Squirtle, Wartortle, Blastoise, Pidgey, Pidgeotto, Pidgeot, Nidoran♀, Nidorina, Nidoking, Nidoran♂, Nidorino, Nidoqueen, Oddish, Gloom, Vileplume, Poliwag, Poliwhirl, Poliwrath, Abra	, Kadabra	, Alakazam, Machop, Machoke, Machamp, Bellsprout, Weepinbell, Victreebel, Geodude, Gravler, Golem, Gastly, Haunter, Gengar, Mew.
+Here is a list of Pokemons belonging to the `Medium Slow` group: BULBASAUR	, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD, SQUIRTLE, WARTORTLE, BLASTOISE, PIDGEY, PIDGEOTTO, PIDGEOT, NIDORAN♀, NIDORINA, NIDOKING, NIDORAN♂, NIDORINO, NIDOQUEEN, ODDISH, GLOOM, VILEPLUME, POLIWAG, POLIWHIRL, POLIWRATH, ABRA	, KADABRA	, ALAKAZAM, MACHOP, MACHOKE, MACHAMP, BELLSPROUT, WEEPINBELL, VICTREEBEL, GEODUDE, GRAVLER, GOLEM, GASTLY, HAUNTER, GENGAR, MEW.
 
 Do you see the problem with the Polynomial Function used for this group ? 
 
@@ -245,15 +260,17 @@ Despite the experience being for an extremely high level, you only need `1 059 8
 ![](/images/PokemonGlitches/math-experience-underflow.png)
 ![](/images/PokemonGlitches/python-experience-plot.png)
 
-In short, if your level 1 Pokemon gains less than 54 XP, its current level will be computed from its previous XP, getting level 100 in one battle !
+In short, if your level 1 Pokemon gains less than 54 XP, its current level will be computed from its previous XP. Do you recall how much it was ? Our pokemon had over 16 777 162 XP, getting level 100 in one battle !
 
 ![](/images/PokemonGlitches/gengar-level-100.gif)
 ![](/images/PokemonGlitches/gengar-lvl100.mp4)
 
+**Pro tip**: Don't fight with your level 1 Pokemon, it is mostly likely not strong enough (unless its a METAPOD, they don't do damage).
 
-## BONUS 1 - Mew
 
-These glitches can be used later in the game to get the event exclusive `Mew`. It's basically using the Long Range Trainer glitch to escape the fight on the **Route 24**, then you engage in a battle with the Kid **Route 25** to have the Slowpoke stats in memory.
+## BONUS 1 - MEW
+
+These glitches can be used later in the game to get the event exclusive `MEW`. It's basically using the Long Range Trainer glitch to escape the fight on the **Route 24**, then you engage in a battle with the Kid **Route 25** to have the Slowpoke stats in memory.
 
 ![](/images/PokemonGlitches/mew-glitch.png)
 
@@ -265,9 +282,9 @@ Earlier in this blog, we discovered that Trainer and Pokemon are the same thing.
 * `Special stat < 200` triggers a Pokemon battle
 * `Special stat >= 200` triggers a Trainer battle
 
-However you won't find many Pokemon with a special stat over 200. But there is a way to remediate to this problem. The Pokemon `Ditto` have the `Transform` ability which will copy itself into your Pokemon, it will also copy the stats. 
+However you won't find many Pokemon with a special stat over 200. But there is a way to remediate to this problem. The Pokemon `DITTO` have the `Transform` ability which will copy itself into your Pokemon, it will also copy the stats. 
 
-Did you know that Prof Oak is not available in the game story, but he is coded and can be battled using a combination of the previous glitches. His index number is **226**, which is also the default value of Mewtwo SPECIAL stat.
+Did you know that Prof Oak is not available in the game story, but he is coded and can be battled using a combination of the previous glitches. His index number is **226**, which is also the default value of MEWTWO SPECIAL stat.
 
 This glitch requires 2 long range trainer because you won’t have the NPC from Pewter City to reset the « NPC is moving » value. Also you need a Pokemon with Growl to set one of the 3 teams attributed to him.
 
@@ -275,12 +292,14 @@ Here are the steps to battle him:
 
 * Fly to **Lavender City**, go to Route 8, trigger the Long Range Trainer
 * Fly to **Cerualean City**, go to Route 24, trigger the second Long Range Trainer, but you have to defeat him, to reset the « `NPC is moving` » value
-* Fly to **Cinnabar Island**, and go to the Pokemon Mansion and find a `Ditto` (you have to go to a specific room)
-* Wait for `Ditto` to copy your Pokemon with SPECIAL at 226
-* Then switch to a Pokemon knowing `Growl`, use it 4 times (Blastoise), 5 times (Venusaur), 6 times (Charizard)
+* Fly to **Cinnabar Island**, and go to the Pokemon Mansion and find a `DITTO` (you have to go to a specific room)
+* Wait for `DITTO` to copy your Pokemon with SPECIAL at 226
+* Then switch to a Pokemon knowing `Growl`, use it 4 times (BLASTOISE), 5 times (VENUSAUR), 6 times (CHARIZARD)
 * Then run away from the battle, use an `Escape Rope`, then fly back **Lavender City**, go to Route 8 to trigger the battle with `Prof Oak`.
 
 ![](/images/PokemonGlitches/prof-oak-stat.png)
+
+![](/images/PokemonGlitches/prof-oak-encounter.gif)
 
 
 I hope you liked these glitches, here are some saves to have every requirements met in order to reproduce them. Some saves are from a finished run where the long trainers have been re-enabled, use them to get Mew or fight Prof Oak.
