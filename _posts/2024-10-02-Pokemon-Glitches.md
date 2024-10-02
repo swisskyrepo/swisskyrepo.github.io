@@ -84,7 +84,7 @@ In the game you start with one Pokemon, a `PIKACHU` at level 2, given by Profess
 The first glitch starts in the Viridian Forest, in order to reproduce it you have several requirements to met:
 
 - Buy the `Escape Rope` (550 Poke$) at `Pewter City` mart.
-- Do not battle the long-range trainer in the Viridian forest.
+- Do not battle the long-range trainer in the Viridian Forest.
 
 But what is a long-range trainer ? In Pokemon there are two types of trainer, the one that engage a battle when you talk to them, or walk nearby, and the one that will walk toward you. The latter have an exclamation mark displayed on the screen when they see you.
 
@@ -214,13 +214,13 @@ Quick note: The level can't go below 1 with this technique.
 
 Now it's time to trigger this battle with our GENGAR since we have tailored the memory to be the Pokemon #14 at the level 1. Going into the grass and getting attacked by wild Pokemon is not the correct way as it will update the fields `EnemyMonUnmodifiedSpecial` and `MonEnemyAttackMod` in the memory. 
 
-Actually it is way easier than that, when we escaped the battle using the « `Escape Rope` », we put the meta-map script ID into an inconsistent state. `Meta-map scripts` are also called `GameProgressFlags`, its a list of events used to execute code on the current maps, for example, on the first map you can't walk into the grass until you advance further into the story, it is disabled later by changing the ID of the meta-map script.
+Actually it is way easier than that, when we escaped the battle using the « `Escape Rope` », we put the meta-map script ID into an inconsistent state. `Meta-map scripts` are also called `GameProgressFlags`, its a list of events used to execute code on the current map. For example, on the first map you can't walk into the grass until you advance further into the story, it is disabled later by changing the ID of the meta-map script.
 
-By default the map of the Viridian forest searches for trainers: `CheckFightingMapTrainers` (0), but we left it with `DisplayEnemyTrainerTextAndStartBattle` (1) when the « `!` » mark appeared before we "escape".
+By default the map of the Viridian Forest searches for trainers: `CheckFightingMapTrainers` (0), but we left it with `DisplayEnemyTrainerTextAndStartBattle` (1) when the « `!` » mark appeared before we "escape".
 
 ![](/images/PokemonGlitches/metaname-script-id.png)
 
-By going back to the map, the `DisplayEnemyTrainerTextAndStartBattle` will still be enabled script, and it will launch a new battle.
+By going back to the map, the meta-map script will still be `DisplayEnemyTrainerTextAndStartBattle`, and it will launch a new battle with the parameter we carefully modified in the memory.
 
 ![](/images/PokemonGlitches/gengar-lvl1-encounter.gif)
 
@@ -230,7 +230,7 @@ Depending on which choice you made to generate the next pokemon, it will have on
 
 * **ID: 09**: Talk to sign at the PokeCenter
 * **ID: 02**: GYM Trainer talk
-* **ID: 05**: NPC from Pewter City  
+* **ID: 05**: NPC from Pewter City
 
 ![](/images/PokemonGlitches/textbox-list-map.png)
 
