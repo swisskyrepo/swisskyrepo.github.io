@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Anatomy of Pokemon glitches
+image: /images/PokemonGlitches/pikachu-yellow.png
 ---
 
 Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time. 
