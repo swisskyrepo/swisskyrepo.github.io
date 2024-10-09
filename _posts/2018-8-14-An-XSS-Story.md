@@ -1,6 +1,7 @@
 ---
 layout: post
 title: An XSS Story
+image: /images/default.jpg
 ---
 
 Last night I stumbled across an XSS in a bug bounty program, this was quite fun to exploit.

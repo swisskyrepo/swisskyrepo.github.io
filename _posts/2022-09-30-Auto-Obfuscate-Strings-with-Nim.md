@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Offensive Nim - Auto Obfuscate Strings with Nim's Term-Rewriting Macros
+image: /images/OffensiveNim/nimlang.png
 ---
 
 TLDR: Use `nim-strenc`, or read below to discover how to write your own Nim macro.

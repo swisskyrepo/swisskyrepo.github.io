@@ -1,6 +1,7 @@
 ---
 layout: post
 title: DLS 2024 - RedTeam Fails - "Oops my bad I ruined the operation"
+image: /images/DrinkLoveShare24/rump_redteam_dino-0.jpg
 ---
 
 Recently I had the pleasure to give a rump during the "Drink Love Share" meet organized by [TheLaluka](https://twitter.com/TheLaluka). This blog post will delve deeper into the topic.

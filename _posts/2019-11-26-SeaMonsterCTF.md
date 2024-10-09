@@ -1,6 +1,7 @@
 ---
 layout: post
 title: UYBHYS - Sea Monster Attack & Defense CTF
+image: /images/SeaMonster/SeaMonsterBanner.png
 ---
 
 Last week-end I teamed up with members from [Aperikube](https://www.aperikube.fr) for an Attack/Defense CTF which took place in Brest - France. In this "small" blog post I will write about this experience, the challenges and our methodology :)

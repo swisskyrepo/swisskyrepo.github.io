@@ -1,6 +1,7 @@
 ---
 layout: post
 title: WHID Injector - Tips and Tricks
+image: /images/default.jpg
 ---
 
 What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber Ducky payload converter, an exfiltrated data tab and many more.

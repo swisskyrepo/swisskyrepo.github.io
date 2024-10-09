@@ -1,6 +1,7 @@
 ---
 layout: post
 title: French Croissant - or why you need to lock your computer
+image: /images/default.jpg
 ---
 
 Last year the first day of my internship I was given a computer and asked to install and secure it for two days. After that delay anyone can try to attack and compromise my machine, and if so I was welcome to buy some "French Croissants" to the team while the attacker explain his method to get access into your computer the next morning.

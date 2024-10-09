@@ -1,6 +1,7 @@
 ---
 layout: post
 title: SIGSEGV1 Writeup - MD Auth
+image: /images/default.jpg
 ---
 
 Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown". I was wrong but it was nonetheless interesting to solve.
