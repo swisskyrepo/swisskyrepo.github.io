@@ -20,7 +20,7 @@ Then I opened my cartridges and discovered the internal battery was missing in t
 
 > A batteryless patch patches the ROM's save routine to dump the SRAM save to the ROM's flash chip, inside part of the ROM itself. It will also load back into SRAM when booted up. This means the game will temporarily freeze the system while it saves your game. But in the end, it saves you from ever needing to replace a battery in your cartridge, and you get peace of mind that your save won't ever just vanish someday from a dying battery. 
 
-Here a few key pointers about the battery in the GameBoy cartridge
+Here are a few key pointers about the battery in the GameBoy cartridge
 
 - The batteries inside a Game Boy Color cart are to save the game onto a chip and hold the memory while the console is powered off.
 - Your Game Boy Color cartridge battery life is approximately 15-20 years depending on the quality of the battery. 
