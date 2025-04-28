@@ -22,7 +22,7 @@ Now let's create a lab with a basic SSRF vulnerability and a DNS service. For th
 
 :warning: This code is vulnerable to SSRF but also to Remote Command Execution. Be careful when you run it, and restrict your network interactions. 
 
-~~~py
+{% highlight py%}
 from flask import Flask, request 
 import re
 import subprocess
@@ -35,7 +35,7 @@ def ssrf():
     data = request.values
     content = command(f"curl {data.get('url')}")
     return content
-~~~
+{% endhighlight %}
 
 We also need the file [SSRFmap/examples/ssrf_dns.py](https://github.com/swisskyrepo/SSRFmap/blob/master/examples/ssrf_dns.py) from the examples folder. Then we start both, either on your machine with `python examples/example.py` and `python examples/ssrf_dns.py` or with the docker commands to have every requirements correctly installed:
 
