@@ -1,0 +1,111 @@
++++
+title = "Ph0wn CTF 2019 - Flag Digger"
+date = "2024-02-04"
+description = ""
+[extra]
+cover.image = "images/Ph0wn/ph0wn_chip_dip2deep_min.jpg"
+cover.alt = "Ph0wn CTF 2019 - Flag Digger"
++++
+
+TLDR: It's never too late to try to solve an old challenge. This blog post is a quick writeup of a challenge from the Ph0wn CTF 2019 where you were given a small chip and you had to extract the flag from it.
+
+![](/images/Ph0wn/ph0wn_chip_dip2deep_min.jpg)
+
+<!--more-->
+
+A long time ago I participated in the Ph0wn CTF and we had to solve a challenge called "Flag Digger".
+Unfortunately at the time I didn't have the tools and gadgets required to solve it.
+But now in 2024 I recently got gifted an Hydrabus and I'm taking back my revenge 😈 
+
+The chip was clean and we can easily read the text on it. If you can't see it correctly, use your phone to take a picture and zoom on it or just buy a new pair of glasses 🤓. We get the following text: **CSI 93C46P 0204H**.
+
+A simple Google search helps us identifying the chip and its pinout: [93C46P datasheet](https://pdf1.alldatasheet.com/datasheet-pdf/view/1715855/ETC/93C46P.html)
+
+![](/images/Ph0wn/datasheet-93C46P-pinout.png)
+
+From there we can deduce from the inscription "DIP2Deep", that we have to use the DIP Package.
+
+Let's connect our HydraBus to the chip, we can use the command `show pin` to know where to connect **CLK**, **SDI** and **SDO**. More commands and details about the connection can be found in this [HydraFW 3wire guide](https://github.com/hydrabus/hydrafw/wiki/HydraFW-3wire-guide).
+
+```ps1
+screen /dev/ttyACM0
+
+> 3-wire
+Device: threewire1
+GPIO resistor: floating
+Frequency: 1000000Hz
+Bit order: MSB first
+
+threewire1> show pin 
+CLK: PB3
+SDI: PB4
+SDO: PB5
+```
+
+![](/images/Ph0wn/hydrabus-pinout.png)
+
+To summarize we will connect the pins as follows:
+
+* Pin 3V3: **+3V** (HydraBus)  -> Pin 8: **Vcc** (Chip)
+* Pin GND: **GND** (HydraBus) -> Pin 5: **GND** (Chip)
+* Pin PB4: **SDI** (HydraBus) -> Pin 4: **DO** (Chip)
+* Pin PB5: **SDO** (HydraBus) -> Pin 3: **DI** (Chip)
+* Pin PB3: **CLK** (HydraBus) -> Pin 2: **SK** (Chip)
+* Pin PC1: **CS**  (HydraBus) -> Pin 1: **CS** (Chip)
+
+
+![](/images/Ph0wn/ph0wn_solve_dip2deep_min.jpg)
+
+Now we want to interact with it, a simple READ instruction will do the trick. The datasheet gave us everything we needed to know about it, it has this format:
+
+* Intruction: READ
+* Start Bit: 1
+* Opcode: 10
+* Address
+
+![](/images/Ph0wn/datasheet-93C46P-read-instruction.png)
+
+To read the content starting from address 0x000000 we will send: `1 10 000000`. Using the guide [Bus interaction commands](https://github.com/hydrabus/hydrafw/wiki/Bus-interaction-commands), we can craft a command to read a maximum of 255 bytes.    
+
+```py
+StartBit [Opcode Address]
+0x1      10      000000
+0x1      0b10000000 = hex(128) = 0x80
+```
+
+NOTE: Changing the frequency with `threewire1> frequency 50k show`, didn't impact the output result.
+
+```ps1
+threewire1> 0x01 0b10000000 r:255
+WRITE: 0x01 READ: 0xFF
+WRITE: 0x80 READ: 0xFE
+READ: 0x70 0x68 0x30 0x77 0x6E 0x7B 0x4D 0x40 0x73 0x74 0x33 0x72 0x30 0x66 0x33 0x77 0x69 0x72 0x65 0x4D 0x65 0x6D 0x30 0x72 0x79 0x21 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x70 0x68 0x30 0x77 0x6E 0x7B 0x4D 0x40 0x73 0x74 0x33 0x72 0x30 0x66 0x33 0x77 0x69 0x72 0x65 0x4D 0x65 0x6D 0x30 0x72 0x79 0x21 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF
+```
+
+The output looks like ASCII characters, let's decode that in a Python interpreter.
+
+```py
+for c in [0x70,0x68,0x30,0x77,0x6E,0x7B,0x4D,0x40,0x73,0x74,0x33,0x72,0x30,0x66,0x33,0x77,0x69,0x72,0x65,0x4D,0x65,0x6D,0x30,0x72,0x79,0x21]: print(chr(c), end="")
+ph0wn{M@st3r0f3wireMem0ry!}
+```
+
+Yep, that's a flag: **ph0wn{M@st3r0f3wireMem0ry!}**
+
+Since the writing of this blog post, [bvernoux](https://twitter.com/bvernoux) added the `hd` feature in the 3-wire mode, allowing us to directly parse the hex content into string. The code has been added in this commit [a6019f4236758cf5ad19ba2d7b386f706f8cb303](https://github.com/hydrabus/hydrafw/commit/a6019f4236758cf5ad19ba2d7b386f706f8cb303), upgrade your HydraBus to benefit from it 🤩
+
+```py
+threewire1> 0x01 0b10000000 hd:255 
+WRITE: 0x01 0x80 
+70 68 30 77 6E 7B 4D 40  73 74 33 72 30 66 33 77  |  ph0wn{M@st3r0f3w 
+69 72 65 4D 65 6D 30 72  79 21 FF FF FF FF FF FF  |  ireMem0ry!...... 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  |  ................ 
+```
+
+
+## References
+
+* [hydrabus/hydrafw - HydraFW Bus 3-wire](https://github.com/hydrabus/hydrafw/wiki/HydraFW-3wire-guide)
+* [hydrabus/hydrafw - Bus interaction commands](https://github.com/hydrabus/hydrafw/wiki/Bus-interaction-commands)
+* [ph0wn/writeups - Official Writeup - Flag Digger 3 Wires](https://github.com/ph0wn/writeups/blob/master/2019/hardware/flagdigger.md)

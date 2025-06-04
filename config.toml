@@ -1,0 +1,115 @@
+# The URL the site will be built for
+base_url = "https://swisskyrepo.github.io"
+
+# The site theme to use.
+theme = "linkita"
+
+# The default language.
+# "en" is for English.
+default_language = "en"
+
+# The default author for pages.
+# See "extra.profiles".
+author = "Swissky"
+
+# The site title.
+# Will be in all page titles.
+title = "Swissky's Lab"
+
+# The site description.
+# Used in feeds by default.
+description = "Write-ups/CTF & Bug Bounty"
+
+# Automatically generate a feed.
+# Default value: false
+generate_feeds = true
+
+# The filenames to use for the feeds.
+# e.g. ["rss.xml"]
+feed_filenames = ["atom.xml", "rss.xml"]
+
+# The taxonomies to be rendered for the site and their configuration of the default languages
+# Example:
+#     taxonomies = [
+#       {name = "tags", feed = true}, # each tag will have its own feed
+#       {name = "tags"}, # you can have taxonomies with the same name in multiple languages
+#       {name = "categories", paginate_by = 5},  # 5 items per page for a term
+#       {name = "authors"}, # Basic definition: no feed or pagination
+#     ]
+# taxonomies = [{ name = "tags", rss = true, paginate_by = 5 }]
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+highlight_theme = "base16-ocean-dark"
+render_emoji = true
+
+[extra]
+# Enable KaTex math formula support globally.
+math = false
+# Enable mermaid support globally.
+mermaid = false
+# Enable comment support globally.
+comment = false
+# The URL of social image.
+social_image = "icons/github.svg"
+
+
+[extra.style]
+# The custom background color.
+# bg_color = ""
+# The custom background color in dark mode.
+# bg_dark_color = ""
+# Enable header blur.
+# header_blur = true
+# The custom header color, only available when `header_blur` is false.
+# header_color = ""
+# The custom header color in dark mode, only available when `header_blur` is false.
+# header_dark_color = ""
+
+[extra.profiles.swissky]
+avatar_url = "images/default.jpg"
+avatar_alt = "Swissky"
+avatar_invert = false
+name = "Swissky's adventures into InfoSec World !"
+
+# Profile bio. Supports Markdown.
+bio = "Write-ups/CTF & Bug Bounty"
+
+# Social icons.
+social = [
+    { name = "x", url = "https://x.com/pentest_swissky" },
+    { name = "github", url = "https://github.com/swisskyrepo" },
+    { name = "bluesky", url = "https://bsky.app/profile//swissky.bsky.social" },
+    { name = "mastodon", url = "https://infosec.exchange/@swissky" },
+    { name = "leanpub", url = "https://leanpub.com/payloadsallthethings" },
+    { name = "rootme", url = "https://root-me.org/Swissky?inc=score&lang=fr" },
+    { name = "hackthebox", url = "https://www.hackthebox.eu/home/users/profile/5110" },
+    { name = "rss", url = "$BASE_URL/atom.xml" },
+]
+
+
+[[extra.menu]]
+name = "Projects"
+url = "$BASE_URL/projects"
+
+[[extra.menu]]
+name = "Posts"
+url = "$BASE_URL/posts"
+
+[[extra.menu]]
+name = "About"
+url = "$BASE_URL/about"
+
+# The page footer options.
+[extra.footer]
+since = 2017
+license = "CC BY-SA 4.0"
+license_url = "https://creativecommons.org/licenses/by-sa/4.0/deed"
