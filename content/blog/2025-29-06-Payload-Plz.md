@@ -432,7 +432,7 @@ This payload is great but it doesn't work anymore for the Brainfuck category. A 
 
 ## Conclusion
 
-Now that the event is over, the solutions are displayed in the scoreboard, I'm ashamed too see that you could bypass the XPATH with a simple `anything"]|*?>`. Maybe o4-mini wasn't the right call to solve this part, next time I will use my brain :sweat_smile:.
+Now that the event is over and the scoreboard shows the official solutions, I’m slightly ashamed to admit you could bypass the XPath challenge with a simple `anything"]|*?>`. Maybe o4-mini wasn't the right call to solve this part, next time I will use my brain :sweat_smile:.
 
 Here are the last adjustments to complete the 13 challenges in one-shot:
 
