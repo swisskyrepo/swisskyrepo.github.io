@@ -2,6 +2,7 @@
 
 ```ps1
 $ pacman -S zola
+$ git submodule update --init --recursive
 $ zola init myblog
 $ zola serve --interface 192.168.1.XX
 ```
