@@ -4,6 +4,7 @@ description = "List of posts"
 path = "posts"
 +++
 
+* **30 Jun 2025** // [LeHack 2025 - PayloadPLZ](/blog/payload-plz/)
 * **02 Oct 2024** // [Anatomy of Pokemon glitches](/blog/pokemon-glitches)
 * **13 Jun 2024** // [SSRFmap - Introducing the AXFR module](/blog/ssrfmap-axfr)
 * **04 Feb 2024** // [Ph0wn CTF 2019 - Flag Digger](/blog/ph0wn-flag-digger)
@@ -14,9 +15,9 @@ path = "posts"
 * **26 Dec 2019** // [DVID - Damn Vulnerable IoT Device](/blog/dvid)
 * **14 Dec 2019** // [Ph0wn CTF 2019 - Smart Devices CTF](/blog/ph0wn-ctf)
 * **26 Nov 2019** // [UYBHYS - Sea Monster Attack & Defense CTF](/blog/seamonsterctf)
-* **22 Jun 2019** // [HIP19 Writeup - Meet Your Doctor 1,2,3](/blog/2019-6-22-hip19-meetyourdoctor)
+* **22 Jun 2019** // [HIP19 Writeup - Meet Your Doctor 1,2,3](/blog/hip19-meetyourdoctor)
 * **23 Dec 2018** // [SIGSEGV1 Writeup - MD Auth](/blog/sigsegv-md-auth)
-* **14 Aug 2018** // [An XSS Story](/blog/2018-8-14-an-xss-story)
-* **18 Jan 2018** // [WHID Injector - Tips and Tricks](/blog/2018-1-18-whidinjector)
-* **08 Nov 2017** // [French Croissant - or why you need to lock your computer](/blog/2017-11-8-frenchcroissant)
-* **07 Nov 2017** // [ECW CTF - Web Writeups](/blog/2017-11-7-ecw-ctf)
+* **14 Aug 2018** // [An XSS Story](/blog/an-xss-story)
+* **18 Jan 2018** // [WHID Injector - Tips and Tricks](/blog/whidinjector)
+* **08 Nov 2017** // [French Croissant - or why you need to lock your computer](/blog/frenchcroissant)
+* **07 Nov 2017** // [ECW CTF - Web Writeups](/blog/ecw-ctf)

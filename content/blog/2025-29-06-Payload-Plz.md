@@ -424,6 +424,16 @@ I also discovered too late that it was possible to merge the SQL injections and 
 <?or 1 union select flag,null,0 from flag--＇ union select flag,null,null from flag--?><!DOCTYPE root [<!ENTITY test SYSTEM 'file:///dev/shm/flag.txt'>]><root>&test;</root>
 ```
 
+It works because the `?` is interpreted as `NULL`, and a bitshift with `NULL` is allowed and returns `NULL`.
+
+```sql
+sql> SELECT 10 << NULL
+NULL
+
+sql> SELECT 10 << ?
+NULL
+```
+
 This payload is great but it doesn't work anymore for the Brainfuck category. A simple fix is to add a ">" at the start. Let's also reduce the size of the XXE by renaming the tags.
 
 ```ps1
