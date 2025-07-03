@@ -1,0 +1,365 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>DLS 2024 - RedTeam Fails - "Oops my bad I ruined the operation" | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="DLS 2024 - RedTeam Fails - &quot;Oops my bad I ruined the operation&quot;" />
+  <meta name="description" content="Recently I had the pleasure to give a rump during the &quot;Drink Love Share&quot; meet organized by TheLaluka. This blog post will delve deeper into the topic.This rump told the tale of a little Dino starting …" />
+  <meta property="og:description" content="Recently I had the pleasure to give a rump during the &quot;Drink Love Share&quot; meet organized by TheLaluka. This blog post will delve deeper into the topic.This rump told the tale of a little Dino starting in the red team industries" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/drink-love-share-rump/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2024-01-15T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/DrinkLoveShare24/rump_redteam_dino-0.jpg" />
+  <meta property="og:image:alt" content="DLS 2024 - RedTeam Fails" />
+  <meta property="og:image:width" content="960" />
+  <meta property="og:image:height" content="540" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">DLS 2024 - RedTeam Fails - &quot;Oops my bad I ruined the operation&quot;</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-01-15T00:00:00+00:00">2024-01-15</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H9M0S">9&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/DrinkLoveShare24/rump_redteam_dino-0.jpg"
+      alt="DLS 2024 - RedTeam Fails"
+      width="960"
+      height="540"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#build-the-infrastructure">Build The Infrastructure</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#phishing-attempt">Phishing Attempt</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#ioc-party">IOC Party</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#common-mistakes">Common Mistakes</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#dinosaurs-thinks-in-graphs">Dinosaurs Thinks In Graphs</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#lightweight-dinosaurs-access-protocol">Lightweight Dinosaurs Access Protocol</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#ioc-party-2">IOC Party 2</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#pivoting-to-the-clouds">Pivoting To The Clouds</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/#references">References</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Recently I had the pleasure to give a rump during the "Drink Love Share" meet organized by <a href="https://twitter.com/TheLaluka">TheLaluka</a>. This blog post will delve deeper into the topic.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-0.jpg" alt="" /></p>
+<p>This rump told the tale of a little Dino starting in the red team industries.</p>
+<span id="continue-reading"></span><h2 id="build-the-infrastructure">Build The Infrastructure</h2>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-1.jpg" alt="" /></p>
+<p>Our Dino started his assessment like everybody by provisioning several servers, at least one C2, Redirector, Phishing.
+He also bought a domain "dinosrv.com and requested some HTTPS certificate for its infrastructure because he likes to have 🔒 on his phishing pages.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-2.jpg" alt="" /></p>
+<p>But he already did some mistakes and requested certificates for the whole infrastructure using Let's Encrypt. And by doing so, he leaked the C2 server "dinostrike.dinosrv.com", the phishing infrastructure "meteorcorp.gophish.dinosrv.com" and more importantly he also used the client name in the subdomain "microsoft.dinosrv.com".</p>
+<p>Many companies will have proactive phishing detections in place which can query the Certificate Transparency for specific keywords linked to them. You can try it yourself by clicking the "OPEN THE FIRE HOSE" button on <a href="https://certstream.calidog.io">certstream.calidog.io</a>.</p>
+<p>As a general guideline, it is highly recommended to avoid any links or references to the targeted company. You can also limit the certificate exposure by requesting a "wildcard" certificate: <code>*.dinosrv.com</code>.</p>
+<h2 id="phishing-attempt">Phishing Attempt</h2>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-3.jpg" alt="" /></p>
+<p>However our little dino didn't care about those mistakes and continued its phishing deployment. He installed and configured a basic Gophish instance.
+And that is his second <strong>critical mistake</strong>.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-4.jpg" alt="" /></p>
+<p>By default Gophish comes with pre-configured indicators of compromise (IOC):</p>
+<ul>
+<li>Every email sent will contain a phishing with a <code>rid</code> parameter to identify the target: <a href="https://github.com/gophish/gophish/blob/8e79294413932fa302212d8e785b281fb0f8896d/models/campaign.go#L130">campaign.go#L130</a></li>
+<li>The default server name used in the transparency response is <code>gophish</code>: <a href="https://github.com/gophish/gophish/blob/8e79294413932fa302212d8e785b281fb0f8896d/config/config.go#L46">config.go#L46</a> e.g: <code>msg.SetHeader("X-Mailer", config.ServerName)</code></li>
+<li>Finally you also send the <code>X-Gophish-Contact</code> header indicating your email and that you are using Gophish: <a href="https://github.com/gophish/gophish/blob/8e79294413932fa302212d8e785b281fb0f8896d/models/email_request.go#L123">email_request.go#L123</a></li>
+</ul>
+<p>As a general guideline you should always check the source code for potential detection sinks and backdoors. It is not always a good idea to use the easiest click and deploy method, take some time to review and test your infrastructure.</p>
+<p>Also, the IOC mentionned in this blogpost can appear in several in the Gophish source code, don't forget to find and delete them all 😉.</p>
+<h2 id="ioc-party">IOC Party</h2>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-5.jpg" alt="" /></p>
+<p>Our little dino sent the phishing emails with his fresh infrastructure and started to get some shells back.
+For the story sake, we won't focus on how the beacons were generated and why customers clicked on the binary. Let's say they are very willing to be compromised.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-6.jpg" alt="" /></p>
+<p>Yay a lot of shell sessions came back to our C2 infrastructure, little dino is quite happy, but something smells fishy. Why is there so many different machines, who is Johnny Cage and why the process is <code>malwar.exe</code> ? Also why does the beacon die after 10 seconds and a new one appear ?</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-7.jpg" alt="" /></p>
+<p>After investigating, our little dino came to the conclusion: someone is sharing the binary and he is starting to get shells outside of the targeted organization.</p>
+<p>In fact, many mistakes and misconfigurations were done. For starter, the <code>host staging</code> feature was enabled in his Command and Control server. This allows the beacon to request the second part of the payload from the server, while it seems to be a nice feature to send a small binary without too much detections, this is also a way for investigators to get the second part of the shellcode. More details on how to extract the full shellcode here: <a href="https://blog.securehat.co.uk/cobaltstrike/extracting-config-from-cobaltstrike-stager-shellcode">Cobalt Strike Staging and Extracting Configuration Information - @FranticTyping</a></p>
+<p>In a nutshell, you can generate a valid checksum8 URI to get the shellcode using this Python code.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#b48ead;">import </span><span>rstr
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">generate_checksum8_uri</span><span>(</span><span style="color:#bf616a;">arch</span><span>):
+</span><span>    value = </span><span style="color:#d08770;">0
+</span><span>    </span><span style="color:#b48ead;">while </span><span>value != arch:
+</span><span>        rand = rstr.</span><span style="color:#bf616a;">xeger</span><span>(</span><span style="color:#b48ead;">r</span><span>&#39;</span><span style="color:#d08770;">[A-Za-z0-9]</span><span>{4}&#39;)
+</span><span>        value = (</span><span style="color:#96b5b4;">sum</span><span>([</span><span style="color:#96b5b4;">ord</span><span>(ch) </span><span style="color:#b48ead;">for </span><span>ch </span><span style="color:#b48ead;">in </span><span>rand]) % </span><span style="color:#d08770;">0x100</span><span>)
+</span><span>    </span><span style="color:#b48ead;">return </span><span>&quot;</span><span style="color:#a3be8c;">/</span><span>&quot; + </span><span style="color:#bf616a;">str</span><span>(rand)
+</span><span>
+</span><span>x64_uri = </span><span style="color:#bf616a;">generate_checksum8_uri</span><span>(</span><span style="color:#d08770;">93</span><span>)
+</span><span style="color:#96b5b4;">print</span><span>(&quot;</span><span style="color:#a3be8c;">Generated x64 URI: </span><span style="color:#d08770;">%s</span><span>&quot; %(x64_uri))
+</span></code></pre>
+<h2 id="common-mistakes">Common Mistakes</h2>
+<p>Here are some common errors that can ruin your op:</p>
+<ul>
+<li>Uploading your payload on VirusTotal or letting the antivirus send the samples from your Virtual Machines</li>
+<li>Allowing anyone to contact your infrastructure, at least put some geographical limitation. In a better scenario, you should allow only your Team and Customer IPs.</li>
+<li>Use a redirector, don't expose your C2 TLS stack to the web. JA3, JA3S and JARM are different fingerprint methods targeting the SSL/TLS layer.</li>
+<li>Don't use the default configuration of the beacon, either simulate an attacker with a specific configuration or create your own: <a href="https://raw.githubusercontent.com/threatexpress/malleable-c2/master/jquery-c2.4.9.profile">threatexpress/malleable-c2/jquery-c2.4.9.profile</a></li>
+</ul>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-8.jpg" alt="" /></p>
+<p>Going back to our story, our little dino executed the command <code>whoami.exe</code> to know the username of the compromised user. However this is worst way to know this information as this is an easily signatured behavior <a href="https://github.com/elastic/detection-rules/blob/24d5528ab0f8fe0eac74b9a5ae1b1f92ec314443/rules/windows/discovery_whoami_command_activity.toml#L12">elastic/detection-rules/discovery_whoami_command_activity</a></p>
+<p>Here are some pointers to do it without spawning <code>whoami</code>,</p>
+<ul>
+<li>List your kerberos tickets</li>
+<li>Look for the owner of the process that spawned your beacon</li>
+<li>List your environment variables: <code>dir env:</code> and <code>dir env:USERNAME</code></li>
+<li>Use a beacon object file (BOF) to bring your own whoami: <a href="https://github.com/trustedsec/CS-Situational-Awareness-BOF/blob/master/src/SA/whoami/entry.c">trustedsec/CS-Situational-Awareness-BOF/whoami</a></li>
+</ul>
+<p>There are other way, just be creative 🦖</p>
+<h2 id="dinosaurs-thinks-in-graphs">Dinosaurs Thinks In Graphs</h2>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-9.jpg" alt="" /></p>
+<p>Now that we got our initial access, our little dino is going to enumerate the network and the Active Directory.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-10.jpg" alt="" /></p>
+<p>He used the famous BloodHound collector <a href="https://github.com/BloodHoundAD/SharpHound">BloodHoundAD/SharpHound</a>, but he should have run it from the memory using the command <code>execute-assembly</code> instead of dropping the binary on the disk.</p>
+<h2 id="lightweight-dinosaurs-access-protocol">Lightweight Dinosaurs Access Protocol</h2>
+<p>Also the output of the collector can be detected (output.json, domain.json, etc).</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-11.jpg" alt="" /></p>
+<p>BloodHound indicated that we can use the Kerberoasting attack against several accounts.</p>
+<blockquote>
+<p>Any valid domain user can request a kerberos ticket (ST) for any domain service. Once the ticket is received, password cracking can be done offline on the ticket to attempt to break the password for whatever user the service is running as. - <a href="https://swisskyrepo.github.io/InternalAllTheThings/active-directory/ad-roasting-kerberoasting/">InternalAllTheThings</a></p>
+</blockquote>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-12.jpg" alt="" /></p>
+<p>Armed from the best tools in his arsenal, little dino is running the Kerberoasting module. But this will generate a lot of noises because it doesn't target a single account by default.</p>
+<p>The LDAP query is using a wildcard to find the service principal name
+: <code>"(&amp;(servicePrincipalName=*)(UserAccountControl:1.2.840.113556.1.4.803:=512)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectCategory=computer)))"</code> - <a href="https://github.com/Pennyw0rth/NetExec/blob/5f29e661b7e2f367faf2af7688f777d8b2d1bf6d/nxc/protocols/ldap.py#L931">ldap.py</a>. It might pick up honeypot Service Account.</p>
+<p>You should also keep in mind the encryption method used for the ticket.</p>
+<ul>
+<li>Kerberos RC4 - <strong>Default</strong> (Ticket Encryption Type = 0x17)</li>
+<li>AES (Ticket Encryption Type = 0x12)</li>
+</ul>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-13.jpg" alt="" /></p>
+<h2 id="ioc-party-2">IOC Party 2</h2>
+<p>Finally, our dino managed to crack some hashes and retrieve their password. It is now time to move onto another machines and services.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-14.jpg" alt="" /></p>
+<p>Impacket is a great suite of scripts, but you have to know their behavior before executing them, otherwise you will get caught like our little dino.</p>
+<p>Here is some common pitfalls:</p>
+<ul>
+<li><code>smbexec.py</code> is using a service to execute commands. In the earliest version, it was named <code>BTOBTO</code> but it has now 8 random characters.</li>
+<li><code>psexec.py</code> is still based on a well known service released on January 2012. 10+ years later, we have a lot of detection based on that <a href="https://github.com/kavika13/RemCom">kavika13/RemComSvc</a></li>
+<li><code>wmiexec.py</code> is not better, every command will be prefixed with <code>cmd.exe /Q /c</code>. <a href="https://github.com/fortra/impacket/blob/master/examples/wmiexec.py#L127">Ref: wmiexec.py#L127</a></li>
+</ul>
+<p>As a general guideline it is always better to blend in and use the same tools used by infra/dev/internal team, which could be anything: RDP, WinRM/PS Remoting, etc.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-15.jpg" alt="" /></p>
+<p>After some long pivoting sessions, it was time for the best dino in town to dump the holy grail: the <code>ntds database</code>.</p>
+<p>However, here are some tips to know when doing a DCSync:</p>
+<ul>
+<li>The replication is always done between 2 Domain Controllers which are Machine Accounts. Don't do it with a user account, remember that you can still create 10 machine accounts if needed. 🍿</li>
+<li>You don't need to dump the whole database, the account <code>krbtgt</code> will grant you every access you need.</li>
+</ul>
+<h2 id="pivoting-to-the-clouds">Pivoting To The Clouds</h2>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-16.jpg" alt="" /></p>
+<p>After compromising the entire internal network, our dino couldn't leave without poking at the cloud. He discovered some credentials in the desktop of an employee.</p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-17.jpg" alt="" /></p>
+<p>In theory, he only had to use the credential with the <code>aws cli</code> to connect to the Amazon Web Service API.</p>
+<p>But you shouldn't do it from a Kali,Parrot or Pentoo machine, because the Boto3 library used by the AWS binary is generating a user-agent based on the platform: 6.5.0-kali3-amd64 in our example. <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types-iam.html#pentest-iam-kalilinux">GuardDuty IAM finding types</a></p>
+<p><img src="/images/DrinkLoveShare24/rump_redteam_dino-18.jpg" alt="" /></p>
+<p>And it's <strong>Game Over</strong> for our dino, he got caught by the Blue Dinos. Next time he will be more stealthy and move like a ninja 🥷</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=BmPIFRT0NHI">DrinkLoveShare V1 - Rump Session - TheLaluka - 19 janv. 2024</a></li>
+<li><a href="https://swisskyrepo.github.io/files/DLS24-red-team-fails-dino.pdf">DrinkLoveShare V1 - Slides DLS24-red-team-fails-dino.pdf</a></li>
+<li><a href="https://www.sprocketsecurity.com/resources/never-had-a-bad-day-phishing-how-to-set-up-gophish-to-evade-security-controls">Never had a bad day phishing. How to set up GoPhish to evade security controls - Nicholas Anastasi - Jun 30, 2021</a></li>
+<li><a href="https://bank-security.medium.com/hunting-cobalt-strike-servers-385c5bedda7b">Hunting Cobalt Strike Servers - Bank Security - May 12, 2022</a></li>
+<li><a href="https://adsecurity.org/?p=3513">Detecting Kerberoasting Activity Part 2 – Creating a Kerberoast Service Account Honeypot -  Sean Metcalf - 08 FEB 2017</a></li>
+<li><a href="https://medium.com/@george.fekkas/quick-and-dirty-cloudtrail-threat-hunting-log-analysis-b64af10ef923">Quick and Dirty CloudTrail Threat Hunting Log Analysis - George Fekkas - Jan 25, 2021</a></li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/ph0wn-flag-digger/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>Ph0wn CTF 2019 - Flag Digger</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/" accesskey="."
+    ><span>Offensive Nim - Auto Obfuscate Strings with Nim&#x27;s Term-Rewriting Macros</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

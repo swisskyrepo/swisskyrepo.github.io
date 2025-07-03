@@ -1,0 +1,454 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>WHID Injector - Tips and Tricks | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="WHID Injector - Tips and Tricks" />
+  <meta name="description" content="What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber…" />
+  <meta property="og:description" content="What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber Ducky payload converter, an exfiltrated data tab and many more.What can I do ? Everything you could…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/whidinjector/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/whidinjector/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2018-01-18T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/whid.jpg" />
+  <meta property="og:image:alt" content="WHID Injector - Tips and Tricks" />
+  <meta property="og:image:width" content="4000" />
+  <meta property="og:image:height" content="3000" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">WHID Injector - Tips and Tricks</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2018-01-18T00:00:00+00:00">2018-01-18</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H4M0S">4&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/whid.jpg"
+      alt="WHID Injector - Tips and Tricks"
+      width="4000"
+      height="3000"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#basic-setup">Basic Setup</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#build-your-own-firmware-do-not-trust-the-fishy-chinese-firmware-from-internet-p">Build your own firmware (do not trust the fishy chinese firmware from internet :P)</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#setup-arduino-ide">Setup Arduino IDE</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#customized-keyboard-mapping">Customized keyboard mapping</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#update-arduino-component">Update Arduino Component</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#update-esploitv2">Update ESPloitV2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#holy-sh-t-i-bricked-my-device">Holy sh*t, I bricked my device</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/whidinjector/#play-time">Play time</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber Ducky payload converter, an exfiltrated data tab and many more.</p>
+<p>What can I do ? Everything you could do with a keyboard plugged into a computer, for example : using <a href="https://github.com/swisskyrepo/WHID_Toolkit">WHID Toolkit</a> you can spawn a reverse-shell :D</p>
+<p>Where to buy a WHID Injector ? I got mine from <a href="https://www.aliexpress.com/item/Cactus-Micro-compatible-board-plus-WIFI-chip-esp8266-for-atmega32u4/32318391529.html">Aliexpress</a>, it's also available on ebay around 15+ $ ;)</p>
+<span id="continue-reading"></span><h2 id="basic-setup">Basic Setup</h2>
+<p>First you need to connect the web server hosted on "http://192.168.1.1", only reachable over the <code>Exploit Wifi</code>. Use the following default credentials to connect to the AP.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">SSID </span><span>&quot;</span><span style="color:#a3be8c;">Exploit</span><span>&quot;
+</span><span style="color:#bf616a;">Password </span><span>&quot;</span><span style="color:#a3be8c;">DotAgency</span><span>&quot;
+</span></code></pre>
+<p>When you want to update/upgrade some components you will have to login with these credentials.
+The default administration</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">username </span><span>&quot;</span><span style="color:#a3be8c;">admin</span><span>&quot;
+</span><span style="color:#bf616a;">password </span><span>&quot;</span><span style="color:#a3be8c;">hacktheplanet</span><span>&quot;
+</span></code></pre>
+<h2 id="build-your-own-firmware-do-not-trust-the-fishy-chinese-firmware-from-internet-p">Build your own firmware (do not trust the fishy chinese firmware from internet :P)</h2>
+<h3 id="setup-arduino-ide">Setup Arduino IDE</h3>
+<p>One who buys an electronic usb stick online might want to change the firmware in order to get rid of a backdoor, or just to upgrade it.</p>
+<ol>
+<li>Download and Install the Arduino IDE from http://www.arduino.cc</li>
+<li>Go to File - Preferences. Locate the field "Additional Board Manager URLs:"</li>
+<li>Add http://arduino.esp8266.com/stable/package_esp8266com_index.json or https://github.com/esp8266/Arduino/releases/download/2.3.0/package_esp8266com_index.json if an error occured.</li>
+<li>Select Tools - Board - Boards Manager. Search for "esp8266".</li>
+<li>Install "esp8266 by ESP8266 community version 2.3.0".</li>
+</ol>
+<p>If it's not enough I saw someone installing the following ;)</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">Select</span><span> Sketch - Include Library - Manage Libraries. Search for &quot;</span><span style="color:#a3be8c;">Json</span><span>&quot;.
+</span><span style="color:#bf616a;">Install </span><span>&quot;</span><span style="color:#a3be8c;">ArduinoJson by Benoit Blanchon version 5.11.0</span><span>&quot; and click &quot;</span><span style="color:#a3be8c;">Close</span><span>&quot;  
+</span><span style="color:#bf616a;">Download</span><span> https://github.com/exploitagency/esp8266FTPServer/archive/feature/bbx10_speedup.zip
+</span><span style="color:#bf616a;">Click</span><span> Sketch - Include Library - Add .ZIP Library and select bbx10_speedup.zip from your Downloads folder.
+</span></code></pre>
+<h3 id="customized-keyboard-mapping">Customized keyboard mapping</h3>
+<p>If you are french you might want a french keyboard with AZERTY mapping, unfortunately this isn't the default behavior of the WHiD Injector. Now we will modify the file <code>Keyboard.cpp</code> to replace the english charset with a french one.</p>
+<ol>
+<li>git clone https://github.com/exploitagency/ESPloitV2.git</li>
+<li>Go back inside the arduino folder and open <code>arduino-1.8.4/libraries/Keyboard/src/Keyboard.cpp</code></li>
+<li>Replace the <code>_asciimap</code> with this one</li>
+</ol>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">const </span><span>uint8_t _asciimap[</span><span style="color:#d08770;">128</span><span>] =
+</span><span>{
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// NUL
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// SOH
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// STX
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// ETX
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// EOT
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// ENQ
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// ACK  
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// BEL
+</span><span>	</span><span style="color:#d08770;">0x2a</span><span>,			</span><span style="color:#65737e;">// BS	Backspace
+</span><span>	</span><span style="color:#d08770;">0x2b</span><span>,			</span><span style="color:#65737e;">// TAB	Tab
+</span><span>	</span><span style="color:#d08770;">0x28</span><span>,			</span><span style="color:#65737e;">// LF	Enter
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// VT
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// FF
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// CR
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// SO
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// SI
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// DEL
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// DC1
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// DC2
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// DC3
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// DC4
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// NAK
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// SYN
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// ETB
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// CAN
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// EM
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// SUB
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// ESC
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// FS
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// GS
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// RS
+</span><span>	</span><span style="color:#d08770;">0x00</span><span>,             </span><span style="color:#65737e;">// US
+</span><span>
+</span><span>	</span><span style="color:#d08770;">0x2c</span><span>,		   </span><span style="color:#65737e;">//  &#39; &#39;
+</span><span>	</span><span style="color:#d08770;">0x38</span><span>,	   </span><span style="color:#65737e;">// !
+</span><span>	</span><span style="color:#d08770;">0x20</span><span>,    </span><span style="color:#65737e;">// &quot;
+</span><span>	</span><span style="color:#d08770;">0x20</span><span>,    </span><span style="color:#65737e;">// # :TODO
+</span><span>	</span><span style="color:#d08770;">0x30</span><span>,    </span><span style="color:#65737e;">// $
+</span><span>	</span><span style="color:#d08770;">0x34</span><span>|SHIFT,    </span><span style="color:#65737e;">// %
+</span><span>	</span><span style="color:#d08770;">0x1E</span><span>,    </span><span style="color:#65737e;">// &amp;
+</span><span>	</span><span style="color:#d08770;">0x21</span><span>,          </span><span style="color:#65737e;">// &#39;
+</span><span>	</span><span style="color:#d08770;">0x22</span><span>,    </span><span style="color:#65737e;">// (
+</span><span>	</span><span style="color:#d08770;">0x2d</span><span>,    </span><span style="color:#65737e;">// )
+</span><span>        </span><span style="color:#d08770;">0x31</span><span>,    </span><span style="color:#65737e;">// * : done
+</span><span>	</span><span style="color:#d08770;">0x2b</span><span>|SHIFT,    </span><span style="color:#65737e;">// +
+</span><span>	</span><span style="color:#d08770;">0x10</span><span>,          </span><span style="color:#65737e;">// ,
+</span><span>	</span><span style="color:#d08770;">0x23</span><span>,          </span><span style="color:#65737e;">// -
+</span><span>	</span><span style="color:#d08770;">0x36</span><span>|SHIFT,    </span><span style="color:#65737e;">// .
+</span><span>	</span><span style="color:#d08770;">0x37</span><span>|SHIFT,    </span><span style="color:#65737e;">// /
+</span><span>	</span><span style="color:#d08770;">0x27</span><span>|SHIFT,    </span><span style="color:#65737e;">// 0
+</span><span>	</span><span style="color:#d08770;">0x1e</span><span>|SHIFT,    </span><span style="color:#65737e;">// 1
+</span><span>	</span><span style="color:#d08770;">0x1f</span><span>|SHIFT,    </span><span style="color:#65737e;">// 2
+</span><span>	</span><span style="color:#d08770;">0x20</span><span>|SHIFT,    </span><span style="color:#65737e;">// 3
+</span><span>	</span><span style="color:#d08770;">0x21</span><span>|SHIFT,    </span><span style="color:#65737e;">// 4
+</span><span>	</span><span style="color:#d08770;">0x22</span><span>|SHIFT,    </span><span style="color:#65737e;">// 5
+</span><span>	</span><span style="color:#d08770;">0x23</span><span>|SHIFT,    </span><span style="color:#65737e;">// 6
+</span><span>	</span><span style="color:#d08770;">0x24</span><span>|SHIFT,    </span><span style="color:#65737e;">// 7
+</span><span>	</span><span style="color:#d08770;">0x25</span><span>|SHIFT,    </span><span style="color:#65737e;">// 8
+</span><span>	</span><span style="color:#d08770;">0x26</span><span>|SHIFT,    </span><span style="color:#65737e;">// 9
+</span><span>	</span><span style="color:#d08770;">0x37</span><span>,          </span><span style="color:#65737e;">// :
+</span><span>	</span><span style="color:#d08770;">0x36</span><span>,          </span><span style="color:#65737e;">// ;
+</span><span>	</span><span style="color:#d08770;">0x64</span><span>,      </span><span style="color:#65737e;">// &lt; Done
+</span><span>	</span><span style="color:#d08770;">0x2e</span><span>,          </span><span style="color:#65737e;">// =
+</span><span>	</span><span style="color:#d08770;">0x64</span><span>|SHIFT,      </span><span style="color:#65737e;">// &gt; Done
+</span><span>	</span><span style="color:#d08770;">0x10</span><span>|SHIFT,      </span><span style="color:#65737e;">// ? 0x38 -&gt; 0x10 OK
+</span><span>	</span><span style="color:#d08770;">0x1f</span><span>,      </span><span style="color:#65737e;">// @ TODO
+</span><span>	</span><span style="color:#d08770;">0x14</span><span>|SHIFT,      </span><span style="color:#65737e;">// A
+</span><span>	</span><span style="color:#d08770;">0x05</span><span>|SHIFT,      </span><span style="color:#65737e;">// B
+</span><span>	</span><span style="color:#d08770;">0x06</span><span>|SHIFT,      </span><span style="color:#65737e;">// C
+</span><span>	</span><span style="color:#d08770;">0x07</span><span>|SHIFT,      </span><span style="color:#65737e;">// D
+</span><span>	</span><span style="color:#d08770;">0x08</span><span>|SHIFT,      </span><span style="color:#65737e;">// E
+</span><span>	</span><span style="color:#d08770;">0x09</span><span>|SHIFT,      </span><span style="color:#65737e;">// F
+</span><span>	</span><span style="color:#d08770;">0x0a</span><span>|SHIFT,      </span><span style="color:#65737e;">// G
+</span><span>	</span><span style="color:#d08770;">0x0b</span><span>|SHIFT,      </span><span style="color:#65737e;">// H
+</span><span>	</span><span style="color:#d08770;">0x0c</span><span>|SHIFT,      </span><span style="color:#65737e;">// I
+</span><span>	</span><span style="color:#d08770;">0x0d</span><span>|SHIFT,      </span><span style="color:#65737e;">// J
+</span><span>	</span><span style="color:#d08770;">0x0e</span><span>|SHIFT,      </span><span style="color:#65737e;">// K
+</span><span>	</span><span style="color:#d08770;">0x0f</span><span>|SHIFT,      </span><span style="color:#65737e;">// L
+</span><span>	</span><span style="color:#d08770;">0x33</span><span>|SHIFT,      </span><span style="color:#65737e;">// M
+</span><span>	</span><span style="color:#d08770;">0x11</span><span>|SHIFT,      </span><span style="color:#65737e;">// N
+</span><span>	</span><span style="color:#d08770;">0x12</span><span>|SHIFT,      </span><span style="color:#65737e;">// O
+</span><span>	</span><span style="color:#d08770;">0x13</span><span>|SHIFT,      </span><span style="color:#65737e;">// P
+</span><span>	</span><span style="color:#d08770;">0x04</span><span>|SHIFT,      </span><span style="color:#65737e;">// Q
+</span><span>	</span><span style="color:#d08770;">0x15</span><span>|SHIFT,      </span><span style="color:#65737e;">// R
+</span><span>	</span><span style="color:#d08770;">0x16</span><span>|SHIFT,      </span><span style="color:#65737e;">// S
+</span><span>	</span><span style="color:#d08770;">0x17</span><span>|SHIFT,      </span><span style="color:#65737e;">// T
+</span><span>	</span><span style="color:#d08770;">0x18</span><span>|SHIFT,      </span><span style="color:#65737e;">// U
+</span><span>	</span><span style="color:#d08770;">0x19</span><span>|SHIFT,      </span><span style="color:#65737e;">// V
+</span><span>	</span><span style="color:#d08770;">0x1d</span><span>|SHIFT,      </span><span style="color:#65737e;">// W
+</span><span>	</span><span style="color:#d08770;">0x1b</span><span>|SHIFT,      </span><span style="color:#65737e;">// X
+</span><span>	</span><span style="color:#d08770;">0x1c</span><span>|SHIFT,      </span><span style="color:#65737e;">// Y
+</span><span>	</span><span style="color:#d08770;">0x1a</span><span>|SHIFT,      </span><span style="color:#65737e;">// Z
+</span><span>	</span><span style="color:#d08770;">0x0c</span><span>,          </span><span style="color:#65737e;">// [ TODO 2F
+</span><span>	</span><span style="color:#d08770;">0x31</span><span>,          </span><span style="color:#65737e;">// bslash
+</span><span>	</span><span style="color:#d08770;">0x0d</span><span>,          </span><span style="color:#65737e;">// ] TODO 30
+</span><span>	</span><span style="color:#d08770;">0x2F</span><span>,    </span><span style="color:#65737e;">// ^
+</span><span>	</span><span style="color:#d08770;">0x25</span><span>,    </span><span style="color:#65737e;">// _
+</span><span>	</span><span style="color:#d08770;">0x35</span><span>,          </span><span style="color:#65737e;">// ` TODO
+</span><span>	</span><span style="color:#d08770;">0x14</span><span>,          </span><span style="color:#65737e;">// a
+</span><span>	</span><span style="color:#d08770;">0x05</span><span>,          </span><span style="color:#65737e;">// b
+</span><span>	</span><span style="color:#d08770;">0x06</span><span>,          </span><span style="color:#65737e;">// c
+</span><span>	</span><span style="color:#d08770;">0x07</span><span>,          </span><span style="color:#65737e;">// d
+</span><span>	</span><span style="color:#d08770;">0x08</span><span>,          </span><span style="color:#65737e;">// e
+</span><span>	</span><span style="color:#d08770;">0x09</span><span>,          </span><span style="color:#65737e;">// f
+</span><span>	</span><span style="color:#d08770;">0x0a</span><span>,          </span><span style="color:#65737e;">// g
+</span><span>	</span><span style="color:#d08770;">0x0b</span><span>,          </span><span style="color:#65737e;">// h
+</span><span>	</span><span style="color:#d08770;">0x0c</span><span>,          </span><span style="color:#65737e;">// i
+</span><span>	</span><span style="color:#d08770;">0x0d</span><span>,          </span><span style="color:#65737e;">// j
+</span><span>	</span><span style="color:#d08770;">0x0e</span><span>,          </span><span style="color:#65737e;">// k
+</span><span>	</span><span style="color:#d08770;">0x0f</span><span>,          </span><span style="color:#65737e;">// l
+</span><span>	</span><span style="color:#d08770;">0x33</span><span>,          </span><span style="color:#65737e;">// m
+</span><span>	</span><span style="color:#d08770;">0x11</span><span>,          </span><span style="color:#65737e;">// n
+</span><span>	</span><span style="color:#d08770;">0x12</span><span>,          </span><span style="color:#65737e;">// o
+</span><span>	</span><span style="color:#d08770;">0x13</span><span>,          </span><span style="color:#65737e;">// p
+</span><span>	</span><span style="color:#d08770;">0x04</span><span>,          </span><span style="color:#65737e;">// q
+</span><span>	</span><span style="color:#d08770;">0x15</span><span>,          </span><span style="color:#65737e;">// r
+</span><span>	</span><span style="color:#d08770;">0x16</span><span>,          </span><span style="color:#65737e;">// s
+</span><span>	</span><span style="color:#d08770;">0x17</span><span>,          </span><span style="color:#65737e;">// t
+</span><span>	</span><span style="color:#d08770;">0x18</span><span>,          </span><span style="color:#65737e;">// u
+</span><span>	</span><span style="color:#d08770;">0x19</span><span>,          </span><span style="color:#65737e;">// v
+</span><span>	</span><span style="color:#d08770;">0x1d</span><span>,          </span><span style="color:#65737e;">// w
+</span><span>	</span><span style="color:#d08770;">0x1b</span><span>,          </span><span style="color:#65737e;">// x
+</span><span>	</span><span style="color:#d08770;">0x1c</span><span>,          </span><span style="color:#65737e;">// y
+</span><span>	</span><span style="color:#d08770;">0x1a</span><span>,          </span><span style="color:#65737e;">// z
+</span><span>	</span><span style="color:#d08770;">0x2f</span><span>|SHIFT,    </span><span style="color:#65737e;">//
+</span><span>	</span><span style="color:#d08770;">0x31</span><span>|SHIFT,    </span><span style="color:#65737e;">// | TODO
+</span><span>	</span><span style="color:#d08770;">0x30</span><span>|SHIFT,    </span><span style="color:#65737e;">// } TODO
+</span><span>	</span><span style="color:#d08770;">0x35</span><span>|SHIFT,    </span><span style="color:#65737e;">// ~ TODO
+</span><span>	</span><span style="color:#d08770;">0				</span><span style="color:#65737e;">// DEL
+</span><span>};
+</span></code></pre>
+<h3 id="update-arduino-component">Update Arduino Component</h3>
+<p>Let's build the Arduino project, open the <code>Arduino_32u4_code</code> in the folder ESPloitV2.<br />
+In the IDE choose these options:</p>
+<ul>
+<li>Select Tools - Board : <code>LilyPad Arduino USB</code>.</li>
+<li>Select Tools - Port : <code>/dev/ttyACM0</code></li>
+<li>Build and upload the sketch (you might need superprivilege)</li>
+</ul>
+<h3 id="update-esploitv2">Update ESPloitV2</h3>
+<p>Creating a custom firmware is the only way to modify the UI, to do so you will need to open the <code>ESP_Code</code> sketch:</p>
+<ul>
+<li>Open the ESP_Code sketch from the source folder.</li>
+<li>Select Tools - Board - "Generic ESP8266 Module". (Previously installed)</li>
+<li>Select Tools - Flash Size - "4M (3M SPIFFS)". (You need this, otherwise the IDE will throw an error about size)</li>
+<li>Select Sketch - "Export Compiled Binary".</li>
+</ul>
+<p>The firmware is now available in your <code>/tmp/arduino_build_XXXXXX/*.bin</code>. The <code>upgrade firmware</code> function in the panel at 192.168.1.1 will upload the <code>file.bin</code> and reboot the WHiD Injector.</p>
+<h3 id="holy-sh-t-i-bricked-my-device">Holy sh*t, I bricked my device</h3>
+<p>Chill my friend, this device is hard to brick. If you have messed really hard you can push the reset button.</p>
+<ul>
+<li>Open Arduino IDE and open ESP Programmer sketch</li>
+<li>Insert WHID</li>
+<li>Press Upload sketch and start the unbrick phase in the same time</li>
+</ul>
+<blockquote>
+<p>Start the unbrick phase with a magnet by placing it close that side of the PCB where the hall sensor is located (do it two times). Close-away-close-away</p>
+</blockquote>
+<h3 id="play-time">Play time</h3>
+<p>Here is a simple payload which will spawn a terminal in a remote computer, you can either run it inside the livepayload tab of the AP, or you can use the <a href="https://github.com/swisskyrepo/WHID_Toolkit">Whid Toolkit</a></p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">Simple</span><span> command execution :
+</span><span style="color:#bf616a;">Rem:Command</span><span> Execution (ALT+F2)
+</span><span style="color:#bf616a;">Press:130+195
+</span><span style="color:#bf616a;">CustomDelay:1000
+</span><span style="color:#bf616a;">Print:xterm
+</span><span style="color:#bf616a;">CustomDelay:1000
+</span><span style="color:#bf616a;">Press:176
+</span></code></pre>
+<p>Docs:</p>
+<ul>
+<li>https://camo.githubusercontent.com/11652f5ea3a5600654e558177a5311893392ee73/687474703a2f2f692e696d6775722e636f6d2f7041636c55544d2e6a7067</li>
+<li>http://www.zem.fr/utiliser-mouse-keyboard-azerty-arduino-pro-micro-teensy/</li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/an-xss-story/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>An XSS Story</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/frenchcroissant/" accesskey="."
+    ><span>French Croissant - or why you need to lock your computer</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

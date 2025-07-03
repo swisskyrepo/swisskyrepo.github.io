@@ -1,0 +1,472 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Anatomy of Pokemon glitches | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="Anatomy of Pokemon glitches" />
+  <meta name="description" content="Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time" />
+  <meta property="og:description" content="Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/pokemon-glitches/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/pokemon-glitches/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2024-10-02T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/PokemonGlitches/pikachu-yellow.png" />
+  <meta property="og:image:alt" content="Pokemon Glitches" />
+  <meta property="og:image:width" content="314" />
+  <meta property="og:image:height" content="283" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Anatomy of Pokemon glitches</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-10-02T00:00:00+00:00">2024-10-02</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H15M0S">15&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/PokemonGlitches/pikachu-yellow.png"
+      alt="Pokemon Glitches"
+      width="314"
+      height="283"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#why">Why</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#setup">Setup</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#pokemon-yellow">Pokemon Yellow</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#long-range-trainer-glitch">Long Range Trainer Glitch</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#dealing-with-the-side-effects">Dealing With the Side Effects</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#diving-into-the-shared-memory">Diving Into the Shared Memory</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#start-battle-weird-textbox">Start Battle &amp; Weird Textbox</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#experience-underflow">Experience Underflow</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#bonus-1-mew">BONUS 1 - MEW</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#bonus-2-prof-oak">BONUS 2 - Prof Oak</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/pokemon-glitches/#references">References</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time.</p>
+<p><img src="/images/PokemonGlitches/pikachu-yellow.png" alt="" /></p>
+<span id="continue-reading"></span><h2 id="why">Why</h2>
+<p>A few weeks ago I cleaned an old GameBoy Color and I bought cheap cartridges on AliExpress. They worked fine until my GameBoy battery died when I was saving the game. After rebooting the device, I discovered the save was corrupt and I lost 20+ hours...</p>
+<p>Then I opened my cartridges and discovered the internal battery was missing in this cheap reproduction. This means the game is using a <a href="https://github.com/acocalypso/batteryless-patches/tree/main/patches/GBC">batteryless</a> save patch.</p>
+<p><img src="/images/PokemonGlitches/battery-aliexpress.png" alt="" /></p>
+<blockquote>
+<p>A batteryless patch patches the ROM's save routine to dump the SRAM save to the ROM's flash chip, inside part of the ROM itself. It will also load back into SRAM when booted up. This means the game will temporarily freeze the system while it saves your game. But in the end, it saves you from ever needing to replace a battery in your cartridge, and you get peace of mind that your save won't ever just vanish someday from a dying battery.</p>
+</blockquote>
+<p>Here are a few key pointers about the battery in the GameBoy cartridge</p>
+<ul>
+<li>The batteries inside a Game Boy Color cart are to save the game onto a chip and hold the memory while the console is powered off.</li>
+<li>Your Game Boy Color cartridge battery life is approximately 15-20 years depending on the quality of the battery.</li>
+</ul>
+<p>However if something happens during the temporary freeze, then your data is gone. Since I was bound to start from zero, I wondered if I could use some glitches to speed up a bit my adventure.</p>
+<p>In this blog post I will dive into the inner workings of these glitches, and you will see that even as a 7 years old you were able to do some interesting memory manipulation and logic bug exploitation!</p>
+<h2 id="setup">Setup</h2>
+<p>Here are the requirements to follow along the blog post and replicate the glitches.</p>
+<ul>
+<li>The source code of Pokemon Yellow is available on GitHub, thanks to the pret team who reverse engineered 100% of the ROM: <a href="https://github.com/pret/pokeyellow">pret/pokeyellow</a></li>
+<li>ROM file of Pokemon Yellow, any version (US/Europe/Japanese) will work, this blog post was done with <code>d9290db87b1f0a23b89f99ee4469e34b</code></li>
+<li>Emulator with debugger: <a href="https://sameboy.github.io/posts/release-0.16.2">SameBoy 0.16.2</a></li>
+</ul>
+<p>Sameboy support symbol files, you can build the ROM and then put breakpoints on specific functions using their name. Here is the symbol file for the original Pokemon Yellow rom : <a href="https://raw.githubusercontent.com/pret/pokeyellow/symbols/pokeyellow.sym">pokeyellow.sym</a></p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span style="color:#65737e;"># breakpoint
+</span><span>&gt; b BattleTransition
+</span><span>Breakpoint </span><span style="color:#d08770;">1</span><span> set at BattleTransition ($</span><span style="color:#bf616a;">1c</span><span>:$</span><span style="color:#bf616a;">49d7</span><span>)
+</span><span>Breakpoint </span><span style="color:#d08770;">1</span><span>: PC = BattleTransition ($</span><span style="color:#bf616a;">49d7</span><span>)
+</span><span>BattleTransition:
+</span><span>  -&gt;49d7 &lt;</span><span style="color:#d08770;">+000</span><span>&gt;: LD a, $</span><span style="color:#bf616a;">01
+</span><span>    49d9 &lt;</span><span style="color:#d08770;">+002</span><span>&gt;: LDH [</span><span style="color:#b48ead;">hAutoBGTransferEnabled </span><span>&amp; $</span><span style="color:#bf616a;">FF</span><span>], a ; =$</span><span style="color:#bf616a;">ba
+</span><span>    49db &lt;</span><span style="color:#d08770;">+004</span><span>&gt;: CALL Delay3 ; =$</span><span style="color:#bf616a;">3ddb
+</span><span>    49de &lt;</span><span style="color:#d08770;">+007</span><span>&gt;: XOR a
+</span><span>    49df &lt;</span><span style="color:#d08770;">+008</span><span>&gt;: LDH [</span><span style="color:#b48ead;">hWY </span><span>&amp; $</span><span style="color:#bf616a;">FF</span><span>], a ; =$</span><span style="color:#bf616a;">b0
+</span><span>
+</span><span style="color:#65737e;"># display the content of the memory for the address
+</span><span>ex wViridianForestCurScript
+</span><span>ex $</span><span style="color:#bf616a;">cd2d
+</span></code></pre>
+<p>The following commands are a huge help when we want to debug our actions, pause the game or display the content of the memory at a specific address.</p>
+<table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td>registers</td><td>Print values of processor registers and other important registers</td></tr>
+<tr><td>backtrace</td><td>Display the current call stack</td></tr>
+<tr><td>print</td><td>Evaluate and print an expression</td></tr>
+<tr><td>examine</td><td>Examine values at address</td></tr>
+<tr><td>disassemble</td><td>Disassemble instructions at address</td></tr>
+<tr><td>breakpoint</td><td>Add a new breakpoint at the specified address/expression or range</td></tr>
+<tr><td>watch</td><td>Add a new watchpoint at the specified address/expression or range</td></tr>
+<tr><td>list</td><td>List all set breakpoints and watchpoints</td></tr>
+<tr><td>reset</td><td>Reset the program execution</td></tr>
+<tr><td>continue</td><td>Continue running until next stop</td></tr>
+<tr><td>interrupt</td><td>Interrupt the program execution</td></tr>
+</tbody></table>
+<h2 id="pokemon-yellow">Pokemon Yellow</h2>
+<p>In the game you start with one Pokemon, a <code>PIKACHU</code> at level 2, given by Professor Oak. You also get some $$ from your mother, you should keep it safe because we will need 550$ to buy an <code>Escape Rope</code> for one of the glitches below.</p>
+<h2 id="long-range-trainer-glitch">Long Range Trainer Glitch</h2>
+<p>The first glitch starts in the Viridian Forest, in order to reproduce it you have several requirements to met:</p>
+<ul>
+<li>Buy the <code>Escape Rope</code> (550 Poke$) at <code>Pewter City</code> mart.</li>
+<li>Do not battle the long-range trainer in the Viridian Forest.</li>
+</ul>
+<p>But what is a long-range trainer ? In Pokemon there are two types of trainer, the one that engage a battle when you talk to them, or walk nearby, and the one that will walk toward you. The latter have an exclamation mark displayed on the screen when they see you.</p>
+<p><img src="/images/PokemonGlitches/long-range-trainer-glitch.png" alt="" /></p>
+<p>Once they see you it will change 3 values in memory, to let the game know that a battle is started in this map.</p>
+<ul>
+<li><code>ViridianForestCurScript = 1</code></li>
+<li><code>Engaged by Trainer = 1</code> ($CD60)</li>
+<li><code>NPC is moving = 1</code> ($D730)</li>
+</ul>
+<p><img src="/images/PokemonGlitches/long-range-trainer-glitch-2.png" alt="" /></p>
+<p>But if you are fast enough, you can trigger an escape by using an item or an ability from the Start menu:</p>
+<ul>
+<li>Escape Rope (item)</li>
+<li>Fly (ability)</li>
+<li>Teleport (ability)</li>
+</ul>
+<p><img src="/images/PokemonGlitches/trainer-glitch-example.gif" alt="" /></p>
+<p>Every time you move the game calls the <code>OverworldLoopLessDelay</code> which will check several actions in a specific actions:</p>
+<ul>
+<li><code>checkIfStartIsPressed</code></li>
+<li><code>displayDialogue</code></li>
+<li><code>checkForOpponent</code></li>
+</ul>
+<p>As you can see, the game verify the <code>start</code> button before engaging the battle, allowing you to execute many actions from the <code>menu.</code></p>
+<p><img src="/images/PokemonGlitches/long-range-trainer-glitch-start.png" alt="" /></p>
+<p>⚠️ When you use the <code>Escape Rope</code>, you will get teleported to the last Pokemon Center you visited. But you will be locked out of any interactions since the <code>NPC is moving</code> flag has been activated. Furthermore the start button will not work anymore because the game thinks you are in a battle: <code>Engaged by Trainer = 1</code> ($CD60)</p>
+<h2 id="dealing-with-the-side-effects">Dealing With the Side Effects</h2>
+<p>There is a way to clear the <code>NPC is moving</code> flag in Pewter City, a kid will walk you to the Gym when you try to go the East of the city. The value of the first bit at the address <code>$D730</code> (<code>NPC is moving</code>) will be set back to <code>0</code> after the animation.</p>
+<p><img src="/images/PokemonGlitches/gadget-unset-bit-0.png" alt="" />
+<img src="/images/PokemonGlitches/npc-pewter-city.gif" alt="" /></p>
+<h2 id="diving-into-the-shared-memory">Diving Into the Shared Memory</h2>
+<p>Now we want to modify another value in memory located at <code>$CD2D</code> which correspond to the SPECIAL stat of the last Pokemon you encountered.</p>
+<p>At this point in the game you can either go in the grass to find a wild pokemon, but we won't know its SPECIAL stat (unless you print the content of the address in your debugger <code>ex $CD2D</code>). Doing the glitch that way will be tedious, and will force us to restart the device every time the value is not the one we want... Or we can initiate a battle against a trainer, they have a fixed pokemon, meaning they always have the same stats.</p>
+<p>Let's do it with the first trainer in the GYM, he has a <code>DIGGLET</code> with a special stat of 14 (<code>0x0e</code>). This value will have a direct impact on the next pokemon we will encounter (spoiler alert: it will be a <code>GENGAR</code>).</p>
+<p><img src="/images/PokemonGlitches/get-the-pokemon.png" alt="" /></p>
+<p>For Pokemon Red and Blue, there is a map of trainers and the next pokemon you will get. Small warning, the map is huge, <a href="https://puu.sh/257S">map by ryumaster</a>. You will quickly realize that the pokemons are not ordered using the Pokedex ID, for example: RYDHON is the first one, so if you want a specific pokemon you will need the following list:</p>
+<ul>
+<li><a href="https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_index_number_(Generation_I)">List of Pokémon by index number in Generation I - Bulbagarden</a></li>
+<li><a href="http://www.ocf.berkeley.edu/~jdonald/pokemon/mewglitch_files/rbydigit.txt">rbydigit.txt - ocf.berkeley.edu</a></li>
+</ul>
+<p>But why is the SPECIAL stat impacting the ID of the next Pokemon ? It lies within the <code>UNION</code> and <code>NEXTU</code> keywords used in the <code>ram/wram.asm</code> file to define how the memory is structured.</p>
+<ul>
+<li><strong>UNION</strong> is a directive that allows you to overlay multiple structures or data definitions in the same memory space.</li>
+<li><strong>NEXTU</strong> is used to move to the next structure or field within the same union space</li>
+</ul>
+<p>In short we have 3 structures that are using the same space in memory. This space has a size of 39 bytes.</p>
+<p><img src="/images/PokemonGlitches/memory-layout.gif" alt="" /></p>
+<p>The lower bytes of <code>wEnemyMonUnmodifiedSpecial</code> (<code>$CD2C $CD2D</code>) is located at the 31st bytes from the start of the structure, and it's also the case for <code>wEngagedTrainerClass</code>. It means they share the same address and content.</p>
+<p><code>wEngagedTrainerClass</code> correspond to the type of Trainer that is battling you, for example: "Youngster", "Bug Catcher", "Athlete", "Fisher", etc. And the <code>wEngagedTrainerSet</code> is the number of the trainer.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>wEngagedTrainerClass = </span><span style="color:#d08770;">201 </span><span>(</span><span style="color:#d08770;">0xC9</span><span>)
+</span><span>wEngagedTrainerSet = </span><span style="color:#d08770;">6
+</span><span style="color:#65737e;"># Youngster #6
+</span></code></pre>
+<p>But this is also used for wild Pokemon, the first variable is used to define the <strong>ID</strong>, and the second is the <strong>LEVEL</strong>.</p>
+<p>For example, the following data is a GENGAR level 35.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>wEngagedTrainerClass = </span><span style="color:#d08770;">14 </span><span>(</span><span style="color:#d08770;">0xe</span><span>)
+</span><span>wEngagedTrainerSet = </span><span style="color:#d08770;">35
+</span><span style="color:#65737e;"># Gengar LVL35
+</span></code></pre>
+<p>If you want to calculate manually the spaces displayed on the GIF, here are a remainder of the units:</p>
+<ul>
+<li><code>db</code> (Define Byte): 1 byte (8bits)</li>
+<li><code>dw</code> (Define Word): 2 bytes (16bits)</li>
+<li><code>ds</code> (Define Space): X bytes</li>
+</ul>
+<p><code>wMonEnemyAttackMod</code> is another good thing we can see in these memory structures as it is mapped in the same area as the <code>wEngagedTrainerSet</code>. If we find a way to alter this data, we can arbitrarily set the level of the next pokemon we get.</p>
+<p>Fortunately for us, there is another gadget we can use, it's the stat modifier. In Pokemon, every creature start with modifier set to 7 for the attack, speed, accuracy and other field.</p>
+<p>When some abilities are used, these modifiers will get their value either increased or decreased; with a respective cap of 13 and 1.</p>
+<p>In short we can alter the level from a range of 1 to 13. It can be done using the <code>Growl</code> ability, which decrease the attack modifier of the enemy by one stage.</p>
+<ul>
+<li>Range from 7 to 1 for down modifier (ATK ⬇️, DEF ⬇️, SPEED ⬇️)</li>
+<li>Range from 7 to 13 for up modifier (ATK ⬆️, DEF ⬆️, SPEED ⬆️)</li>
+</ul>
+<p>Here is a quick example of downgrading the ATK modifier to 1 using the <code>Growl</code> ability several times .</p>
+<p><img src="/images/PokemonGlitches/set-atk-mod-growl.gif" alt="" /></p>
+<p>Now the memory should look like this, after battling a wild pokemon anywhere between Pewter Gym and the Viridian Forest.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>wEngagedTrainerClass = </span><span style="color:#d08770;">14 </span><span>(</span><span style="color:#d08770;">0xe</span><span>)
+</span><span>wEngagedTrainerSet = </span><span style="color:#d08770;">1
+</span><span style="color:#65737e;"># Gengar LVL1
+</span></code></pre>
+<p>Quick note: The level can't go below 1 with this technique.</p>
+<p><img src="/images/PokemonGlitches/gadget-set-level.png" alt="" /></p>
+<h2 id="start-battle-weird-textbox">Start Battle &amp; Weird Textbox</h2>
+<p>Now it's time to trigger this battle with our GENGAR since we have tailored the memory to be the Pokemon #14 at the level 1. Going into the grass and getting attacked by wild Pokemon is not the correct way as it will update the fields <code>EnemyMonUnmodifiedSpecial</code> and <code>MonEnemyAttackMod</code> in the memory.</p>
+<p>Actually it is way easier than that, when we escaped the battle using the « <code>Escape Rope</code> », we put the meta-map script ID into an inconsistent state. <code>Meta-map scripts</code> are also called <code>GameProgressFlags</code>, its a list of events used to execute code on the current map. For example, on the first map you can't walk into the grass until you advance further into the story, it is disabled later by changing the ID of the meta-map script.</p>
+<p>By default the map of the Viridian Forest searches for trainers: <code>CheckFightingMapTrainers</code> (0), but we left it with <code>DisplayEnemyTrainerTextAndStartBattle</code> (1) when the « <code>!</code> » mark appeared before we "escape".</p>
+<p><img src="/images/PokemonGlitches/metaname-script-id.png" alt="" /></p>
+<p>By going back to the map, the meta-map script will still be <code>DisplayEnemyTrainerTextAndStartBattle</code>, and it will launch a new battle with the parameter we carefully modified in the memory.</p>
+<p><img src="/images/PokemonGlitches/gengar-lvl1-encounter.gif" alt="" /></p>
+<p>The textbox you get before the battle is the same ID as the last text box in memory, stored at the address <code>$CF13</code>.</p>
+<p>Depending on which choice you made to generate the next pokemon, it will have one of these values.</p>
+<ul>
+<li><strong>ID: 09</strong>: Talk to sign at the PokeCenter</li>
+<li><strong>ID: 02</strong>: GYM Trainer talk</li>
+<li><strong>ID: 05</strong>: NPC from Pewter City</li>
+</ul>
+<p><img src="/images/PokemonGlitches/textbox-list-map.png" alt="" /></p>
+<p>Here is another example, with the textbox: "Hi, do you have a PIKACHU"; corresponding to the ID <code>5</code> which means I only talked to the NPC from Pewter City and I didn't trigger the battle with the Trainer in the Gym.</p>
+<p><img src="/images/PokemonGlitches/textbox-pikachu.gif" alt="" /></p>
+<p>Capturing the Pokemon is left as an exercise for the reader. Even if it is a level 1, you will have to weaken him a lot, and I hope you have a lot of Pokeballs in your bag :P</p>
+<h2 id="experience-underflow">Experience Underflow</h2>
+<p>Now we are done with memory manipulations, we have captured our GENGAR. Let's talk a bit about <strong>Experience Algorithms</strong>.</p>
+<p>In Pokemon Red, Blue and Yellow, there are 6 experience algorithms but only 4 are really used in the code: <code>Medium Fast</code>, <code>Medium Slow</code>, <code>Fast</code> and <code>Slow</code>.</p>
+<p><img src="/images/PokemonGlitches/experience-algorithms.png" alt="" /></p>
+<p>Here is a list of Pokemons belonging to the <code>Medium Slow</code> group: BULBASAUR	, IVYSAUR, VENUSAUR, CHARMANDER, CHARMELEON, CHARIZARD, SQUIRTLE, WARTORTLE, BLASTOISE, PIDGEY, PIDGEOTTO, PIDGEOT, NIDORAN♀, NIDORINA, NIDOKING, NIDORAN♂, NIDORINO, NIDOQUEEN, ODDISH, GLOOM, VILEPLUME, POLIWAG, POLIWHIRL, POLIWRATH, ABRA	, KADABRA	, ALAKAZAM, MACHOP, MACHOKE, MACHAMP, BELLSPROUT, WEEPINBELL, VICTREEBEL, GEODUDE, GRAVLER, GOLEM, GASTLY, HAUNTER, GENGAR, MEW.</p>
+<p>Do you see the problem with the Polynomial Function used for this group ?</p>
+<p>Yes, the value is negative for the levels 0 and 1. This is an absolute horror since it will be stored inside an <code>unsigned integer</code>. This type of data doesn't care about the sign, so <code>-54 XP</code> will become <code>16 777 162 XP</code>.</p>
+<p>Despite the experience being for an extremely high level, you only need <code>1 059 860 XP</code> to get to level 100 for Pokemon in the <code>Medium Slow</code> group, and you can't go higher than 100.</p>
+<p><img src="/images/PokemonGlitches/math-experience-underflow.png" alt="" />
+<img src="/images/PokemonGlitches/python-experience-plot.png" alt="" /></p>
+<p>In short, if your level 1 Pokemon gains less than 54 XP, its current level will be computed from its previous XP. Do you recall how much it was ? Our pokemon had over 16 777 162 XP, getting level 100 in one battle !</p>
+<p><img src="/images/PokemonGlitches/gengar-level-100.gif" alt="" />
+<img src="/images/PokemonGlitches/gengar-lvl100.mp4" alt="" /></p>
+<p><strong>Pro tip</strong>: Don't fight with your level 1 Pokemon, it is mostly likely not strong enough (unless its a METAPOD, they don't do damage).</p>
+<h2 id="bonus-1-mew">BONUS 1 - MEW</h2>
+<p>These glitches can be used later in the game to get the event exclusive <code>MEW</code>. It's basically using the Long Range Trainer glitch to escape the fight on the <strong>Route 24</strong>, then you engage in a battle with the Kid <strong>Route 25</strong> to have the Slowpoke stats in memory.</p>
+<p><img src="/images/PokemonGlitches/mew-glitch.png" alt="" /></p>
+<h2 id="bonus-2-prof-oak">BONUS 2 - Prof Oak</h2>
+<p>Earlier in this blog, we discovered that Trainer and Pokemon are the same thing.</p>
+<ul>
+<li><code>Special stat &lt; 200</code> triggers a Pokemon battle</li>
+<li><code>Special stat &gt;= 200</code> triggers a Trainer battle</li>
+</ul>
+<p>However you won't find many Pokemon with a special stat over 200. But there is a way to remediate to this problem. The Pokemon <code>DITTO</code> have the <code>Transform</code> ability which will copy itself into your Pokemon, it will also copy the stats.</p>
+<p>Did you know that Prof Oak is not available in the game story, but he is coded and can be battled using a combination of the previous glitches. His index number is <strong>226</strong>, which is also the default value of MEWTWO SPECIAL stat.</p>
+<p>This glitch requires 2 long range trainer because you won’t have the NPC from Pewter City to reset the « NPC is moving » value. Also you need a Pokemon with Growl to set one of the 3 teams attributed to him.</p>
+<p>Here are the steps to battle him:</p>
+<ul>
+<li>Fly to <strong>Lavender City</strong>, go to Route 8, trigger the Long Range Trainer</li>
+<li>Fly to <strong>Cerualean City</strong>, go to Route 24, trigger the second Long Range Trainer, but you have to defeat him, to reset the « <code>NPC is moving</code> » value</li>
+<li>Fly to <strong>Cinnabar Island</strong>, and go to the Pokemon Mansion and find a <code>DITTO</code> (you have to go to a specific room)</li>
+<li>Wait for <code>DITTO</code> to copy your Pokemon with SPECIAL at 226</li>
+<li>Then switch to a Pokemon knowing <code>Growl</code>, use it 4 times (BLASTOISE), 5 times (VENUSAUR), 6 times (CHARIZARD)</li>
+<li>Then run away from the battle, use an <code>Escape Rope</code>, then fly back <strong>Lavender City</strong>, go to Route 8 to trigger the battle with <code>Prof Oak</code>.</li>
+</ul>
+<p><img src="/images/PokemonGlitches/prof-oak-stat.png" alt="" /></p>
+<p><img src="/images/PokemonGlitches/prof-oak-encounter.gif" alt="" /></p>
+<p>I hope you liked these glitches, here are some saves to have every requirements met in order to reproduce them. Some saves are from a finished run where the long trainers have been re-enabled, use them to get Mew or fight Prof Oak.</p>
+<ul>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20LongRangeTrainerForest.sav">Pokemon - Yellow Version (UE) [C][!] - LongRangeTrainerForest.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20XPGlitchGengar.sav">Pokemon - Yellow Version (UE) [C][!] - XPGlitchGengar.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20XPGlitchNidoking.sav">Pokemon - Yellow Version (UE) [C][!] - XPGlitchNidoking.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20AfterDigglet_EncounteringGengar.sav">Pokemon - Yellow Version (UE) [C][!] - AfterDigglet_EncounteringGengar.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20FinishedGame_LongRangeTrainersPatched.sav">Pokemon - Yellow Version (UE) [C][!] - FinishedGame_LongRangeTrainersPatched.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20ProfOakReady.sav">Pokemon - Yellow Version (UE) [C][!] - ProfOakReady.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20MewGlitch_TrainerEnabled.sav">Pokemon - Yellow Version (UE) [C][!] - MewGlitch_TrainerEnabled.sav</a></li>
+<li><a href="/files/PokemonSaves/Pokemon%20-%20Yellow%20Version%20(UE)%20%5BC%5D%5B!%5D%20-%20Gengar%20LVL100%20+%2050%20Rare%20Candy.sav">Pokemon - Yellow Version (UE) [C][!] - Gengar LVL100 + 50 Rare Candy.sav</a></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://gbdev.io/pandocs/CPU_Registers_and_Flags.html">CPU registers and flags - gbdev.io</a></li>
+<li><a href="https://www.dragonflycave.com/mechanics/gen-i-stat-modification">R/B/Y Stat Modification - The Cave of Dragonflies - March 29 2018</a></li>
+<li><a href="https://bulbapedia.bulbagarden.net/wiki/List_of_glitches_in_Generation_I">List of glitches in Generation I - Bulbagarden</a></li>
+<li><a href="https://imgur.com/gallery/66pQj">Yellow Glitches - Level 100 Before Brock - cerealz - March 10 2014</a></li>
+<li><a href="https://youtu.be/2h3Fd-PNYWw">Level 100 Nidoking Glitch Pokemon Yellow - Pokemon Glitches and More - February 14 2014</a></li>
+<li><a href="https://www.youtube.com/watch?v=XqeI8Yohzbc">How to capture a wild Gengar in Pokemon Yellow - hXcHector - 28 july 2018</a></li>
+<li><a href="https://www.youtube.com/watch?v=AjOeYO21kcQ">The Most EXPLOITABLE GLITCH in Pokémon - Trainer-Fly (Mew Glitch) - Azure Flute -  8 dec 2023</a></li>
+<li><a href="https://gamefaqs.gamespot.com/gameboy/367023-pokemon-red-version/faqs/64175/battle-professor-oak">Battle Professor Oak - Gamefaqs - zerokid - 03/21/2023</a></li>
+<li><a href="https://www.youtube.com/watch?v=gW6NywxZVps">How to Catch MEW in Pokemon Yellow without Cheating! (Works on All Versions) - Nvoyhinz - 15 nov. 2021</a></li>
+<li><a href="https://youtu.be/U8fWTDUdWGA">Exploring the Mew Glitch - stacksmashing - 3 may 2020</a></li>
+<li><a href="https://youtu.be/vXmESw1Zoxo">Pokémon Yellow - glitch items: the detailed analysis - TheZZAZZGlitch - 17 apr. 2023 </a></li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/payload-plz/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>LeHack 2025 - PayloadPLZ</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/" accesskey="."
+    ><span>SSRFmap - Introducing the AXFR module</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
