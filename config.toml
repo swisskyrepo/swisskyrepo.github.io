@@ -87,11 +87,11 @@ bio = "Write-ups/CTF & Bug Bounty"
 social = [
     { name = "x", url = "https://x.com/pentest_swissky" },
     { name = "github", url = "https://github.com/swisskyrepo" },
-    { name = "bluesky", url = "https://bsky.app/profile//swissky.bsky.social" },
+    { name = "bluesky", url = "https://bsky.app/profile/swissky.bsky.social" },
     { name = "mastodon", url = "https://infosec.exchange/@swissky" },
     { name = "leanpub", url = "https://leanpub.com/payloadsallthethings" },
     { name = "rootme", url = "https://root-me.org/Swissky?inc=score&lang=fr" },
-    { name = "hackthebox", url = "https://www.hackthebox.eu/home/users/profile/5110" },
+    { name = "hackthebox", url = "https://app.hackthebox.com/users/5110" },
     { name = "rss", url = "$BASE_URL/atom.xml" },
 ]
 
