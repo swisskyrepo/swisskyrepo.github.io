@@ -1,0 +1,332 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# profile: https://ogp.me/ns/profile#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Swissky&#x27;s Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="Swissky&apos;s Lab" />
+  <meta name="description" content="Write-ups/CTF &amp; Bug Bounty" />
+  <meta property="og:description" content="Write-ups/CTF &amp; Bug Bounty" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/" />
+  <meta property="og:type" content="profile" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="preload" as="image" href="https://swisskyrepo.github.io/images/default.jpg?h=74a08f15187e69661adf" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/npm/simple-icons/icons/x.svg" />
+  <link rel="preload" as="image" href="https://swisskyrepo.github.io/icons/github.svg" />
+  <link rel="preload" as="image" href="https://swisskyrepo.github.io/icons/bluesky.svg" />
+  <link rel="preload" as="image" href="https://swisskyrepo.github.io/icons/mastodon.svg" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/npm/simple-icons/icons/leanpub.svg" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/npm/simple-icons/icons/rootme.svg" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/npm/simple-icons/icons/hackthebox.svg" />
+  <link rel="preload" as="image" href="https://swisskyrepo.github.io/icons/rss.svg" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+    <!-- Profile -->
+<div class="mb-16 flex items-start">
+  <div
+    class="not-prose mr-5 shrink-0 rounded-full border-[0.5px] border-black/10 bg-white/50 p-3 shadow dark:bg-white/[15%]">
+    <img
+      class=" my-0 aspect-square w-16 rounded-full !bg-black/5 hover:animate-spin"
+      src="https://swisskyrepo.github.io/images/default.jpg?h=74a08f15187e69661adf" alt="Swissky" />
+  </div>
+  <div>
+    <h1 class="mb-2 text-3xl font-bold">Swissky&#x27;s adventures into InfoSec World !</h1>
+    <div class="mb-2 break-words">
+      Write-ups/CTF &amp; Bug Bounty
+    </div>
+    <nav class="flex justify-start flex-row flex-wrap gap-x-3 dark:invert">
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(https://cdn.jsdelivr.net/npm/simple-icons/icons/x.svg);"
+        href="https://x.com/pentest_swissky"
+        target="_blank"
+        rel="me"
+        title="x"
+        >x</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(icons/github.svg);"
+        href="https://github.com/swisskyrepo"
+        target="_blank"
+        rel="me"
+        title="github"
+        >github</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(icons/bluesky.svg);"
+        href="https://bsky.app/profile/swissky.bsky.social"
+        target="_blank"
+        rel="me"
+        title="bluesky"
+        >bluesky</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(icons/mastodon.svg);"
+        href="https://infosec.exchange/@swissky"
+        target="_blank"
+        rel="me"
+        title="mastodon"
+        >mastodon</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(https://cdn.jsdelivr.net/npm/simple-icons/icons/leanpub.svg);"
+        href="https://leanpub.com/payloadsallthethings"
+        target="_blank"
+        rel="me"
+        title="leanpub"
+        >leanpub</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(https://cdn.jsdelivr.net/npm/simple-icons/icons/rootme.svg);"
+        href="https://root-me.org/Swissky?inc=score&lang=fr"
+        target="_blank"
+        rel="me"
+        title="rootme"
+        >rootme</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(https://cdn.jsdelivr.net/npm/simple-icons/icons/hackthebox.svg);"
+        href="https://app.hackthebox.com/users/5110"
+        target="_blank"
+        rel="me"
+        title="hackthebox"
+        >hackthebox</a>
+      <a
+        class="primary-link h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat]"
+        style="--url: url(icons/rss.svg);"
+        href="https://swisskyrepo.github.io/atom.xml"
+        target="_blank"
+        rel="alternate"
+        title="rss"
+        >rss</a>
+    </nav>
+  </div>
+</div>
+
+      <!-- Page List -->
+<section
+  class="block-bg relative mb-4 rounded-lg p-4 first-of-type:mt-0 last-of-type:mb-0 active:scale-95 lg:mb-6 lg:p-6"
+>
+  <figure class="mb-4 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/LeHACK2025/payloadplz.png"
+      alt="LeHack 2025 - PayloadPLZ"
+    />
+  </figure>
+
+  <h2 class="!my-0 pb-1 font-bold !leading-none">LeHack 2025 - PayloadPLZ</h2>
+  <div class="not-prose my-1">
+    Last weekend, I took part in the LeHack 2025 event in Paris. As always, the challenges hosted by YesWeHack were top-notch and full of valuable learning opportunities. This year's highlight was crafting a polyglot payload capable of triggering in 13 different contexts, including SQL injection, XSS, Bash command execution, and more&hellip;
+  </div>
+
+  <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2025-06-29T00:00:00+00:00">2025-06-29</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H7M0S">7&nbsp;min</time>
+</div>
+
+  <a class="absolute inset-0 text-[0]" href="https://swisskyrepo.github.io/blog/payload-plz/">LeHack 2025 - PayloadPLZ</a>
+</section>
+<section
+  class="block-bg relative mb-4 rounded-lg p-4 first-of-type:mt-0 last-of-type:mb-0 active:scale-95 lg:mb-6 lg:p-6"
+>
+  <figure class="mb-4 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/PokemonGlitches/pikachu-yellow.png"
+      alt="Pokemon Glitches"
+    />
+  </figure>
+
+  <h2 class="!my-0 pb-1 font-bold !leading-none">Anatomy of Pokemon glitches</h2>
+  <div class="not-prose my-1">
+    Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time&hellip;
+  </div>
+
+  <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-10-02T00:00:00+00:00">2024-10-02</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H15M0S">15&nbsp;min</time>
+</div>
+
+  <a class="absolute inset-0 text-[0]" href="https://swisskyrepo.github.io/blog/pokemon-glitches/">Anatomy of Pokemon glitches</a>
+</section>
+<section
+  class="block-bg relative mb-4 rounded-lg p-4 first-of-type:mt-0 last-of-type:mb-0 active:scale-95 lg:mb-6 lg:p-6"
+>
+  <figure class="mb-4 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/SSRFmapAXFR/banner_text.png"
+      alt="SSRFmap - AXFR module"
+    />
+  </figure>
+
+  <h2 class="!my-0 pb-1 font-bold !leading-none">SSRFmap - Introducing the AXFR module</h2>
+  <div class="not-prose my-1">
+    After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I implemented a new module called axfr to trigger a DNS zone transfer from the SSRF using the gopher protocol. This blog post is about my journey on implementing it&hellip;
+  </div>
+
+  <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-06-13T00:00:00+00:00">2024-06-13</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H6M0S">6&nbsp;min</time>
+</div>
+
+  <a class="absolute inset-0 text-[0]" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/">SSRFmap - Introducing the AXFR module</a>
+</section>
+<section
+  class="block-bg relative mb-4 rounded-lg p-4 first-of-type:mt-0 last-of-type:mb-0 active:scale-95 lg:mb-6 lg:p-6"
+>
+  <figure class="mb-4 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/Ph0wn/ph0wn_chip_dip2deep_min.jpg"
+      alt="Ph0wn CTF 2019 - Flag Digger"
+    />
+  </figure>
+
+  <h2 class="!my-0 pb-1 font-bold !leading-none">Ph0wn CTF 2019 - Flag Digger</h2>
+  <div class="not-prose my-1">
+    TLDR: It's never too late to try to solve an old challenge. This blog post is a quick writeup of a challenge from the Ph0wn CTF 2019 where you were given a small chip and you had to extract the flag from it&hellip;
+  </div>
+
+  <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-02-04T00:00:00+00:00">2024-02-04</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H3M0S">3&nbsp;min</time>
+</div>
+
+  <a class="absolute inset-0 text-[0]" href="https://swisskyrepo.github.io/blog/ph0wn-flag-digger/">Ph0wn CTF 2019 - Flag Digger</a>
+</section>
+<nav class="mt-16 flex">
+  <a
+    class="ml-auto rounded-full bg-black px-4 py-3 text-sm text-white no-underline shadow duration-75 active:scale-95 dark:bg-white/80 dark:text-black"
+    href="https://swisskyrepo.github.io/page/2/" rel="next" accesskey="."
+    >Next Page &#8250;</a>
+</nav>
+
+    
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

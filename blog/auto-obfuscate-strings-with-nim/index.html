@@ -1,0 +1,319 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Offensive Nim - Auto Obfuscate Strings with Nim's Term-Rewriting Macros | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="Offensive Nim - Auto Obfuscate Strings with Nim&apos;s Term-Rewriting Macros" />
+  <meta name="description" content="TLDR: Use nim-strenc, or read below to discover how to write your own Nim macro.![NimMacro]({{ site.baseurl }}/images/OffensiveNim/nimlang.png)Lately I discovered the repository Yardanico/nim-strenc, …" />
+  <meta property="og:description" content="TLDR: Use nim-strenc, or read below to discover how to write your own Nim macro.![NimMacro]({{ site.baseurl }}/images/OffensiveNim/nimlang.png)Lately I discovered the repository Yardanico/nim-strenc, you can use it very easily in your Nim code by importing strenc.Let&apos;s try it on this simple example.…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2022-09-30T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/OffensiveNim/nimlang.png" />
+  <meta property="og:image:alt" content="Offensive Nim - Auto Obfuscate Strings with Nim&apos;s Term-Rewriting Macros" />
+  <meta property="og:image:width" content="820" />
+  <meta property="og:image:height" content="186" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Offensive Nim - Auto Obfuscate Strings with Nim&#x27;s Term-Rewriting Macros</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2022-09-30T00:00:00+00:00">2022-09-30</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H4M0S">4&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/OffensiveNim/nimlang.png"
+      alt="Offensive Nim - Auto Obfuscate Strings with Nim&apos;s Term-Rewriting Macros"
+      width="820"
+      height="186"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/#references">References</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>TLDR: Use <code>nim-strenc</code>, or read below to discover how to write your own Nim macro.</p>
+<p>![NimMacro]({{ site.baseurl }}/images/OffensiveNim/nimlang.png)</p>
+<p>Lately I discovered the repository <a href="https://github.com/Yardanico/nim-strenc">Yardanico/nim-strenc</a>, you can use it very easily in your Nim code by importing <code>strenc</code>.<br />
+Let's try it on this simple example. First you need to install the package using this command: <code>nimble install strenc</code></p>
+<span id="continue-reading"></span><pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#b48ead;">import </span><span>strenc
+</span><span>echo &quot;</span><span style="color:#a3be8c;">demo string</span><span>&quot;
+</span></code></pre>
+<p>You can compile the code with <code>nim c -d=danger --passl=-flto --threads:on --opt=size --out=demo demo.nim</code> and the compiler will display some hints.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span>Hint: used config file &#39;</span><span style="color:#a3be8c;">/etc/nim/nim.cfg</span><span>&#39; [Conf]
+</span><span>Hint: used config file &#39;</span><span style="color:#a3be8c;">/etc/nim/config.nims</span><span>&#39; [Conf]
+</span><span style="color:#d08770;">..................................................................</span><span>..
+</span><span>/home/audit/Bureau/MiscNimMacroObfu/demo.</span><span style="color:#bf616a;">nim</span><span>(</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#d08770;">6</span><span>) Hint: </span><span style="color:#bf616a;">encrypt</span><span>(&quot;</span><span style="color:#a3be8c;">demo string</span><span>&quot;) --&gt; &#39; </span><span style="color:#d08770;">{.noRewrite.}</span><span style="color:#a3be8c;">:</span><span style="background-color:#bf616a;color:#2b303b;">
+</span><span>  </span><span style="color:#bf616a;">m611v5u8zi</span><span>(</span><span style="color:#bf616a;">estring</span><span>(&quot;</span><span style="color:#96b5b4;">\x16\x10\x19\x18</span><span style="color:#a3be8c;">V</span><span style="color:#96b5b4;">\n\f\t\x13\x13</span><span style="color:#a3be8c;">\e</span><span>&quot;), </span><span style="color:#d08770;">1823285395</span><span>)&#39;</span><span style="color:#a3be8c;"> [Pattern]</span><span style="background-color:#bf616a;color:#2b303b;">
+</span><span style="color:#bf616a;">CC</span><span>: demo.nim
+</span><span>Hint:  [Link]
+</span><span>Hint: gc: refc; threads: on; opt: size; options: -d:danger
+</span></code></pre>
+<p>In the hints we see the string "<code>demo string</code>" is automagically replaced by <code>m611v5u8zi(estring("\x16\x10\x19\x18V\n\f\t\x13\x13\e"), 1823285395)</code>, reducing our static analysis detections.</p>
+<p>Before going deeper in the code of <code>nim-strenc</code>, we need to understand a bit of macro term-rewriting.</p>
+<blockquote>
+<p>Term rewriting macros are macros or templates that have not only a name but also a pattern that is searched for after the semantic checking phase of the compiler: This means they provide an easy way to enhance the compilation pipeline with user defined optimizations:</p>
+</blockquote>
+<p>Term rewriting macro are applied recursively. This means that if the result of a term rewriting macro is eligible for another rewriting, the compiler will try to perform it, and so on, until no more optimizations are applicable.</p>
+<p>Now let's try some basic macros. For example the following macro can be used to generate a debug statement if the variable debug is set to <code>true</code></p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#b48ead;">import </span><span>macros
+</span><span>const debug = true
+</span><span>
+</span><span>template </span><span style="color:#bf616a;">log</span><span>(msg: string) =
+</span><span>  </span><span style="color:#b48ead;">if </span><span>debug: stdout.</span><span style="color:#bf616a;">writeLine</span><span>(msg)
+</span><span>
+</span><span>var x = </span><span style="color:#d08770;">4
+</span><span style="color:#bf616a;">log</span><span>(&quot;</span><span style="color:#a3be8c;">x has the value: </span><span>&quot; &amp; $x)
+</span></code></pre>
+<p>This is nice but we can go deeper by interacting directly with variables and their types. If you are unsure about how a type is represented and handled in Nim, you can use <code>dumpTree</code> to generate the Abstract Syntax Trees (AST) at compile time. This will be very useful to debug our macros.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#b48ead;">import </span><span>macros
+</span><span>dumpTree:
+</span><span>  const cfgversion: string = &quot;</span><span style="color:#a3be8c;">1.0</span><span>&quot;
+</span><span>  const cfglicenseOwner = &quot;</span><span style="color:#a3be8c;">John Doe</span><span>&quot;
+</span></code></pre>
+<p>The output will look like this:</p>
+<p>StmtList
+ConstSection
+ConstDef
+Ident "cfgversion"
+Ident "string"
+StrLit "1.0"
+ConstSection
+ConstDef
+Ident "cfglicenseOwner"
+Empty
+StrLit "John Doe"</p>
+<p>We now have everything to understand the code of <code>nim-strenc</code>. The code starts by defining a new type <code>estring</code> (<a href="https://github.com/Yardanico/nim-strenc/blob/master/src/strenc.nim#L7">#L7</a>) otherwise our macro will be called recursively on our newly created string.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#96b5b4;">type
+</span><span>  estring = distinct string
+</span></code></pre>
+<p>Then it defines a proc to encrypt an estring using a key, note that the key is an integer. The name of this proc will be the same in every generated binary</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span style="color:#65737e;"># Use a &quot;strange&quot; name
+</span><span style="color:#65737e;"># We need {.noinline.} here because otherwise C compiler
+</span><span style="color:#65737e;"># aggresively inlines this procedure for EACH string which results
+</span><span style="color:#65737e;"># in more assembly instructions
+</span><span>proc </span><span style="color:#bf616a;">m611v5u8zi</span><span>(s: estring, key: int): string {.noinline.} =
+</span><span>  var k = key
+</span><span>  result = </span><span style="color:#bf616a;">string</span><span>(s)
+</span><span>  </span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#d08770;">0</span><span> ..&lt; result.len:
+</span><span>    </span><span style="color:#b48ead;">for </span><span>f </span><span style="color:#b48ead;">in </span><span>[</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">8</span><span>, </span><span style="color:#d08770;">16</span><span>, </span><span style="color:#d08770;">24</span><span>]:
+</span><span>      result[i] = </span><span style="color:#96b5b4;">chr</span><span>(</span><span style="color:#bf616a;">uint8</span><span>(result[i]) xor </span><span style="color:#bf616a;">uint8</span><span>((k shr f) and </span><span style="color:#d08770;">0xFF</span><span>))
+</span><span>    k = k +% </span><span style="color:#d08770;">1
+</span></code></pre>
+<p>The encryption is doing a basic XOR where the key is modified a bit after every character. in order to avoid having always the same key in the produced binary, nim-strenc uses a simple but effective trick, by generating a hash based on the compile time and date.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span>var encodedCounter {.compileTime.} = </span><span style="color:#96b5b4;">hash</span><span>(CompileTime &amp; CompileDate) and </span><span style="color:#d08770;">0x7FFFFFFF
+</span></code></pre>
+<p>Finally there is the macro to match every String Literal from the source code, encrypt it with the proc <code>m611v5u8zi</code> then it will rewrite the matched string to <code>m611v5u8zi(estring("\xFF...\xXX"), counter)</code>. Since the encryption is a XOR it can effectively use the same proc to encode and decode the string.
+It uses <code>getAst</code> to generate the correct AST for our replaced string, and then the counter is modified.</p>
+<pre data-lang="py" style="background-color:#2b303b;color:#c0c5ce;" class="language-py "><code class="language-py" data-lang="py"><span>macro encrypt*{s}(s: string{lit}): untyped =
+</span><span>  var encodedStr = </span><span style="color:#bf616a;">m611v5u8zi</span><span>(</span><span style="color:#bf616a;">estring</span><span>($s), encodedCounter)
+</span><span>
+</span><span>  template </span><span style="color:#bf616a;">genStuff</span><span>(str, counter: untyped): untyped = 
+</span><span>    {.noRewrite.}:
+</span><span>      </span><span style="color:#bf616a;">m611v5u8zi</span><span>(</span><span style="color:#bf616a;">estring</span><span>(`str`), `counter`)
+</span><span>  
+</span><span>  result = </span><span style="color:#bf616a;">getAst</span><span>(</span><span style="color:#bf616a;">genStuff</span><span>(encodedStr, encodedCounter))
+</span><span>  encodedCounter = (encodedCounter *% </span><span style="color:#d08770;">16777619</span><span>) and </span><span style="color:#d08770;">0x7FFFFFFF
+</span></code></pre>
+<p>There are some limitations to this library</p>
+<ul>
+<li>the name of the encrypting/decrypting proc is always the same: <code>m611v5u8zi</code>, and it is a HUGE red flag..</li>
+<li>weak encryption using XOR operation, it might be interesting to implement a stronger algorithm, but the key is "random" for each build.</li>
+<li>it is just obfuscation and patterns for decryption are easily discoverable by any reverser :D</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/Yardanico/nim-strenc">Yardanico/nim-strenc - A tiny library to automatically encrypt string literals in Nim code</a></li>
+<li><a href="https://forum.nim-lang.org/t/1305">Compile-time string obfuscation - Nim Forum</a></li>
+<li><a href="https://web.archive.org/web/20141222071406/https://forum.nim-lang.org/t/338">Rewrite all string literals? - Nim Forum</a></li>
+<li><a href="https://docs.w3cub.com/nim/">Nim Documentation</a></li>
+<li><a href="https://nim-lang.org/docs/manual_experimental.html#term-rewriting-macros">Nim Documentation: term-rewriting-macros</a></li>
+<li><a href="https://dev.to/beef331/demystification-of-macros-in-nim-13n8">Demystification of Macros in Nim</a></li>
+<li><a href="https://macros-in-nim-tutorial.readthedocs.io/en/latest/README.html">Macros in Nim - Tutorial</a></li>
+</ul>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/drink-love-share-rump/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>DLS 2024 - RedTeam Fails - &quot;Oops my bad I ruined the operation&quot;</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/sthack2022/" accesskey="."
+    ><span>STHACK2022 - Catch the bird, a trip from web to IRL</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

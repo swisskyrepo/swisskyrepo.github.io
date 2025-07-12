@@ -1,0 +1,414 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>Ph0wn CTF 2019 - Smart Devices CTF | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="Ph0wn CTF 2019 - Smart Devices CTF" />
+  <meta name="description" content="Another week another CTF, this time it was the Ph0wn at Sophia Antipolis (France). I teamed up with members from @Maki, @iansus,  @MansourCyril and @0hax. We reached the second place of this IoT/Hardw…" />
+  <meta property="og:description" content="Another week another CTF, this time it was the Ph0wn at Sophia Antipolis (France). I teamed up with members from @Maki, @iansus,  @MansourCyril and @0hax. We reached the second place of this IoT/Hardware CTF.![Banner]({{ site.baseurl }}/images/Ph0wn/Ph0wnBanner.png &quot;Banner&quot;){: .center-image }Writeup…" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/ph0wn-ctf/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2019-12-14T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/Ph0wn/Ph0wnBanner.png" />
+  <meta property="og:image:alt" content="Ph0wn CTF 2019 - Smart Devices CTF" />
+  <meta property="og:image:width" content="1500" />
+  <meta property="og:image:height" content="500" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Ph0wn CTF 2019 - Smart Devices CTF</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2019-12-14T00:00:00+00:00">2019-12-14</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H5M0S">5&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/Ph0wn/Ph0wnBanner.png"
+      alt="Ph0wn CTF 2019 - Smart Devices CTF"
+      width="1500"
+      height="500"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#writeups-challenges">Writeups&#x27; challenges</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#rookie-sunny-day">Rookie - Sunny day</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#hardware-ant-maker">Hardware - Ant-Maker</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#misc-compromised-sensor">Misc - Compromised Sensor</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#misc-domotics">Misc - Domotics</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/ph0wn-ctf/#crypto-shamir-quest">Crypto - Shamir Quest</a>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Another week another CTF, this time it was the <a href="https://ph0wn.org">Ph0wn</a> at Sophia Antipolis (France). I teamed up with members from <a href="https://twitter.com/maki_mitz">@Maki</a>, <a href="https://twitter.com/iansus">@iansus</a>,  <a href="https://twitter.com/MansourCyril">@MansourCyril</a> and <a href="https://twitter.com/0hax2">@0hax</a>. We reached the <strong>second place</strong> of this IoT/Hardware CTF.</p>
+<p>![Banner]({{ site.baseurl }}/images/Ph0wn/Ph0wnBanner.png "Banner"){: .center-image }</p>
+<h2 id="writeups-challenges">Writeups' challenges</h2>
+<ul>
+<li><a href="#">Rookie - Sunny day</a></li>
+<li><a href="#">Hardware - Ant-Maker</a></li>
+<li><a href="#">Misc - Compromised Sensor</a></li>
+<li><a href="#">Misc - Domotics</a></li>
+<li><a href="#">Crypto - Shamir Quest</a></li>
+</ul>
+<span id="continue-reading"></span>
+<h3 id="rookie-sunny-day">Rookie - Sunny day</h3>
+<blockquote>
+<p>The weather is always nice on the French Riveria.
+Yet, it is great to monitor this (sunny) weather with a weather station.
+There is a weather station in Biot, and there is an Android app for it. But somebody told me that there could be a hidden treasure in its main layout</p>
+</blockquote>
+<p>First we ran the new MobSF application and drag'n dropped the APK file into it : <code>docker run -it --name mobsf -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest</code>. After inspecting the source code we stumbled upon the following Java/Android at http://localhost:8000/ViewSource/?file=tux/android/biotmeteo/MainActivity.java&amp;md5=1b6d26562ca11c2d0c13fae063c93cd9&amp;type=apk indicating the flag was around.</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#bf616a;">this</span><span>.j = (</span><span style="color:#ebcb8b;">Button</span><span>) </span><span style="color:#bf616a;">findViewById</span><span>(</span><span style="color:#ebcb8b;">R</span><span>.id.badWeatherBtn);
+</span><span style="color:#bf616a;">this</span><span>.j.</span><span style="color:#bf616a;">setText</span><span>(&quot;</span><span style="color:#a3be8c;">Flag is not far :)</span><span>&quot;);
+</span></code></pre>
+<p>We extracted the <strong>biotmeteo.apk</strong> as a zip file and started looking for the flag pattern <code>ph0wn{</code> recursively. We will find inside <strong>biotmeteo\res\layout\main.xml</strong>.</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>$ grep ph0 -r . --text
+</span><span style="color:#bf616a;">curvesButtonInfoTemp</span><span>((tux.android.biotmeteo.</span><span style="color:#ebcb8b;">AutoResizeTextViewRainWind
+</span><span>ph0wn{</span><span style="color:#ebcb8b;">IsTheWeatherNiceT0night</span><span>?}
+</span><span style="color:#ebcb8b;">BaHutLdityULIOLpL
+</span></code></pre>
+<p><strong>Flag</strong> : ph0wn{IsTheWeatherNiceT0night?}</p>
+<h3 id="hardware-ant-maker">Hardware - Ant-Maker</h3>
+<blockquote>
+<p>To receive the signal, you have to fabricate a RHCP antenna at 868MHz. Use the 3D_ant file as a model to mount the antenna. Collect your PCBs and use some tools and a soldering iron. Once your are ready, register on list to test if your prototype can receive the signal. 3 teams will make the test each 30mn.
+The Master of the Chamber, Fabien, will guide you to the anechoic room.</p>
+</blockquote>
+<p>We were given two PCB and an antenna, in order to get the flag we had to solder them the right way. To help us the organizers provided each team with this file : [Ph0wn-3D_ant.step]({{ site.baseurl }}/files/Ph0wn-3D_ant.step).</p>
+<p>It's a step file containing a 3D vizualization of the final PCB. From there we knew what to solder and where, we loaded it into https://3d-viewers.com/step-viewer.html.</p>
+<p>![Ph0wn3Dant.png]({{ site.baseurl }}/images/Ph0wn/Ph0wn3Dant.png "3D Step file"){: .center-image }</p>
+<p>The challenge wasn't hard but takes a lot of time and thorough effort to create a "working" antenna.</p>
+<p><strong>Flag</strong> : ph{LoRa_From_Space}</p>
+<h3 id="misc-compromised-sensor">Misc - Compromised Sensor</h3>
+<blockquote>
+<p>I swear I saw a masked attacker come with a big syringe and a huge needle infect those glucose sensors for diabetics. What did he inject in those NFC sensors?!</p>
+</blockquote>
+<ul>
+<li>Come and get a sensor at the organizer desk (see the attached image to recognize the device you need to get)</li>
+<li>Nota. Due to a server crash, if you see an IP address, modify with 35.241.137.50 (no DoS)</li>
+</ul>
+<p>Since the NFC is used by the sensor, let's check it with our proxmark3. With these data in mind we can find more informations about the sensor, it seems to be a <a href="https://play.google.com/store/apps/details?id=com.freestylelibre.app.fr&amp;hl=en_US">FreeStyle Libre</a> sensors.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>[</span><span style="color:#b48ead;">usb</span><span>] pm3 --&gt; hf search
+</span><span>          
+</span><span> UID  : E0 </span><span style="color:#d08770;">07</span><span> A0 </span><span style="color:#d08770;">00 02</span><span> A6 </span><span style="color:#d08770;">99</span><span> C0          
+</span><span> TYPE : Texas Instrument France          
+</span><span>      
+</span><span>[+] Valid ISO15693 tag  found
+</span></code></pre>
+<p>On a StackOverflow post we find this goldmine :</p>
+<blockquote>
+<p>Instead, you will have to find out what commands the blood sugar meter actually supports (probably it will support the ISO/IEC 15693 READ SINGLE BLOCK command</p>
+</blockquote>
+<p>Now we know there is dump equivalent for NFC-V (ISO 15693), let's try it with the proxmark.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>[</span><span style="color:#b48ead;">usb</span><span>] pm3 --&gt; hf </span><span style="color:#d08770;">15</span><span> dump f mydump           
+</span><span>Reading memory </span><span style="color:#b48ead;">from</span><span> tag UID E0 </span><span style="color:#d08770;">07</span><span> A0 </span><span style="color:#d08770;">00 02</span><span> A6 </span><span style="color:#d08770;">99</span><span> C0           
+</span><span>...................................................
+</span><span> </span><span style="color:#d08770;">45</span><span>/</span><span style="color:#d08770;">0x2D </span><span>| C2 </span><span style="color:#d08770;">43 08 08  </span><span>| </span><span style="color:#d08770;">0 </span><span>| .C..          
+</span><span> </span><span style="color:#d08770;">46</span><span>/</span><span style="color:#d08770;">0x2E </span><span>| </span><span style="color:#d08770;">08 08</span><span> D2 </span><span style="color:#d08770;">42  </span><span>| </span><span style="color:#d08770;">0 </span><span>| ...B          
+</span><span> </span><span style="color:#d08770;">47</span><span>/</span><span style="color:#d08770;">0x2F </span><span>| D2 </span><span style="color:#d08770;">42</span><span> A3 F9  | </span><span style="color:#d08770;">0 </span><span>| .B..          
+</span><span> </span><span style="color:#d08770;">48</span><span>/</span><span style="color:#d08770;">0x30 </span><span>| </span><span style="color:#d08770;">4D 65 64 69  </span><span>| </span><span style="color:#d08770;">0 </span><span>| Medi          
+</span><span> </span><span style="color:#d08770;">49</span><span>/</span><span style="color:#d08770;">0x31 </span><span>| 4C </span><span style="color:#d08770;">61 62</span><span> 3A  | </span><span style="color:#d08770;">0 </span><span>| Lab:          
+</span><span> </span><span style="color:#d08770;">50</span><span>/</span><span style="color:#d08770;">0x32 </span><span>| </span><span style="color:#d08770;">70</span><span> 3A </span><span style="color:#d08770;">2F 2F  </span><span>| </span><span style="color:#d08770;">0 </span><span>| p://                                                             
+</span><span> </span><span style="color:#d08770;">51</span><span>/</span><span style="color:#d08770;">0x33 </span><span>| </span><span style="color:#d08770;">31 30 2E 31  </span><span>| </span><span style="color:#d08770;">0 </span><span>| </span><span style="color:#d08770;">10.1                                                             
+</span><span> </span><span style="color:#d08770;">52</span><span>/</span><span style="color:#d08770;">0x34 </span><span>| 3A </span><span style="color:#d08770;">32 31 33  </span><span>| </span><span style="color:#d08770;">0 </span><span>| :</span><span style="color:#d08770;">213          
+</span><span> </span><span style="color:#d08770;">53</span><span>/</span><span style="color:#d08770;">0x35 </span><span>| </span><span style="color:#d08770;">64</span><span> 3A </span><span style="color:#d08770;">70 69  </span><span>| </span><span style="color:#d08770;">0 </span><span>| d:pi          
+</span><span> </span><span style="color:#d08770;">54</span><span>/</span><span style="color:#d08770;">0x36 </span><span>| </span><span style="color:#d08770;">77 64</span><span> 3A </span><span style="color:#d08770;">31  </span><span>| </span><span style="color:#d08770;">0 </span><span>| wd:</span><span style="color:#d08770;">1          
+</span><span> </span><span style="color:#d08770;">55</span><span>/</span><span style="color:#d08770;">0x37 </span><span>| </span><span style="color:#d08770;">34 30 31 20  </span><span>| </span><span style="color:#d08770;">0 </span><span>| </span><span style="color:#d08770;">401           
+</span><span> </span><span style="color:#d08770;">56</span><span>/</span><span style="color:#d08770;">0x38 </span><span>| E2 B3 C3 1C  | </span><span style="color:#d08770;">0 </span><span>| ....     
+</span></code></pre>
+<p>Some data are cropped, we tried several applications on our Android device. <a href="https://play.google.com/store/apps/details?id=com.nxp.taginfolite&amp;hl=fr">NFC TagInfo by NXP</a> was the right one, it allows us to scan the entire memory.</p>
+<p>![Ph0wnNXP.jpg]({{ site.baseurl }}/images/Ph0wn/Ph0wnNXP.jpg "NXP"){: .center-image }</p>
+<p>We get the following credential for the IP 10.210.17.66</p>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>id: pico
+</span><span>pwd: </span><span style="color:#d08770;">19990401
+</span></code></pre>
+<p>![Ph0wnMedical.png]({{ site.baseurl }}/images/Ph0wn/Ph0wnMedical.png "Medical"){: .center-image }</p>
+<p>From there we can download a PDF file containing a mention to <code>Examen réalisé par marquage de type “Ange Albertini” CCC’2014 ou PoC||GTFO</code>. Ange Albertini gave a talk <strong>Funky File Formats</strong> on <a href="https://www.nolimitsecu.fr/ange-albertini-funky-file-formats/">NoLimitSecu</a>, we guess there is another file hidden in the PDF, running binwalk in extract mode will gave us <strong>thezip/FLAG</strong> containing the flag.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>$ binwalk lab-results.pdf  -e
+</span><span>
+</span><span>DECIMAL       HEXADECIMAL     DESCRIPTION
+</span><span>--------------------------------------------------------------------------------
+</span><span style="color:#d08770;">0             0x0</span><span>             PDF document, version: &quot;</span><span style="color:#a3be8c;">1.4</span><span>&quot;
+</span><span style="color:#d08770;">71            0x47</span><span>            Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">1852          0x73C</span><span>           JPEG image </span><span style="color:#b48ead;">data</span><span>, JFIF standard </span><span style="color:#d08770;">1.01
+</span><span style="color:#d08770;">7162          0x1BFA</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">7419          0x1CFB</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">13863         0x3627</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">14457         0x3879</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">29155         0x71E3</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">30196         0x75F4</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">39508         0x9A54</span><span>          Zlib compressed </span><span style="color:#b48ead;">data</span><span>, </span><span style="color:#b48ead;">default</span><span> compression
+</span><span style="color:#d08770;">41694         0xA2DE</span><span>          Zip archive </span><span style="color:#b48ead;">data</span><span>, at least v2.</span><span style="color:#d08770;">0</span><span> to extract, compressed size: </span><span style="color:#d08770;">437</span><span>, uncompressed size: </span><span style="color:#d08770;">1244</span><span>, name: thezip/blah
+</span><span style="color:#d08770;">42200         0xA4D8</span><span>          Zip archive </span><span style="color:#b48ead;">data</span><span>, at least v2.</span><span style="color:#d08770;">0</span><span> to extract, compressed size: </span><span style="color:#d08770;">584</span><span>, uncompressed size: </span><span style="color:#d08770;">1487</span><span>, name: thezip/FLAG
+</span><span>
+</span><span>$ cat _lab-results.pdf.extracted/thezip/FLAG| grep -i Ph0
+</span><span>ph0wn{BeS@</span><span style="color:#bf616a;">feAndTakeCare</span><span>}
+</span></code></pre>
+<p><strong>Flag</strong> : ph0wn{BeS@feAndTakeCare}</p>
+<h3 id="misc-domotics">Misc - Domotics</h3>
+<blockquote>
+<p>Pico le Croco would like to control the power consumption of equipment in his wine cellar and in his pool. For that, he has bought a nice power meter, EcoCompteur from Legrand.</p>
+</blockquote>
+<p>Configuration:</p>
+<ul>
+<li>
+<p>In Setup / Hardware, a Ph0wn EcoCompteur hardware is already partly configured for you (along with weather sensors), but you need to fix the IP address to: http://10.210.17.34:20000.</p>
+</li>
+<li>
+<p>Unfortunately, you may encounter a bug where you are unable to modify the existing hardware. In that case, delete it and create a new one. Also, the port 20000 must be specified in both the remote address and the port (other bug).</p>
+</li>
+<li>
+<p>Then, among Devices, you might like to tag "Conso 1" and "Conso 2": Conso 1 is the wine cellar, Conso 2 is the pool.</p>
+</li>
+</ul>
+<p>A new docker instance is deployed for each team when they click on the challenge, this instance is binded to a random port of the server 10.210.17.34. Since there is no authentication to access the EcoCompteur we guessed we could access other contestants panel.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>...
+</span><span style="color:#d08770;">10040</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10050</span><span>/tcp open  zabbix-agent   syn-ack
+</span><span style="color:#d08770;">10060</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10070</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10081</span><span>/tcp open  famdc          syn-ack
+</span><span style="color:#d08770;">10100</span><span>/tcp open  itap-ddtp      syn-ack
+</span><span style="color:#d08770;">10130</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10151</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10160</span><span>/tcp open  qb-db-server   syn-ack
+</span><span style="color:#d08770;">10170</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10181</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10191</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10201</span><span>/tcp open  rsms           syn-ack
+</span><span style="color:#d08770;">10220</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10260</span><span>/tcp open  axis-wimp-port syn-ack
+</span><span style="color:#d08770;">10281</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10310</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10340</span><span>/tcp open  unknown        syn-ack
+</span><span style="color:#d08770;">10360</span><span>/tcp open  unknown        syn-ack
+</span><span>...
+</span></code></pre>
+<p>We downloaded the usage for both <strong>Conso 1</strong> and <strong>Conso 2</strong>.</p>
+<pre data-lang="powershell" style="background-color:#2b303b;color:#c0c5ce;" class="language-powershell "><code class="language-powershell" data-lang="powershell"><span>╭─user@</span><span style="color:#bf616a;">crashmanjaro</span><span> ~/CTF/Ph0wn/Domotics 
+</span><span>╰─$ cat usage-last-</span><span style="color:#d08770;">24</span><span>-hoursA.csv | cut -d &quot;</span><span style="color:#a3be8c;">,</span><span>&quot; -f3 | tr  &quot;</span><span style="color:#a3be8c;">\n</span><span>&quot; &quot;</span><span style="color:#a3be8c;">,</span><span>&quot;
+</span><span>&quot;</span><span style="color:#a3be8c;">Power Usage</span><span>&quot;,,</span><span style="color:#d08770;">103</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">54</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">97</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">103</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">119</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">104</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">32</span><span>,
+</span><span>
+</span><span>╭─user@</span><span style="color:#bf616a;">crashmanjaro</span><span> ~/CTF/Ph0wn/Domotics 
+</span><span>╰─$ cat usage-last-</span><span style="color:#d08770;">24</span><span>-hours.csv | cut -d &quot;</span><span style="color:#a3be8c;">,</span><span>&quot; -f3 | tr  &quot;</span><span style="color:#a3be8c;">\n</span><span>&quot; &quot;</span><span style="color:#a3be8c;">,</span><span>&quot; 
+</span><span>&quot;</span><span style="color:#a3be8c;">Power Usage</span><span>&quot;,,</span><span style="color:#d08770;">119</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">108</span><span>,</span><span style="color:#d08770;">97</span><span>,</span><span style="color:#d08770;">103</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">97</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">104</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">112</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">55</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">54</span><span>,</span><span style="color:#d08770;">54</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">101</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">112</span><span>,</span><span style="color:#d08770;">104</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#b48ead;">% 
+</span></code></pre>
+<p>We can clearly identify some ASCII char, let's display them using Javascript.</p>
+<pre data-lang="javascript" style="background-color:#2b303b;color:#c0c5ce;" class="language-javascript "><code class="language-javascript" data-lang="javascript"><span>&gt; </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">log</span><span>(</span><span style="color:#ebcb8b;">String</span><span>.</span><span style="color:#96b5b4;">fromCharCode</span><span>(</span><span style="color:#d08770;">119</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">108</span><span>,</span><span style="color:#d08770;">97</span><span>,</span><span style="color:#d08770;">103</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">97</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">32</span><span>,</span><span style="color:#d08770;">104</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">116</span><span>,</span><span style="color:#d08770;">112</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">55</span><span>,</span><span style="color:#d08770;">46</span><span>,</span><span style="color:#d08770;">54</span><span>,</span><span style="color:#d08770;">54</span><span>,</span><span style="color:#d08770;">58</span><span>,</span><span style="color:#d08770;">50</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">48</span><span>,</span><span style="color:#d08770;">47</span><span>,</span><span style="color:#d08770;">110</span><span>,</span><span style="color:#d08770;">49</span><span>,</span><span style="color:#d08770;">99</span><span>,</span><span style="color:#d08770;">101</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">102</span><span>,</span><span style="color:#d08770;">112</span><span>,</span><span style="color:#d08770;">104</span><span>,</span><span style="color:#d08770;">48</span><span>));
+</span><span>&gt; &quot;</span><span style="color:#a3be8c;">wn flag at http://10.210.17.66:20000/n1ceffffffffffph0</span><span>&quot;
+</span></code></pre>
+<p>The URL was a little buggy, we grabbed the flag at http://10.210.17.34:20000/n1ceflag</p>
+<p><strong>Flag</strong>: ph0wn{h0w_about_using_a_candle_instead}</p>
+<h2 id="crypto-shamir-quest">Crypto - Shamir Quest</h2>
+<blockquote>
+<p>Ph0wn is so coooool. We've implemented a Dragon Ball game for your Android smartphone, so you can play and relax. Oh?! Looks like there's a flag in there!</p>
+</blockquote>
+<p>The Android application is running Cordova, basically all the code is in some Javascript file. Every Dragon ball of the game is mapped like this <strong>int(1-7) - long(...)</strong>. Based on the challenge name we know we have a Shamir Shared Secret. We can recover it with the following python script.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">#!/usr/bin/python2
+</span><span style="color:#b48ead;">from </span><span>secretsharing </span><span style="color:#b48ead;">import </span><span>points_to_secret_int
+</span><span>
+</span><span>shares = [(</span><span style="color:#d08770;">7</span><span>, </span><span style="color:#d08770;">86280222218758143060577039723423036819702949921689517334729056400620503262863</span><span>),      
+</span><span>(</span><span style="color:#d08770;">6</span><span>, </span><span style="color:#d08770;">64853486060730513615551322784573665580194031012367687584714706161521361565423</span><span>),                
+</span><span>(</span><span style="color:#d08770;">5</span><span>, </span><span style="color:#d08770;">33814200739788654257795508969553514400370233867365839951719667470054751133890</span><span>),                
+</span><span>(</span><span style="color:#d08770;">4</span><span>, </span><span style="color:#d08770;">31566639759828849253104354287777292258537243784043419234402145787553977170879</span><span>),                
+</span><span>(</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">54008062481679211386368408327065859783198766778147014402616411673289639152699</span><span>),                
+</span><span>(</span><span style="color:#d08770;">2</span><span>, </span><span style="color:#d08770;">84515091397950443810021067510975505753043639566495880186943378404018469002849</span><span>),                
+</span><span>(</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">16977966888023650463948528650004025823243132426593812430821649423473014227191</span><span>)]
+</span><span>
+</span><span style="color:#96b5b4;">print</span><span>(</span><span style="color:#96b5b4;">hex</span><span>(</span><span style="color:#bf616a;">points_to_secret_int</span><span>(shares))[</span><span style="color:#d08770;">2</span><span>:-</span><span style="color:#d08770;">1</span><span>].</span><span style="color:#bf616a;">decode</span><span>(&#39;</span><span style="color:#a3be8c;">hex</span><span>&#39;))
+</span></code></pre>
+<p><strong>Flag</strong> : ph0wn{Sh4m1r_4nd_G0ku_P4rtyt1me}</p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/dvid/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>DVID - Damn Vulnerable IoT Device</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/hip19-meetyourdoctor/" accesskey="."
+    ><span>HIP19 Writeup - Meet Your Doctor 1,2,3</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2025">2025</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
