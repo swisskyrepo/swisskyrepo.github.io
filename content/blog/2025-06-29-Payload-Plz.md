@@ -1,10 +1,10 @@
 +++
-title = "LeHack 2025 - PayloadPLZ"
+title = "LeHack 2025 - Payload PLZ"
 date = "2025-06-29"
 description = ""
 [extra]
 cover.image = "images/LeHACK2025/payloadplz.png"
-cover.alt = "LeHack 2025 - PayloadPLZ"
+cover.alt = "LeHack 2025 - Payload PLZ"
 +++
 
 Last weekend, I took part in the LeHack 2025 event in Paris. As always, the challenges hosted by YesWeHack were top-notch and full of valuable learning opportunities. This year's highlight was crafting a polyglot payload capable of triggering in 13 different contexts, including SQL injection, XSS, Bash command execution, and more.
