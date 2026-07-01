@@ -51,9 +51,6 @@ build_search_index = true
 # highlight_theme = "base16-ocean-dark"
 render_emoji = true
 
-[markdown.highlighting]
-error_on_missing_language = false
-
 [extra]
 # Enable KaTex math formula support globally.
 math = false
