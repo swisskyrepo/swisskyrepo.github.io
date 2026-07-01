@@ -47,9 +47,12 @@ build_search_index = true
 [markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-highlight_theme = "base16-ocean-dark"
+# highlight_code = true
+# highlight_theme = "base16-ocean-dark"
 render_emoji = true
+
+[markdown.highlighting]
+error_on_missing_language = false
 
 [extra]
 # Enable KaTex math formula support globally.
