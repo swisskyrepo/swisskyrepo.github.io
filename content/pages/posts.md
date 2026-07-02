@@ -4,7 +4,8 @@ description = "List of posts"
 path = "posts"
 +++
 
-* **30 Jun 2025** // [LeHack 2025 - PayloadPLZ](/blog/payload-plz/)
+* **28 Jun 2026** // [LeHack 2026 - Payload PLZ Reloaded](/payload-plz-reloaded/)
+* **30 Jun 2025** // [LeHack 2025 - Payload PLZ](/blog/payload-plz/)
 * **02 Oct 2024** // [Anatomy of Pokemon glitches](/blog/pokemon-glitches)
 * **13 Jun 2024** // [SSRFmap - Introducing the AXFR module](/blog/ssrfmap-axfr)
 * **04 Feb 2024** // [Ph0wn CTF 2019 - Flag Digger](/blog/ph0wn-flag-digger)
