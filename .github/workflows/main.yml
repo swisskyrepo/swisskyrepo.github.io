@@ -9,7 +9,8 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build_and_deploy
-        uses: shalzz/zola-deploy-action@master
+        # Linkita's pinned revision requires the template engine used before Zola 0.23.
+        uses: shalzz/zola-deploy-action@v0.22.1
         env:
           # Target branch
           PAGES_BRANCH: gh-pages
