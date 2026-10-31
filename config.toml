@@ -10,7 +10,7 @@ default_language = "en"
 
 # The default author for pages.
 # See "extra.profiles".
-author = "Swissky"
+author = "swissky"
 
 # The site title.
 # Will be in all page titles.
@@ -44,6 +44,9 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+# Keep template injection examples in blog posts literal under Zola 0.23+.
+skip_content_templating = ["blog/**"]
+
 [markdown]
 render_emoji = true
 
@@ -59,8 +62,7 @@ math = false
 mermaid = false
 # Enable comment support globally.
 comment = false
-# The URL of social image.
-social_image = "icons/github.svg"
+header_menu_name = "main"
 
 
 [extra.style]
@@ -80,6 +82,7 @@ avatar_url = "images/default.jpg"
 avatar_alt = "Swissky"
 avatar_invert = false
 name = "Swissky's adventures into InfoSec World !"
+og_image = "icons/github.svg"
 
 # Profile bio. Supports Markdown.
 bio = "Write-ups/CTF & Bug Bounty"
@@ -93,24 +96,19 @@ social = [
     { name = "leanpub", url = "https://leanpub.com/payloadsallthethings" },
     { name = "rootme", url = "https://root-me.org/Swissky?inc=score&lang=fr" },
     { name = "hackthebox", url = "https://app.hackthebox.com/users/5110" },
-    { name = "rss", url = "$BASE_URL/atom.xml" },
+    { name = "rss", url = "@base/atom.xml" },
 ]
 
 
-[[extra.menu]]
-name = "Projects"
-url = "$BASE_URL/projects"
-
-[[extra.menu]]
-name = "Posts"
-url = "$BASE_URL/posts"
-
-[[extra.menu]]
-name = "About"
-url = "$BASE_URL/about"
+[extra.menus]
+main = [
+    { name = "Projects", url = "@base/projects/" },
+    { name = "Posts", url = "@base/blog/" },
+    { name = "About", url = "@base/about/" },
+]
 
 # The page footer options.
 [extra.footer]
 since = 2017
-license = "CC BY-SA 4.0"
+copyright = "&copy;&nbsp;$YEAR Swissky | [CC BY-SA 4.0]($LICENSE_URL)"
 license_url = "https://creativecommons.org/licenses/by-sa/4.0/deed"
