@@ -1,0 +1,162 @@
+{
+  "word_translations": {
+    "value": "Basatayti",
+    "fallback": "Translations",
+    "needs_edit": ""
+  },
+  "taxonomy_tags": {
+    "value": "Label",
+    "fallback": "Tags",
+    "needs_edit": ""
+  },
+  "taxonomy_categories": {
+    "value": "Klase",
+    "fallback": "Categories",
+    "needs_edit": ""
+  },
+  "taxonomy_authors": {
+    "value": "Eskriyen",
+    "fallback": "Authors",
+    "needs_edit": ""
+  },
+  "act_go_to_home": {
+    "value": "",
+    "fallback": "Go to home page",
+    "needs_edit": ""
+  },
+  "act_switch_color_scheme": {
+    "value": "",
+    "fallback": "Switch color scheme",
+    "needs_edit": ""
+  },
+  "act_switch_to_light": {
+    "value": "",
+    "fallback": "Switch to light mode",
+    "needs_edit": ""
+  },
+  "act_switch_to_dark": {
+    "value": "",
+    "fallback": "Switch to dark mode",
+    "needs_edit": ""
+  },
+  "act_reset_color_scheme": {
+    "value": "",
+    "fallback": "Reset color scheme",
+    "needs_edit": ""
+  },
+  "act_search": {
+    "value": "Xerca",
+    "fallback": "Open search",
+    "needs_edit": "Search"
+  },
+  "act_go_to_translation": {
+    "value": "",
+    "fallback": "Go to page translation",
+    "needs_edit": ""
+  },
+  "act_show_translations": {
+    "value": "",
+    "fallback": "Show page translations",
+    "needs_edit": ""
+  },
+  "act_menu": {
+    "value": "Menu",
+    "fallback": "Toggle menu",
+    "needs_edit": "Menu"
+  },
+  "footer_made_with": {
+    "value": "",
+    "fallback": "Made with Zola",
+    "needs_edit": ""
+  },
+  "footer_built_with": {
+    "value": "",
+    "fallback": "Built with Zola",
+    "needs_edit": ""
+  },
+  "footer_theme_name": {
+    "value": "Linkita",
+    "fallback": "Linkita",
+    "needs_edit": ""
+  },
+  "title_page": {
+    "value": "Sayfa $NUM",
+    "fallback": "Page $NUM",
+    "needs_edit": ""
+  },
+  "word_prev_page": {
+    "value": "Leli sayfa",
+    "fallback": "Prev Page",
+    "needs_edit": ""
+  },
+  "word_next_page": {
+    "value": "Jaxali sayfa",
+    "fallback": "Next Page",
+    "needs_edit": ""
+  },
+  "word_toc": {
+    "value": "Inhare",
+    "fallback": "Table of Contents",
+    "needs_edit": ""
+  },
+  "word_minute": {
+    "value": "min",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_minutes": {
+    "value": "min",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_words": {
+    "value": "lexi",
+    "fallback": "words",
+    "needs_edit": ""
+  },
+  "word_more": {
+    "value": "Max to &raquo;",
+    "fallback": "More &raquo;",
+    "needs_edit": ""
+  },
+  "left_arrow": {
+    "value": "&lsaquo;",
+    "fallback": "&lsaquo;",
+    "needs_edit": ""
+  },
+  "right_arrow": {
+    "value": "&rsaquo;",
+    "fallback": "&rsaquo;",
+    "needs_edit": ""
+  },
+  "hellip": {
+    "value": "&hellip;",
+    "fallback": "&hellip;",
+    "needs_edit": ""
+  },
+  "error_not_found": {
+    "value": "404",
+    "fallback": "404: Page not found",
+    "needs_edit": ""
+  },
+  "future_search_input": {
+    "value": "",
+    "fallback": "Search this site. Results will load as you type.",
+    "needs_edit": ""
+  },
+  "future_back_to_top": {
+    "value": "",
+    "fallback": "Back to Top",
+    "needs_edit": ""
+  },
+  "future_copy": {
+    "value": "kopi",
+    "fallback": "copy",
+    "needs_edit": ""
+  },
+  "future_copied": {
+    "value": "kopido!",
+    "fallback": "copied!",
+    "needs_edit": ""
+  }
+}

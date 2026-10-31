@@ -1,0 +1,162 @@
+{
+  "word_translations": {
+    "value": "ترجمه‌ها",
+    "fallback": "Translations",
+    "needs_edit": ""
+  },
+  "taxonomy_tags": {
+    "value": "برچسب‌ها",
+    "fallback": "Tags",
+    "needs_edit": ""
+  },
+  "taxonomy_categories": {
+    "value": "دسته‌بندی‌ها",
+    "fallback": "Categories",
+    "needs_edit": ""
+  },
+  "taxonomy_authors": {
+    "value": "نویسندگان",
+    "fallback": "Authors",
+    "needs_edit": ""
+  },
+  "act_go_to_home": {
+    "value": "رفتن به صفحه اصلی",
+    "fallback": "Go to home page",
+    "needs_edit": ""
+  },
+  "act_switch_color_scheme": {
+    "value": "تغییر رنگ",
+    "fallback": "Switch color scheme",
+    "needs_edit": ""
+  },
+  "act_switch_to_light": {
+    "value": "تغییر به حالت روشن",
+    "fallback": "Switch to light mode",
+    "needs_edit": ""
+  },
+  "act_switch_to_dark": {
+    "value": "تغییر به حالت تاریک",
+    "fallback": "Switch to dark mode",
+    "needs_edit": ""
+  },
+  "act_reset_color_scheme": {
+    "value": "بازنشانی طرح رنگی",
+    "fallback": "Reset color scheme",
+    "needs_edit": ""
+  },
+  "act_search": {
+    "value": "جستجو",
+    "fallback": "Open search",
+    "needs_edit": "Search"
+  },
+  "act_go_to_translation": {
+    "value": "رفتن به ترجمه صفحه",
+    "fallback": "Go to page translation",
+    "needs_edit": "Go to translation of the page"
+  },
+  "act_show_translations": {
+    "value": "نمایش ترجمه‌های صفحه",
+    "fallback": "Show page translations",
+    "needs_edit": ""
+  },
+  "act_menu": {
+    "value": "منو",
+    "fallback": "Toggle menu",
+    "needs_edit": "Menu"
+  },
+  "footer_made_with": {
+    "value": "ساخته‌شده با Zola",
+    "fallback": "Made with Zola",
+    "needs_edit": ""
+  },
+  "footer_built_with": {
+    "value": "توسعه‌یافته با Zola",
+    "fallback": "Built with Zola",
+    "needs_edit": ""
+  },
+  "footer_theme_name": {
+    "value": "Linkita",
+    "fallback": "Linkita",
+    "needs_edit": ""
+  },
+  "title_page": {
+    "value": "#$NUM",
+    "fallback": "Page $NUM",
+    "needs_edit": ""
+  },
+  "word_prev_page": {
+    "value": "صفحه قبلی",
+    "fallback": "Prev Page",
+    "needs_edit": ""
+  },
+  "word_next_page": {
+    "value": "صفحه بعدی",
+    "fallback": "Next Page",
+    "needs_edit": ""
+  },
+  "word_toc": {
+    "value": "فهرست مطالب",
+    "fallback": "Table of Contents",
+    "needs_edit": ""
+  },
+  "word_minute": {
+    "value": "دقیقه",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_minutes": {
+    "value": "دقیقه",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_words": {
+    "value": "کلمات",
+    "fallback": "words",
+    "needs_edit": ""
+  },
+  "word_more": {
+    "value": "بیشتر &raquo;",
+    "fallback": "More &raquo;",
+    "needs_edit": ""
+  },
+  "left_arrow": {
+    "value": "&lsaquo;",
+    "fallback": "&lsaquo;",
+    "needs_edit": ""
+  },
+  "right_arrow": {
+    "value": "&rsaquo;",
+    "fallback": "&rsaquo;",
+    "needs_edit": ""
+  },
+  "hellip": {
+    "value": "&hellip;",
+    "fallback": "&hellip;",
+    "needs_edit": ""
+  },
+  "error_not_found": {
+    "value": "۴۰۴: صفحه پیدا نشد",
+    "fallback": "404: Page not found",
+    "needs_edit": ""
+  },
+  "future_search_input": {
+    "value": "جستجو در این سایت. نتایج هم‌زمان با نوشتن بارگذاری می‌شوند.",
+    "fallback": "Search this site. Results will load as you type.",
+    "needs_edit": ""
+  },
+  "future_back_to_top": {
+    "value": "بازگشت به بالا",
+    "fallback": "Back to Top",
+    "needs_edit": ""
+  },
+  "future_copy": {
+    "value": "کپی",
+    "fallback": "copy",
+    "needs_edit": ""
+  },
+  "future_copied": {
+    "value": "کپی شد!",
+    "fallback": "copied!",
+    "needs_edit": ""
+  }
+}

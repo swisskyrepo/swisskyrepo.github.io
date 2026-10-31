@@ -1,0 +1,162 @@
+{
+  "word_translations": {
+    "value": "Çeviriler",
+    "fallback": "Translations",
+    "needs_edit": ""
+  },
+  "taxonomy_tags": {
+    "value": "Etiketler",
+    "fallback": "Tags",
+    "needs_edit": ""
+  },
+  "taxonomy_categories": {
+    "value": "Kategoriler",
+    "fallback": "Categories",
+    "needs_edit": ""
+  },
+  "taxonomy_authors": {
+    "value": "Yazarlar",
+    "fallback": "Authors",
+    "needs_edit": ""
+  },
+  "act_go_to_home": {
+    "value": "Anasayfaya dön",
+    "fallback": "Go to home page",
+    "needs_edit": ""
+  },
+  "act_switch_color_scheme": {
+    "value": "Renk şemasını değiştir",
+    "fallback": "Switch color scheme",
+    "needs_edit": ""
+  },
+  "act_switch_to_light": {
+    "value": "Açık moda geç",
+    "fallback": "Switch to light mode",
+    "needs_edit": ""
+  },
+  "act_switch_to_dark": {
+    "value": "Koyu moda geç",
+    "fallback": "Switch to dark mode",
+    "needs_edit": ""
+  },
+  "act_reset_color_scheme": {
+    "value": "Renk şemasını sıfırla",
+    "fallback": "Reset color scheme",
+    "needs_edit": ""
+  },
+  "act_search": {
+    "value": "Arama",
+    "fallback": "Open search",
+    "needs_edit": "Search"
+  },
+  "act_go_to_translation": {
+    "value": "Sayfanın çevirisine git",
+    "fallback": "Go to page translation",
+    "needs_edit": "Go to translation of the page"
+  },
+  "act_show_translations": {
+    "value": "Sayfa çevirilerini göster",
+    "fallback": "Show page translations",
+    "needs_edit": ""
+  },
+  "act_menu": {
+    "value": "Menü",
+    "fallback": "Toggle menu",
+    "needs_edit": "Menu"
+  },
+  "footer_made_with": {
+    "value": "Zola ile yapıldı",
+    "fallback": "Made with Zola",
+    "needs_edit": ""
+  },
+  "footer_built_with": {
+    "value": "Zola ile geliştirildi",
+    "fallback": "Built with Zola",
+    "needs_edit": ""
+  },
+  "footer_theme_name": {
+    "value": "Linkita",
+    "fallback": "Linkita",
+    "needs_edit": ""
+  },
+  "title_page": {
+    "value": "#$NUM",
+    "fallback": "Page $NUM",
+    "needs_edit": ""
+  },
+  "word_prev_page": {
+    "value": "Önceki",
+    "fallback": "Prev Page",
+    "needs_edit": ""
+  },
+  "word_next_page": {
+    "value": "Sonraki",
+    "fallback": "Next Page",
+    "needs_edit": ""
+  },
+  "word_toc": {
+    "value": "İçindekiler",
+    "fallback": "Table of Contents",
+    "needs_edit": ""
+  },
+  "word_minute": {
+    "value": "dk",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_minutes": {
+    "value": "dk",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_words": {
+    "value": "sözcük",
+    "fallback": "words",
+    "needs_edit": ""
+  },
+  "word_more": {
+    "value": "Daha fazla &raquo;",
+    "fallback": "More &raquo;",
+    "needs_edit": ""
+  },
+  "left_arrow": {
+    "value": "&lsaquo;",
+    "fallback": "&lsaquo;",
+    "needs_edit": ""
+  },
+  "right_arrow": {
+    "value": "&rsaquo;",
+    "fallback": "&rsaquo;",
+    "needs_edit": ""
+  },
+  "hellip": {
+    "value": "&hellip;",
+    "fallback": "&hellip;",
+    "needs_edit": ""
+  },
+  "error_not_found": {
+    "value": "404: Sayfa Bulunamadı",
+    "fallback": "404: Page not found",
+    "needs_edit": ""
+  },
+  "future_search_input": {
+    "value": "Bu sitede arayın. Sonuçlar siz yazdıkça yüklenecektir.",
+    "fallback": "Search this site. Results will load as you type.",
+    "needs_edit": ""
+  },
+  "future_back_to_top": {
+    "value": "Başa Dön",
+    "fallback": "Back to Top",
+    "needs_edit": ""
+  },
+  "future_copy": {
+    "value": "kopyala",
+    "fallback": "copy",
+    "needs_edit": ""
+  },
+  "future_copied": {
+    "value": "kopyalandı!",
+    "fallback": "copied!",
+    "needs_edit": ""
+  }
+}

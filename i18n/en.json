@@ -1,0 +1,98 @@
+{
+  "word_translations": {
+    "value": "Translations"
+  },
+  "taxonomy_tags": {
+    "value": "Tags"
+  },
+  "taxonomy_categories": {
+    "value": "Categories"
+  },
+  "taxonomy_authors": {
+    "value": "Authors"
+  },
+  "act_go_to_home": {
+    "value": "Go to home page"
+  },
+  "act_switch_color_scheme": {
+    "value": "Switch color scheme"
+  },
+  "act_switch_to_light": {
+    "value": "Switch to light mode"
+  },
+  "act_switch_to_dark": {
+    "value": "Switch to dark mode"
+  },
+  "act_reset_color_scheme": {
+    "value": "Reset color scheme"
+  },
+  "act_search": {
+    "value": "Open search"
+  },
+  "act_go_to_translation": {
+    "value": "Go to page translation"
+  },
+  "act_show_translations": {
+    "value": "Show page translations"
+  },
+  "act_menu": {
+    "value": "Toggle menu"
+  },
+  "footer_made_with": {
+    "value": "Made with Zola"
+  },
+  "footer_built_with": {
+    "value": "Built with Zola"
+  },
+  "footer_theme_name": {
+    "value": "Linkita"
+  },
+  "title_page": {
+    "value": "Page $NUM"
+  },
+  "word_prev_page": {
+    "value": "Prev Page"
+  },
+  "word_next_page": {
+    "value": "Next Page"
+  },
+  "word_toc": {
+    "value": "Table of Contents"
+  },
+  "word_minute": {
+    "value": "min"
+  },
+  "word_minutes": {
+    "value": "min"
+  },
+  "word_words": {
+    "value": "words"
+  },
+  "word_more": {
+    "value": "More &raquo;"
+  },
+  "left_arrow": {
+    "value": "&lsaquo;"
+  },
+  "right_arrow": {
+    "value": "&rsaquo;"
+  },
+  "hellip": {
+    "value": "&hellip;"
+  },
+  "error_not_found": {
+    "value": "404: Page not found"
+  },
+  "future_search_input": {
+    "value": "Search this site. Results will load as you type."
+  },
+  "future_back_to_top": {
+    "value": "Back to Top"
+  },
+  "future_copy": {
+    "value": "copy"
+  },
+  "future_copied": {
+    "value": "copied!"
+  }
+}

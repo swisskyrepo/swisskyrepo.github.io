@@ -1,0 +1,14 @@
+:root {
+  --admonition-note: rgba(68, 138, 255, 0.1);
+  --admonition-abstract: rgba(0, 176, 255, 0.1);
+  --admonition-info: rgba(83, 211, 230, 0.1);
+  --admonition-tip: rgba(0, 191, 165, 0.1);
+  --admonition-success: rgba(0, 200, 83, 0.1);
+  --admonition-question: rgba(100, 221, 23, 0.1);
+  --admonition-warning: rgba(255, 145, 0, 0.1);
+  --admonition-failure: rgba(255, 82, 82, 0.1);
+  --admonition-danger: rgba(255, 23, 68, 0.1);
+  --admonition-bug: rgba(255, 23, 68, 0.1);
+  --admonition-example: rgba(101, 31, 255, 0.1);
+  --admonition-quote: rgba(159, 159, 159, 0.1);
+}

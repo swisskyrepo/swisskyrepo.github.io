@@ -1,0 +1,162 @@
+{
+  "word_translations": {
+    "value": "Аудармалар",
+    "fallback": "Translations",
+    "needs_edit": ""
+  },
+  "taxonomy_tags": {
+    "value": "Тегтер",
+    "fallback": "Tags",
+    "needs_edit": ""
+  },
+  "taxonomy_categories": {
+    "value": "Санаттар",
+    "fallback": "Categories",
+    "needs_edit": ""
+  },
+  "taxonomy_authors": {
+    "value": "Авторлар",
+    "fallback": "Authors",
+    "needs_edit": ""
+  },
+  "act_go_to_home": {
+    "value": "Басты бетке өту",
+    "fallback": "Go to home page",
+    "needs_edit": ""
+  },
+  "act_switch_color_scheme": {
+    "value": "Түс схемасын өзгерту",
+    "fallback": "Switch color scheme",
+    "needs_edit": ""
+  },
+  "act_switch_to_light": {
+    "value": "Ашық режимге ауысу",
+    "fallback": "Switch to light mode",
+    "needs_edit": ""
+  },
+  "act_switch_to_dark": {
+    "value": "Күңгірт режимге ауысу",
+    "fallback": "Switch to dark mode",
+    "needs_edit": ""
+  },
+  "act_reset_color_scheme": {
+    "value": "Түс схемасын қалпына келтіру",
+    "fallback": "Reset color scheme",
+    "needs_edit": ""
+  },
+  "act_search": {
+    "value": "Іздеу",
+    "fallback": "Open search",
+    "needs_edit": "Search"
+  },
+  "act_go_to_translation": {
+    "value": "Аудармаға өту",
+    "fallback": "Go to page translation",
+    "needs_edit": "Go to translation of the page"
+  },
+  "act_show_translations": {
+    "value": "Беттің аудармаларын көрсету",
+    "fallback": "Show page translations",
+    "needs_edit": ""
+  },
+  "act_menu": {
+    "value": "Мәзір",
+    "fallback": "Toggle menu",
+    "needs_edit": "Menu"
+  },
+  "footer_made_with": {
+    "value": "Zola көмегімен жасалған",
+    "fallback": "Made with Zola",
+    "needs_edit": ""
+  },
+  "footer_built_with": {
+    "value": "Zola негізінде құрылған",
+    "fallback": "Built with Zola",
+    "needs_edit": ""
+  },
+  "footer_theme_name": {
+    "value": "Linkita",
+    "fallback": "Linkita",
+    "needs_edit": ""
+  },
+  "title_page": {
+    "value": "#$NUM",
+    "fallback": "Page $NUM",
+    "needs_edit": ""
+  },
+  "word_prev_page": {
+    "value": "Артқа",
+    "fallback": "Prev Page",
+    "needs_edit": ""
+  },
+  "word_next_page": {
+    "value": "Келесі",
+    "fallback": "Next Page",
+    "needs_edit": ""
+  },
+  "word_toc": {
+    "value": "Мазмұны",
+    "fallback": "Table of Contents",
+    "needs_edit": ""
+  },
+  "word_minute": {
+    "value": "мин",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_minutes": {
+    "value": "мин",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_words": {
+    "value": "сөз",
+    "fallback": "words",
+    "needs_edit": ""
+  },
+  "word_more": {
+    "value": "Толығырақ &raquo;",
+    "fallback": "More &raquo;",
+    "needs_edit": ""
+  },
+  "left_arrow": {
+    "value": "&lsaquo;",
+    "fallback": "&lsaquo;",
+    "needs_edit": ""
+  },
+  "right_arrow": {
+    "value": "&rsaquo;",
+    "fallback": "&rsaquo;",
+    "needs_edit": ""
+  },
+  "hellip": {
+    "value": "&hellip;",
+    "fallback": "&hellip;",
+    "needs_edit": ""
+  },
+  "error_not_found": {
+    "value": "404: Бет табылмады",
+    "fallback": "404: Page not found",
+    "needs_edit": ""
+  },
+  "future_search_input": {
+    "value": "Бұл сайттан іздеу. Нәтижелер терген кезде жүктеледі.",
+    "fallback": "Search this site. Results will load as you type.",
+    "needs_edit": ""
+  },
+  "future_back_to_top": {
+    "value": "Жоғарыға оралу",
+    "fallback": "Back to Top",
+    "needs_edit": ""
+  },
+  "future_copy": {
+    "value": "көшіру",
+    "fallback": "copy",
+    "needs_edit": ""
+  },
+  "future_copied": {
+    "value": "көшірілді!",
+    "fallback": "copied!",
+    "needs_edit": ""
+  }
+}

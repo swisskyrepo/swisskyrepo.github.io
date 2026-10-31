@@ -1,0 +1,162 @@
+{
+  "word_translations": {
+    "value": "语言",
+    "fallback": "Translations",
+    "needs_edit": ""
+  },
+  "taxonomy_tags": {
+    "value": "标签",
+    "fallback": "Tags",
+    "needs_edit": ""
+  },
+  "taxonomy_categories": {
+    "value": "分类",
+    "fallback": "Categories",
+    "needs_edit": ""
+  },
+  "taxonomy_authors": {
+    "value": "作者",
+    "fallback": "Authors",
+    "needs_edit": ""
+  },
+  "act_go_to_home": {
+    "value": "转到主页",
+    "fallback": "Go to home page",
+    "needs_edit": ""
+  },
+  "act_switch_color_scheme": {
+    "value": "切换颜色方案",
+    "fallback": "Switch color scheme",
+    "needs_edit": ""
+  },
+  "act_switch_to_light": {
+    "value": "切换到浅色模式",
+    "fallback": "Switch to light mode",
+    "needs_edit": ""
+  },
+  "act_switch_to_dark": {
+    "value": "切换到深色模式",
+    "fallback": "Switch to dark mode",
+    "needs_edit": ""
+  },
+  "act_reset_color_scheme": {
+    "value": "重置配色方案",
+    "fallback": "Reset color scheme",
+    "needs_edit": ""
+  },
+  "act_search": {
+    "value": "搜索",
+    "fallback": "Open search",
+    "needs_edit": "Search"
+  },
+  "act_go_to_translation": {
+    "value": "转到页面翻译",
+    "fallback": "Go to page translation",
+    "needs_edit": "Go to translation of the page"
+  },
+  "act_show_translations": {
+    "value": "显示页面翻译",
+    "fallback": "Show page translations",
+    "needs_edit": ""
+  },
+  "act_menu": {
+    "value": "导航",
+    "fallback": "Toggle menu",
+    "needs_edit": "Menu"
+  },
+  "footer_made_with": {
+    "value": "基于 Zola 制作",
+    "fallback": "Made with Zola",
+    "needs_edit": ""
+  },
+  "footer_built_with": {
+    "value": "基于 Zola 构建",
+    "fallback": "Built with Zola",
+    "needs_edit": ""
+  },
+  "footer_theme_name": {
+    "value": "Linkita",
+    "fallback": "Linkita",
+    "needs_edit": ""
+  },
+  "title_page": {
+    "value": "#$NUM",
+    "fallback": "Page $NUM",
+    "needs_edit": ""
+  },
+  "word_prev_page": {
+    "value": "上一页",
+    "fallback": "Prev Page",
+    "needs_edit": ""
+  },
+  "word_next_page": {
+    "value": "下一页",
+    "fallback": "Next Page",
+    "needs_edit": ""
+  },
+  "word_toc": {
+    "value": "目录",
+    "fallback": "Table of Contents",
+    "needs_edit": ""
+  },
+  "word_minute": {
+    "value": "分钟",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_minutes": {
+    "value": "分钟",
+    "fallback": "min",
+    "needs_edit": ""
+  },
+  "word_words": {
+    "value": "字",
+    "fallback": "words",
+    "needs_edit": ""
+  },
+  "word_more": {
+    "value": "更多 &raquo;",
+    "fallback": "More &raquo;",
+    "needs_edit": ""
+  },
+  "left_arrow": {
+    "value": "&lsaquo;",
+    "fallback": "&lsaquo;",
+    "needs_edit": ""
+  },
+  "right_arrow": {
+    "value": "&rsaquo;",
+    "fallback": "&rsaquo;",
+    "needs_edit": ""
+  },
+  "hellip": {
+    "value": "&hellip;",
+    "fallback": "&hellip;",
+    "needs_edit": ""
+  },
+  "error_not_found": {
+    "value": "404: 页面未找到",
+    "fallback": "404: Page not found",
+    "needs_edit": ""
+  },
+  "future_search_input": {
+    "value": "搜索本站。结果将在输入时实时加载。",
+    "fallback": "Search this site. Results will load as you type.",
+    "needs_edit": ""
+  },
+  "future_back_to_top": {
+    "value": "回到顶部",
+    "fallback": "Back to Top",
+    "needs_edit": ""
+  },
+  "future_copy": {
+    "value": "复制",
+    "fallback": "copy",
+    "needs_edit": ""
+  },
+  "future_copied": {
+    "value": "已复制！",
+    "fallback": "copied!",
+    "needs_edit": ""
+  }
+}

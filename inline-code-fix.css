@@ -1,0 +1,9 @@
+:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+:where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+  content: none;
+}
+
+:where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+:where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+  content: none;
+}
